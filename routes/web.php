@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use Illuminate\Http\Request;
@@ -228,6 +229,13 @@ Route::get('/notification/detail/{id}',[NotificationController::class, 'notiDeta
 // s upport wallet
 Route::get('/SupportWallet',[OrderController::class, 'SupportWallet'])->name('SupportWallet');
 
+
+
+
+// payment
+Route::post('/pay',[PaymentController::class, 'pay'])->name('payment');
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);
 
 
 

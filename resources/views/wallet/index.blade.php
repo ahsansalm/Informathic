@@ -50,7 +50,7 @@
                 <br><br>
                 Seul PayPal conserve les données relatives à votre carte de crédit. Informathic ne stocke pas que des données bancaires dans sa base de données
                 </h5>
-                <div class="row justify-content-center mt-2">
+                <!-- <div class="row justify-content-center mt-2">
                     <div class="col-2">
                         <img src="{{asset('img/download.png')}}" class="img-fluid" alt="">
                     </div>
@@ -60,16 +60,28 @@
                     <div class="col-2">
                         <img src="{{asset('img/download2.png')}}" class="img-fluid" alt="">
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-block next-step "><b>Ajouter 20 crédits</b></button>
+                    <form action="{{route('payment')}}" method="POST">
+                    @csrf 
+                        <input type="hidden" name="amount" value="20">
+                        <button type="submit" class="btn btn-block next-step "><b>Ajouter 20 crédits</b></button>
+                    </form>
                     </div>
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-block next-step " ><b>Ajouter 50 crédits</b></button>
+                    <form action="{{route('payment')}}" method="POST">
+                    @csrf 
+                        <input type="hidden" name="amount" value="50">
+                        <button type="submit" class="btn btn-block next-step "><b>Ajouter 50 crédits</b></button>
+                    </form>
                     </div>
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-block next-step " ><b>Ajouter 100 crédits</b></button>
+                    <form action="{{route('payment')}}" method="POST">
+                    @csrf 
+                        <input type="hidden" name="amount" value="100">
+                        <button type="submit" class="btn btn-block next-step "><b>Ajouter 100 crédits</b></button>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -90,12 +102,12 @@
             </div>
 
             <div class="col-lg-4 mt-2">
-                <div class="card bg-info" style="border-radius: 20px;">
+                <div class="card bg-dark" style="border-radius: 20px;">
                     <div class="card-header text-center" >
                         <h4>50 Crédits</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="my-3 text-center"  style="font-size: 75px;">40 <span style="font-size: 75px;">€</span></h1>
+                        <h1 class="my-3 text-center"  style="font-size: 55px;">40 <span style="font-size: 75px;">€</span></h1>
                     </div>
                 </div>
             </div>
@@ -106,7 +118,7 @@
                         <h4>100 Crédits</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="my-3 text-center" style="font-size: 75px;">70 <span style="font-size: 75px;">€</span></h1>
+                        <h1 class="my-3 text-center" style="font-size: 55px;">70 <span style="font-size: 75px;">€</span></h1>
                     </div>
                 </div>
             </div>

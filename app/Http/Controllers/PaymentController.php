@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Credit;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use Auth;
@@ -19,9 +20,13 @@ class PaymentController extends Controller
 
     public function pay(Request $request)
     {
+        
+
+        
         try {
 
             $response = $this->gateway->purchase(array(
+          
                 'amount' => $request->amount,
                 'credits' => $request->credits,
                 'currency' => env('PAYPAL_CURRENCY'),
@@ -39,19 +44,25 @@ class PaymentController extends Controller
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+       
     }
 
     public function success(Request $request)
+    
     {
+       
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id' => $request->input('PayerID'),
                 'transactionReference' => $request->input('paymentId'),
+                'credits' => $request->input('credits'),
             ));
 
             $response = $transaction->send();
 
-            if ($response->isSuccessful()) {
+        if ($response->isSuccessful()) {
+                
+       
 
                 $arr = $response->getData();
                 $id = Auth::user()->id;
@@ -61,16 +72,22 @@ class PaymentController extends Controller
                 $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
                 $payment->payer_email = $arr['payer']['payer_info']['email'];
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
-                // $payment->credits = $arr['credits'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr['state'];
-
                 $payment->save();
+
+                Credit::insert([
+                    'user_id' => $id,
+                    'credits' => $request->credits,
+                ]);
+
+
                 $notification = array(
                     'message' => 'Payment is Successfull.',
                     'alert_type' => 'success'
                 );
                 return Redirect('/SupportWallet')->with( $notification);
+
 
 
             }

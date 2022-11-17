@@ -61,6 +61,18 @@
                     </a>
                   </li>
 
+                  <li  class="has-sub active colorBack " >
+                    <a class="sidenav-item-link" aria-controls="dashboard">
+                      <span class="nav-text">Config</span> 
+                    </a>
+                  </li> 
+                  <li  class="has-sub {{ Request::is('configuration') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/configuration')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Configuration</span> 
+                    </a>
+                  </li>
+
                   @else
                   <!-- dashboard -->
                   <li  class="has-sub {{ Request::is('home') ? 'active':''; }}" >

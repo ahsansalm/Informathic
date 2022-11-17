@@ -11,6 +11,8 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ConfigurationController;
+
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use Illuminate\Http\Request;
@@ -236,6 +238,35 @@ Route::get('/SupportWallet',[OrderController::class, 'SupportWallet'])->name('Su
 Route::post('/pay',[PaymentController::class, 'pay'])->name('payment');
 Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
+
+
+
+
+
+
+
+
+
+
+
+// configuration
+Route::get('/configuration',[ConfigurationController::class, 'index'])->name('index');
+// brand
+Route::get('/configuration/Marque',[ConfigurationController::class, 'brands']);
+// yajra for brand
+Route::get('/configuration/brands',[ConfigurationController::class, 'getbrands'])->name('datatables.data');
+// add brand
+Route::post('/config/product/add',[ConfigurationController::class, 'addBrands']);
+// edit barnd page
+Route::get('/brand/edit/{id}',[ConfigurationController::class, 'editBrand']);
+
+
+
+
+
+
+
+
 
 
 

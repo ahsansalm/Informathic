@@ -70,7 +70,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="10">
-                        <input type="hidden" name="credits" value="20">
+                        <input type="text" name="credits" value="20">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 20 crédits</b></button>
                     </form>
                     </div>
@@ -78,7 +78,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="40">
-                          <input type="hidden" name="credits" value="50">
+                          <input type="text" name="credits" value="50">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 50 crédits</b></button>
                     </form>
                     </div>
@@ -86,7 +86,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="70">
-                          <input type="hidden" name="credits" value="100">
+                          <input type="text" name="credits" value="100">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 100 crédits</b></button>
                     </form>
                     </div>

@@ -21,6 +21,7 @@
   <link href="{{asset('admin/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet')}}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- SLEEK CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css.css">
   <link id="sleek-css" rel="stylesheet" href="{{asset('admin/assets/css/sleek.css')}}" />
   <!-- font awesome css-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,6 +102,8 @@
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
 <!-- custom js -->
 <script src="{{asset('auth/assets/js/app.js')}}"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></scrip
   <!-- toaster js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <!-- toaster script -->

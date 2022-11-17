@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
-
+use Auth;
 class PaymentController extends Controller
 {
     private $gateway;
@@ -23,6 +23,7 @@ class PaymentController extends Controller
 
             $response = $this->gateway->purchase(array(
                 'amount' => $request->amount,
+                'credits' => $request->credits,
                 'currency' => env('PAYPAL_CURRENCY'),
                 'returnUrl' => url('success'),
                 'cancelUrl' => url('error')
@@ -45,7 +46,7 @@ class PaymentController extends Controller
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id' => $request->input('PayerID'),
-                'transactionReference' => $request->input('paymentId')
+                'transactionReference' => $request->input('paymentId'),
             ));
 
             $response = $transaction->send();
@@ -53,12 +54,14 @@ class PaymentController extends Controller
             if ($response->isSuccessful()) {
 
                 $arr = $response->getData();
-
+                $id = Auth::user()->id;
                 $payment = new Payment();
                 $payment->payment_id = $arr['id'];
+                $payment->user_id = $id;
                 $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
                 $payment->payer_email = $arr['payer']['payer_info']['email'];
                 $payment->amount = $arr['transactions'][0]['amount']['total'];
+                // $payment->credits = $arr['credits'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr['state'];
 
@@ -68,7 +71,7 @@ class PaymentController extends Controller
                     'alert_type' => 'success'
                 );
                 return Redirect('/SupportWallet')->with( $notification);
-                
+
 
             }
             else{
@@ -76,13 +79,21 @@ class PaymentController extends Controller
             }
         }
         else{
-            return 'Payment declined!!';
+            $notification = array(
+                'message' => 'Payment cancel.',
+                'alert_type' => 'error'
+            );
+            return Redirect('/SupportWallet')->with($notification);
         }
     }
 
     public function error()
     {
-        return 'User declined the payment!';   
-    }
-
+        $notification = array(
+                'message' => 'User decline the payment.',
+                'alert_type' => 'error'
+            );
+            return Redirect('/SupportWallet')->with($notification);
+        }
 }
+

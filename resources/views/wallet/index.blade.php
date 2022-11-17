@@ -4,7 +4,7 @@
     <div class="col-12 text-center">
         <div class="dashboard_image">
             <h1 class="brand_device mt-5">Portefeuille de soutien
-            </h1> 
+            </h1>
         </div>
     </div>
 
@@ -17,7 +17,11 @@
                 <h4>Your Portfolio</h4>
             </div>
             <div class="card-body">
+               @if($payment)
+                 <h2 class="my-3 text-center">{{ $payment }} Credits</h2>
+               @else
                 <h2 class="my-3 text-center">0 Credits</h2>
+               @endif
                 <h5>Votre portefeuille est vide, vous devez recharger votre portefeuille, pour pouvoir demander une assistance à distance
                     <br><br>
                     Votre portefeuille vous permet d'utiliser l'assistance à distance
@@ -64,22 +68,25 @@
                 <div class="row">
                     <div class="col-lg-4">
                     <form action="{{route('payment')}}" method="POST">
-                    @csrf 
-                        <input type="hidden" name="amount" value="20">
+                    @csrf
+                        <input type="hidden" name="amount" value="10">
+                        <input type="hidden" name="credits" value="20">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 20 crédits</b></button>
                     </form>
                     </div>
                     <div class="col-lg-4">
                     <form action="{{route('payment')}}" method="POST">
-                    @csrf 
-                        <input type="hidden" name="amount" value="50">
+                    @csrf
+                        <input type="hidden" name="amount" value="40">
+                          <input type="hidden" name="credits" value="50">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 50 crédits</b></button>
                     </form>
                     </div>
                     <div class="col-lg-4">
                     <form action="{{route('payment')}}" method="POST">
-                    @csrf 
-                        <input type="hidden" name="amount" value="100">
+                    @csrf
+                        <input type="hidden" name="amount" value="70">
+                          <input type="hidden" name="credits" value="100">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 100 crédits</b></button>
                     </form>
                     </div>

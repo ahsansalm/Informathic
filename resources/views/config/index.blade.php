@@ -19,19 +19,23 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card card_back-con">
-            <div class="card-body ">
-                <h3>Produit</h3>
+        <a href="{{url('/configuration/Produit')}}"> 
+            <div class="card card_back-con">
+                <div class="card-body ">
+                    <h3>Produit</h3>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <div class="col-md-4">
-        <div class="card card_back-con">
-            <div class="card-body ">
-            <h3>Services</h3>
+        <a href="{{url('/configuration/Services')}}"> 
+            <div class="card card_back-con">
+                <div class="card-body ">
+                <h3>Services</h3>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 @endsection

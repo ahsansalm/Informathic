@@ -66,9 +66,34 @@ $(document).ready(function () {
 
      $(".second-step").click(function (e) {
         var name = $("#name").val();
-        if(name == ""){
+        var nameGet = $("#nameGet").val();
+        var getAddress = $("#getAddress").val();
+        var codeGet = $("#codeGet").val();
+        var town = $("#town").val();
+        var getCell = $("#getCell").val();
+         if(nameGet == ""){
+            return false;
+            }
+        else if(name == ""){
             return false;
        }
+       else if(getAddress == ""){
+        return false;
+        }
+        
+        else if(codeGet == ""){
+            return false;
+        }
+
+        else if(town == ""){
+            return false;
+        }
+
+        else if(getCell == ""){
+            return false;
+        }
+
+      
         else{
             var active = $('.wizard .nav-tabs li.active');
             active.next().removeClass('disabled');

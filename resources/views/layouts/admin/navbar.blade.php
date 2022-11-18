@@ -15,20 +15,26 @@
             </button>
         </div>
         <div id="search-results-container">
-            <ul id="search-results"></ul>
+            <ul id="search-results">
+         
+            </ul>
         </div>
         </div>
 
         <div class="navbar-right ">
 
         <ul class="nav navbar-nav">
-
-        
-
-
-        
-
             <!-- User Account -->
+            <a href="{{url('/login')}}">
+                <li class="mx-2">   
+                    <button type="button" class="default-btn btn-block btn-secondary prev-step">Connexion</button>
+                </li>
+            </a>
+            <a href="{{url('/register')}}">
+                <li class="mx-2">   
+                    <button type="button" class="default-btn btn-block btn-secondary prev-step">S'inscrire</button>
+                </li>
+            </a>
             <li class="dropdown user-menu">
             <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <span class="d-none d-lg-inline-block">{{auth()->user()->name}}</span>

@@ -27,11 +27,11 @@
                       <span class="nav-text">Tous les utilisateurs</span> 
                     </a>
                   </li>
-                  <li  class="has-sub active colorBack" >
+                  <!-- <li  class="has-sub active colorBack" >
                     <a class="sidenav-item-link" aria-controls="dashboard">
                       <span class="nav-text">Problèmes utilisateur</span> 
                     </a>
-                  </li> 
+                  </li>  -->
                   <li  class="has-sub {{ Request::is('problem') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/problem')}}" >
                     <i class="fa fa-question-circle" style="font-size:24px"></i>
@@ -49,11 +49,6 @@
                       <span class="nav-text">Toutes les commandes</span> 
                     </a>
                   </li>
-                  <li  class="has-sub active colorBack " >
-                    <a class="sidenav-item-link" aria-controls="dashboard">
-                      <span class="nav-text">Devis</span> 
-                    </a>
-                  </li> 
                   <li  class="has-sub {{ Request::is('userQuotes') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/userQuotes')}}" >
                     <i class="fa fa-book" style="font-size:24px;color:white"></i>

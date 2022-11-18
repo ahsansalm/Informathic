@@ -11,4 +11,8 @@ class brand extends Model
     protected $table = 'brands';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
+
+    public function image(){
+        return 'img/brand/'.$this->image;
+    }
 }

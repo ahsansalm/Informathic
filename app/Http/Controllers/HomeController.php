@@ -41,4 +41,22 @@ class HomeController extends Controller
 
         return view('admin.user',compact('users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes'));    
     }
+
+    // user detail
+    public function userDetail($id){
+        $user = User::find($id);
+        return view("admin.userDetail",compact('user'));
+    }
+
+    // userDisabled
+    public function userDisabled($id){
+        $users = User::find($id);
+        $users->status = "Handicapé";
+        $users->update();
+         $notification = array(
+                'message' => 'Vous avez désactivé cet utilisateur!',
+                'alert_type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+    }
 }

@@ -2,6 +2,33 @@
 @section('content')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 
+<!-- custom delte button -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+				    <i class="fa fa-warning ml-2" style="font-size:48px;color:red"></i>
+				</div>						
+				<h4 class="modal-title w-100">Êtes-vous sûr?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Si vous supprimez une marque, ses produits et services associés sont également supprimés.</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a href="{{url('/brand/delete/'.$brand->id)}}">
+                <button type="button" class="btn btn-danger">Effacer</button>
+                </a>
+				
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- end custom delte button -->
+
+
 <div class="row">
     <div class="col-12 text-center">
         <div class="dashboard_image">
@@ -14,9 +41,9 @@
                 <table class="table table-bordered w-100 text-dark" id="users-table">
                     <thead class="card-header">
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Created At</th>
+                            <th>Identifiant</th>
+                            <th>Nom</th>
+                            <th>Créé à</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,15 +58,16 @@
             Ajouter une nouvelle marque
             </div>
             <div class="card-body">
-                <form action="{{url('config/product/add')}}" method="POST"  enctype="multipart/form-data">
+                <form action="{{url('config/brand/add')}}" method="POST"  enctype="multipart/form-data">
                 @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nom de marque *</label>
+                        <label for="exampleInputEmail1"><b>Nom de marque *</b></label>
                         <input type="text" name="product_name" class="form-control" >
                         @error('product_name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                        <label for="exampleInputEmail1" class="mt-2">Sélectionner une image *</label>
+                        <br>
+                        <label for="exampleInputEmail1" class="mt-2"><b>Sélectionner une image *</b></label>
                         <input type="file" name="image" class="form-control" >
                         @error('image')
                             <span class="text-danger">{{$message}}</span>
@@ -74,11 +102,12 @@ $(function() {
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/brand/edit/'+full.id+'">Edit </a> <a class="btn btn-sm btn-danger" href="/admission/delete/page/'+full.id+'">Delete</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/brand/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger"  href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();" >Effacer</a>'
                 }
             }
         ],
         columns: [
+            
             { data: 'id', name: 'id' },
             { data: 'product_name', name: 'product_name' },
             { data: 'created_at', name: 'created_at' },
@@ -86,4 +115,5 @@ $(function() {
     });
 });
 </script>
+
 @endsection

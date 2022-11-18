@@ -3030,8 +3030,8 @@ Choisissez nos services (plusieurs choix possibles, à valider en cliquant sur s
                                     </div>
                                         <div class="col-md-6 mt-5">
                                             <select name="shipment" id="shipment" class="form-control" id="">
-                                                <option value="R1">R1</option>
-                                                <option value="R2">R2</option>
+                                                <option value="R1(Envoyer un colis par la poste)">R1 (Envoyer un colis par la poste)</option>
+                                                <option value="R2(Demander un rendez-vous pour prendre soin de l'appareil)">R2 (Demander un rendez-vous pour prendre soin de l'appareil)</option>
 
                                             </select>
                                         </div>
@@ -3141,6 +3141,7 @@ Choisissez nos services (plusieurs choix possibles, à valider en cliquant sur s
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     $(document).ready(function(){
         // hide all entrires

@@ -190,8 +190,9 @@
                                         <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Nom  </label> 
+                                                <label>Nom*</label> 
                                                 <input class="form-control" type="text" name="firstname" id="nameGet" placeholder=""> 
+                                                <p id="p111" class="text-danger"></p>
                                                 @error('name')
                                                     <span class="text-danger">{{$message}}</span>
                                                 @enderror
@@ -206,8 +207,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Adresse </label> 
+                                                <label>Adresse*</label> 
                                                 <input class="form-control" type="text" id="getAddress" name="postal" placeholder=""> 
+                                                <p id="p112" class="text-danger"></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -218,26 +220,30 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Code postal </label> 
-                                                <input class="form-control" type="text" id="codeGet" name="code" placeholder=""> 
+                                                <label>Code postal* </label> 
+                                                <input class="form-control" type="text" id="codeGet" name="code" placeholder="">
+                                                <p id="p113" class="text-danger"></p> 
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Ville </label> 
-                                                <input class="form-control" type="text" name="town" placeholder=""> 
+                                                <label>Ville* </label> 
+                                                <input class="form-control" type="text" name="town" id="town" placeholder=""> 
+                                                <p id="p114" class="text-danger"></p>
                                             </div>
                                         </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Téléphone portable  </label> 
+                                                <label>Téléphone portable*  </label> 
                                                 <input type="text" id="getCell" name="phone"  class="form-control">
+                                                <p id="p115" class="text-danger"></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Sélectionnez L'image </label> 
-                                                <input type="file" name="photo"  class="form-control">
+                                                <input type="file" name="photo" id="photo"  class="form-control">
+                                                <p id="p116" class="text-danger"></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -268,17 +274,9 @@
                                                 </div>
                                                 <div class="col-1">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                    <input  class="form-check-input" type="radio" name="email_info" value="yes">
                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                         Oui
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-1">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                        <label class="form-check-label" for="flexRadioDefault1" >
-                                                            Non
                                                         </label>
                                                     </div>
                                                 </div>
@@ -502,6 +500,7 @@
         // ------------step-wizard-------------
 
 
+   
 
 $("#emailGet").keyup(function(){
   var email = $(this).val();
@@ -553,15 +552,15 @@ $(".getpassword").click(function(){
 });
 
 </script>
-
+    
 
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 
 
 <script>
-      $(document).ready(function() {
     $("#submit1").click(function() {
+
         var email = $("#emailGet").val();
         var email_verification = $("#email_verification").val();
         var pass = $("#passGet").val();
@@ -655,22 +654,75 @@ $(".getpassword").click(function(){
       });
 
   
-      
-    }); 
+ 
 
 
 
     $('#submit2').click(function(){
         var name = $("#name").val();
+        var nameGet = $("#nameGet").val();
+        var getAddress = $("#getAddress").val();
+        var codeGet = $("#codeGet").val();
+        var town = $("#town").val();
+        var getCell = $("#getCell").val();
+       
+        if(nameGet.length == "")
+          {
+            $("#p111").text("Le nom de famille est requis");
+            $("#nameGet").focus();
+            return false;
+          }
 
-        if(name.length == "")
+        else if(name.length == "")
           {
             $("#p1").text("S'il vous plaît entrez votre nom");
             $("#name").focus();
             return false;
           }
+          else if(getAddress.length == "")
+          {
+            $("#p112").text("L'adresse est obligatoire");
+            $("#getAddress").focus();
+            return false;
+          }
+          else if(codeGet.length == "")
+          {
+            $("#p113").text("Le courrier est requis");
+            $("#codeGet").focus();
+            return false;
+          }
+          else if(town.length == "")
+          {
+            $("#p114").text("Ville requise");
+            $("#town").focus();
+            return false;
+          }
+          else if(getCell.length == "")
+          {
+            $("#p115").text("téléphone requis");
+            $("#getCell").focus();
+            return false;
+          }
+        //   else if(photo.extension != "jpg")
+        //   {
+        //     $("#p116").text("téléphone requis");
+        //     $("#photo").focus();
+        //     return false;
+        //   }
+        //   else if(address.length == "")
+        //   {
+        //     $("#p116").text("S'il vous plaît entrez votre nom");
+        //     $("#nameGet").focus();
+        //     return false;
+        //   }
+          else
+          {
+                return false;
+              }
     });
 </script>
+
+
 
 </body>
 </html>

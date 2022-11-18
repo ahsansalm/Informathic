@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
 
 
@@ -32,7 +33,12 @@ use Illuminate\Support\Str;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('User/detail/{id}', [HomeController::class, 'userDetail'])->name('userDetail')->middleware('verified');
+Route::get('user/disabled/{id}', [HomeController::class, 'userDisabled'])->name('userDisabled')->middleware('verified');
+
+
+
 
 Auth::routes();
 Route::get('/', function () {
@@ -246,7 +252,7 @@ Route::get('error', [PaymentController::class, 'error']);
 
 
 
-
+// new routes 
 
 
 // configuration
@@ -256,11 +262,44 @@ Route::get('/configuration/Marque',[ConfigurationController::class, 'brands']);
 // yajra for brand
 Route::get('/configuration/brands',[ConfigurationController::class, 'getbrands'])->name('datatables.data');
 // add brand
-Route::post('/config/product/add',[ConfigurationController::class, 'addBrands']);
+Route::post('/config/brand/add',[ConfigurationController::class, 'addBrands']);
 // edit barnd page
 Route::get('/brand/edit/{id}',[ConfigurationController::class, 'editBrand']);
+// update brand
+Route::post('/config/brand/update/{id}',[ConfigurationController::class, 'updateBrands']);
+// delete barnd page
+Route::get('/brand/delete/{id}',[ConfigurationController::class, 'DeleteBrand']);
 
 
+
+// product page
+Route::get('/configuration/Produit',[ConfigurationController::class, 'Products']);
+// yajra for brand
+Route::get('/configuration/Product',[ConfigurationController::class, 'getproducts'])->name('products.data');
+// add product
+Route::post('/config/product/add',[ConfigurationController::class, 'addProducts']);
+// edit product page
+Route::get('/product/edit/{id}',[ConfigurationController::class, 'editProducts']);
+// update product
+Route::post('/config/product/update/{id}',[ConfigurationController::class, 'updateProducts']);
+// delete product page
+Route::get('/product/delete/{id}',[ConfigurationController::class, 'DeleteProducts']);
+
+
+// services page
+Route::get('/configuration/Services',[ConfigurationController::class, 'Services']);// yajra for brand
+Route::get('/configuration/service',[ConfigurationController::class, 'getservices'])->name('services.data');
+
+// add service
+Route::post('/config/service/add',[ConfigurationController::class, 'addServices']);
+// edit service page
+Route::get('/service/edit/{id}',[ConfigurationController::class, 'editServices']);
+// update service
+Route::post('/config/service/update/{id}',[ConfigurationController::class, 'updateServices']);
+// delete service page
+Route::get('/service/delete/{id}',[ConfigurationController::class, 'DeleteServices']);
+// fetch product data
+Route::get('/product/fetch/data',[ConfigurationController::class, 'fetchProduct']);
 
 
 

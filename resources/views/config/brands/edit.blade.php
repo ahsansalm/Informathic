@@ -5,28 +5,40 @@
 <div class="row">
     <div class="col-12 text-center">
         <div class="dashboard_image">
-            <h1 class="brand_device mt-5">Edit Brand</h1> 
+            <h1 class="brand_device mt-5">Modifier la marque</h1> 
         </div>
     </div>
 
     <div class="col-lg-12 my-3">
         <div class="card">
             <div class="card-header">
-            Update brand
+            Mettre à jour la marque
             </div>
             <div class="card-body">
-                <form action="{{url('config/product/add')}}" method="POST"  enctype="multipart/form-data">
+                <form action="{{url('config/brand/update/'.$brand->id)}}" method="POST"  enctype="multipart/form-data">
                 @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nom de marque *</label>
-                        <input type="text" name="product_name" value="{{$brand->product_name}}" class="form-control" >
-                        @error('product_name')
-                            <span class="text-danger">{{$message}}</span>
-                        @enderror
-                        <img src="{{$brand->image}}"style="height: 200px; width: 200px;" alt="">
-                        <br>
-                        <label for="exampleInputEmail1" class="mt-2">Sélectionner une image *</label>
-                        <input type="file" name="image" class="form-control" >
+                       <div class="row">
+                            <div class="col-lg-8 my-2">
+                                <label for="exampleInputEmail1"><b>Nom de marque *</b></label>
+                                <input type="text" name="product_name" value="{{$brand->product_name}}" class="form-control" >
+                                @error('product_name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                                
+                                <br>
+                                <label for="exampleInputEmail1" class="mt-2"><b>Sélectionner une image *</b></label>
+                                <input type="file" name="image" class="form-control" >
+                                @error('image')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+
+
+                        <div class="col-lg-4 my-2">
+                            <img src="../../{{$brand->image}}" class="img-fluid" alt="">
+                        </div>
+                       </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <a href="{{url('/configuration/Marque')}}" class="text-white">

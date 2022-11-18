@@ -1,6 +1,6 @@
 @extends('layouts.informathic2')
 @section('content')
-<div class="row">
+<div class="row text-dark">
     <div class="col-12">
         <div class="card">
             <div class="dashboard_image">
@@ -77,6 +77,7 @@
                         <a href="{{url('/MyDevices')}}">
                             <button type="button" class="default-btn btn-block btn-secondary prev-step">
                         Retour
+                            </button>
                     </div>
                 </div>
             </div>

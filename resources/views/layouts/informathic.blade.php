@@ -102,7 +102,7 @@
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
 <!-- custom js -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></scrip
+
 <script src="{{asset('auth/assets/js/app.js')}}"></script>
   <!-- toaster js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

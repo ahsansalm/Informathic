@@ -208,9 +208,15 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->profile->address}}</td>
                                         <td>{{$user->profile->phone}}</td>
-                                        <td>{{$user->profile->status}}</td>
+                                        @if($user->status == 'Actif')
+                                            <td><span class="badge bagde-sm bg-success">{{$user->status}}</span></td>
+                                            @else
+                                            <td><span class="badge bagde-sm bg-danger">{{$user->status}}</span></td>
+                                            @endif                                        
                                         <td>
-                                            <button type="button" class="btn btn-outline-danger btn-sm">Handicapé</button>
+                                        <a href="{{url('User/detail/'.$user->id)}}">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">Détail</button>
+                                           </a>
                                         </td>
                                     </tr>
                                     @endforeach()

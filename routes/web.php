@@ -13,6 +13,7 @@ use App\Http\Controllers\ToDoListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -362,6 +363,15 @@ Route::get('/vendor/detail/{id}',[ToDoListController::class, 'detailVendor']);
 Route::get('/vendorfavlist',[ToDoListController::class, 'vendorfavlist']);
 // yajra boc for complete list
 Route::get('/fav/vendor',[ToDoListController::class, 'getvendorfav'])->name('venforfavlist.data');
+
+
+
+
+////////////////////////////////////// Ua=ser sdie///////////////////////////////////
+// brnad fetach data on user 
+Route::get('/brand/fetach/data',[UserController::class, 'fetchbrandproduct']);
+// product fetach data on user 
+Route::get('/product/fetach/data',[UserController::class, 'fetchproducctservice']);
 
 
 

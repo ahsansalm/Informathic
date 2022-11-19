@@ -46,6 +46,36 @@
 
 </head>
 <body class="bg-light-gray" id="body">
+    <nav class="navbar navbar-static-top navbar-expand-lg">
+
+        <!-- search form -->
+        <div class="search-form ">
+        <div class="app-brand" style="background: white !important;">
+            <span class="brand-name">
+                <img src="{{asset('img/logo/logo.png')}}" style="max-width:160px !important;"alt="">
+            </span>
+                    
+        </div>
+        </div>
+
+        <div class="navbar-right ">
+
+        <ul class="nav navbar-nav">
+
+            <!-- User Account -->
+            <a href="{{url('/login')}}">
+                <li class="mx-2">   
+                    <button type="button" class="default-btn btn-block btn-secondary prev-step">Connexion</button>
+                </li>
+            </a>
+            <a href="{{url('/register')}}">
+                <li class="mx-2">   
+                    <button type="button" class="default-btn btn-block btn-secondary prev-step">S'inscrire</button>
+                </li>
+            </a>
+        </ul>
+        </div>
+    </nav>
     <div class="row justify-content-center mt-5 text-dark">
         <div class="col-md-9">
             <div class="card">

@@ -1,6 +1,38 @@
 @extends('layouts.informathic2')
 @section('content')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+<!-- custom delte button -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+				    <i class="fa fa-warning ml-2" style="font-size:48px;color:red"></i>
+				</div>						
+				<h4 class="modal-title w-100">Êtes-vous sûr?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Voulez-vous supprimer votre service ?</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                
+                  @if($service)
+                    <a href="{{url('/service/delete/'.$service->id)}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+                    @else
+                    <a href="{{url('/service/delete/')}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+
+				@endif
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- end custom delte button -->
 
 <div class="row">
     <div class="col-12 text-center">
@@ -94,7 +126,7 @@ $(function() {
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="/service/delete/'+full.id+'" onclick="return myFunction();">Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
                 }
             }
         ],
@@ -124,10 +156,5 @@ $(function(){
         });
     });
 </script>
-<script>
-  function myFunction() {
-      if(!confirm("Are You Sure to delete this"))
-      event.preventDefault();
-  }
- </script>
+
 @endsection

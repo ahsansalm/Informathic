@@ -17,9 +17,18 @@
 			</div>
 			<div class="modal-footer justify-content-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a href="{{url('/product/delete/')}}">
-                <button type="button" class="btn btn-danger">Effacer</button>
-                </a>
+
+                @if($product)
+                    <a href="{{url('/product/delete/'.$product->id)}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+                    @else
+                    <a href="{{url('/product/delete/')}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+
+				@endif
+                
 				
 			</div>
 		</div>

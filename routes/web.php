@@ -9,6 +9,7 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ProblemController;
+use App\Http\Controllers\ToDoListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConfigurationController;
@@ -252,7 +253,7 @@ Route::get('error', [PaymentController::class, 'error']);
 
 
 
-// new routes 
+////////////////////////////////////////////////////// new routes/////////////////////////////////////////////// 
 
 
 // configuration
@@ -287,7 +288,8 @@ Route::get('/product/delete/{id}',[ConfigurationController::class, 'DeleteProduc
 
 
 // services page
-Route::get('/configuration/Services',[ConfigurationController::class, 'Services']);// yajra for brand
+Route::get('/configuration/Services',[ConfigurationController::class, 'Services']);
+// yajra for service
 Route::get('/configuration/service',[ConfigurationController::class, 'getservices'])->name('services.data');
 
 // add service
@@ -302,6 +304,64 @@ Route::get('/service/delete/{id}',[ConfigurationController::class, 'DeleteServic
 Route::get('/product/fetch/data',[ConfigurationController::class, 'fetchProduct']);
 
 
+
+// to do list
+Route::get('/todolist',[ToDoListController::class, 'index']);
+// add new task
+Route::post('/add/task',[ToDoListController::class, 'addTask']);
+// yajra for to do list
+Route::get('/get/task',[ToDoListController::class, 'gettask'])->name('todolist.data');
+// edit task page
+Route::get('/task/edit/page/{id}',[ToDoListController::class, 'TaskEditPage']);
+// update service
+Route::post('/update/task/{id}',[ToDoListController::class, 'updateTask']);
+
+
+// edit task page
+Route::get('/task/edit/{id}',[ToDoListController::class, 'editTask']);
+// edit task incom
+Route::get('/task/incom/{id}',[ToDoListController::class, 'incomTask']);
+// edit task fav
+Route::get('/task/fav/{id}',[ToDoListController::class, 'favTask']);
+
+
+// completeb task list
+Route::get('/comlist',[ToDoListController::class, 'comlist']);
+// yajra boc for complete list
+Route::get('/com/task',[ToDoListController::class, 'getcom'])->name('comlist.data');
+
+
+// fav list page
+Route::get('/favlist',[ToDoListController::class, 'favlist']);
+// yajra boc for complete list
+Route::get('/fav/task',[ToDoListController::class, 'getfav'])->name('favlist.data');
+
+
+
+
+// vendor list
+Route::get('/vendorlist',[ToDoListController::class, 'vendorlist']);
+// yajra for to do vendor
+Route::get('/get/vendor',[ToDoListController::class, 'getvendor'])->name('vendorlist.data');
+// add vendor
+Route::post('/add/vendor',[ToDoListController::class, 'addVendor']);
+// edit vendor page
+Route::get('/vendor/edit/page/{id}',[ToDoListController::class, 'vendorEditPage']);
+// update vendor
+Route::post('/update/vendor/{id}',[ToDoListController::class, 'updatevendor']);
+// update vendor
+Route::post('/update/vendor/{id}',[ToDoListController::class, 'updatevendor']);
+// delete vendor page
+Route::get('/vendor/delete/{id}',[ToDoListController::class, 'DeleteVendor']);
+// vendor fav
+Route::get('/vendor/fav/{id}',[ToDoListController::class, 'favvendor']);
+// vendor detail
+Route::get('/vendor/detail/{id}',[ToDoListController::class, 'detailVendor']);
+
+// vendorfavlist
+Route::get('/vendorfavlist',[ToDoListController::class, 'vendorfavlist']);
+// yajra boc for complete list
+Route::get('/fav/vendor',[ToDoListController::class, 'getvendorfav'])->name('venforfavlist.data');
 
 
 

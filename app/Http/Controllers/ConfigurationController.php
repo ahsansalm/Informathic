@@ -123,7 +123,7 @@ class ConfigurationController extends Controller
         // this is for delete all brand products in product list
         DB::table('products')->where('product_id', $id)->delete();
         // this is to delete all service of same product
-        DB::table('services')->where('product_id', $id)->delete();
+        DB::table('services')->where('marks_id', $id)->delete();
 
         $notification = array(
             'message' => 'Marque supprimée!',
@@ -261,7 +261,8 @@ class ConfigurationController extends Controller
     public function Services(){
         $brands = brand::all();
         $products = product::all();
-        return view('config.service.index',compact('brands','products'));
+        $service = DB::table('services')->first();
+        return view('config.service.index',compact('brands','products','service'));
     }
 
       // yajra  for service
@@ -299,7 +300,6 @@ class ConfigurationController extends Controller
         $last_img = 'img/service/'.$name_gen;
 
         service::insert([
-            'brand_id' => $brand_id,
             'user_id' => $id,
             'service' => $request->service,
             'product_id' => $request->product_id,

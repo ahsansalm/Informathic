@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Parcel;
 use App\Models\Invoices;
 use Illuminate\Support\Carbon;
+use App\Models\config\brand;
 
 class SendParcelController extends Controller
 {
     // sedn parcel
     public function sendParcel(){
-        return view("sendParcel.index");    
+        $brands = brand::all();
+        return view("sendParcel.index",compact('brands'));    
     }
     // success parcel
     public function successParcel(){

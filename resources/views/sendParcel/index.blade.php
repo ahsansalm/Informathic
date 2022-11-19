@@ -96,31 +96,13 @@
                                             <h3>Choisissez votre marque</h3>
                                         </div>
                                     </div>
-                                    <div class="row mt-5 justify-content-center text-center">
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/1.png')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_sony next-step mt-3" value="Informatique"><b>Informatique</b></button>
-                                        </div>
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/2.png')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_nin next-step mt-3" value="Consoles"><b>Consoles</b></button>
-                                        </div>
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/3.png')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_mic next-step mt-3" value="MacBook"><b>MacBook</b></button>
-                                        </div>
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/4.jpg')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_stuf next-step mt-3" value="Iphone"><b>Iphone</b></button>
-                                        </div>
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/5.jpg')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_nacon next-step mt-3" value="Ipad"><b>Ipad</b></button>
-                                        </div>
-                                        <div class="col-md-3 col-sm-5  mt-5 image_col">
-                                            <img class="img-fluid" src="{{asset('img/brand/6.png')}}" alt="">
-                                            <button type="button" class="btn btn-outline-success btn-block click_razer next-step mt-3" value="SmartPhone"><b>SmartPhone</b></button>
-                                        </div>
+                                    <div class="row mt-5 justify-content-center text-center">   
+                                        @foreach($brands as $brand)
+                                            <div class="col-md-3 col-sm-5  mt-5 image_col">
+                                                <img class="img-fluid" src="{{$brand->image}}" alt="">
+                                                <button type="button" class="btn btn-outline-success btn-block click_sony next-step mt-3" value="{{$brand->product_name}}"><b>{{$brand->product_name}}</b></button>
+                                            </div>
+                                        @endforeach
                                         
                                     </div>
                                     <div class="row">
@@ -132,6 +114,22 @@
                                 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
                                 <div class="tab-pane" role="tabpanel" id="step3">
                                     <div class="row">
                                             <div class="col-12">

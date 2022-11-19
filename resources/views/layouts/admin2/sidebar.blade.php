@@ -6,7 +6,7 @@
               <a href="">
                 <span class="brand-name">
                   <img src="{{asset('img/logo/logo.png')}}" style="max-width:160px !important;"alt="">
-                </span>DEVIS
+                </span>
                 
               </a>
             </div>
@@ -55,6 +55,51 @@
                       <span class="nav-text">Citations d'utilisateurs</span> 
                     </a>
                   </li>
+
+               
+                  <li  class="has-sub active colorBack " >
+                    <a class="sidenav-item-link" aria-controls="dashboard">
+                      <span class="nav-text">Liste de choses à faire</span> 
+                    </a>
+                  </li> 
+                    
+                    <li  class="has-sub {{ Request::is('todolist') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/todolist')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Liste de tâches</span> 
+                    </a>
+                  </li>
+
+                  <li  class="has-sub {{ Request::is('favlist') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/favlist')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Liste des favoris</span> 
+                    </a>
+                  </li>
+
+                  <li  class="has-sub {{ Request::is('comlist') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/comlist')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Tâche terminée</span> 
+                    </a>
+                  </li>
+
+                  <li  class="has-sub {{ Request::is('vendorlist') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/vendorlist')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Liste de fournisseurs</span> 
+                    </a>
+                  </li>
+
+                  
+
+                  <li  class="has-sub {{ Request::is('vendorfavlist') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/vendorfavlist')}}" >
+                    <i class="fa fa-book" style="font-size:24px;color:white"></i>
+                      <span class="nav-text">Favori du vendeur</span> 
+                    </a>
+                  </li>
+
 
                   <li  class="has-sub active colorBack " >
                     <a class="sidenav-item-link" aria-controls="dashboard">

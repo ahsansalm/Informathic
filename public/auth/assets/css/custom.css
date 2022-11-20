@@ -177,6 +177,46 @@ span.round-tab i{
     background-color: #0C1741!important;
     color: white;
 }
+.brand_id:focus{
+    background-color: #0C1741!important;
+    color: white;
+}
+.service_id:focus{
+    background-color: #0C1741!important;
+    color: white;
+}
+
+.go-step{
+    font-size: 13px;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.go-next{
+    font-size: 13px;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.next-benifit{
+    font-size: 13px;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.newBenifitClick:focus{
+    background-color: #0C1741!important;
+    color: white;
+}
 .next-step{
     background-color: #0C1741!important;
     color: white;
@@ -440,8 +480,8 @@ background-color: #0C1741!important;
 
 
 
-.image_col .card-body h5{
-    height: 108px;
+.image_col .card-body h6{
+    height: 40px;
 }
 .topicon{
     position: absolute;

@@ -28,7 +28,7 @@ class UserController extends Controller
                     $output_sub.=
                 "<div class='col-md-3 col-sm-6  image_col '>".
                 "<img class='img-fluid img-fluid2' src='$tech_data->image'>".
-                "<button type= 'button' class='btn btn-outline-success btn-block next-step mt-3 service_click' onClick='addItem(value)' value='$tech_data->id'>".$tech_data->product_name."</button>".
+                "<button type= 'button' class='btn btn-outline-primary service_id btn-block  mt-3 service_click' onClick='addItem(value,innerHTML)' text='$tech_data->product_name' value='$tech_data->id'>".$tech_data->product_name."</button>".
                "</div>";
                 }
                 return Response($output_sub);  }
@@ -40,25 +40,25 @@ class UserController extends Controller
    
         if($request->ajax())
         {
-        $output_sub="";
+        $newOutput="";
         $data = service::where('product_id',$request->value)->get();
         $table_sub = $data->count();
         if($table_sub > 0)
             {
                 foreach ($data as $key => $tech_data) {
-                    $output_sub.=
+                    $newOutput.=
                 "<div class='col-md-3 col-sm-6  image_col mt-2 ps4_fat px-md-2 px-3'>".
                     "<div class='card'>". 
                             " <img class='card-img-top img-fluid img-fluid2'  src='$tech_data->image'>".
                         "<div class='card-body'>".
-                            "<h5>".$tech_data->service."</h5>".
-                            "<button type= 'button' class='btn btn-outline-success btn-block next-step mt-3 ' value='$tech_data->price'>".$tech_data->price."</button>".
+                            "<h6>".$tech_data->service."</h6>".
+                            "<button type= 'button' class='btn btn-outline-primary newBenifitClick btn-block  mt-3 ' onClick='addBenifit(value,innerHTML)' text='$tech_data->price' value='$tech_data->service'>".$tech_data->price."</button>".
                         "</div>".
                     "</div>".
                "</div>";
                                         
                 }
-                return Response($output_sub);  
+                return Response($newOutput);  
             }
         }    
     }

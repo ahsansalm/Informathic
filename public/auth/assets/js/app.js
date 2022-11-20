@@ -104,6 +104,46 @@ $(document).ready(function () {
        
 
     });
+  
+    $(".go-step").click(function (e) {
+        var id = $(".BrandValue").val();
+        if(id == ""){
+            return false;
+            }
+            else{
+            var active = $('.wizard .nav-tabs li.active');
+            active.next().removeClass('disabled');
+            nextTab(active);
+            }
+        
+
+    });
+    $(".go-next").click(function (e) {
+        var value = $("#seriveData").val();
+        if(value == ""){
+            return false;
+            }
+            else{
+            var active = $('.wizard .nav-tabs li.active');
+            active.next().removeClass('disabled');
+            nextTab(active);
+            }
+        
+
+    });
+    $(".next-benifit ").click(function (e) {
+        var value = $("#benifitData").val();
+        if(value == ""){
+            return false;
+            }
+            else{
+            var active = $('.wizard .nav-tabs li.active');
+            active.next().removeClass('disabled');
+            nextTab(active);
+            }
+        
+
+    });
 
 
 

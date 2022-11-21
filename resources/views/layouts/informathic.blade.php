@@ -32,6 +32,7 @@
 
   <!-- FAVICON -->
   <link href="{{asset('admin/assets/img/favicon.png')}}" rel="shortcut icon" />
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
 
   <script src="assets/plugins/nprogress/nprogress.js"></script>
@@ -79,7 +80,8 @@
       </div>
     </div>
 
-    
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
 <script src="{{asset('admin/assets/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('admin/assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -100,6 +102,8 @@
 <script src="{{asset('admin/assets/js/date-range.js')}}"></script>
 <script src="{{asset('admin/assets/js/map.js')}}"></script>
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+<script src="{{asset('admin/assets/js/toggle.js')}}"></script>
+<script src="{{asset('admin/assets/js/script.js')}}"></script>
 <!-- custom js -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 

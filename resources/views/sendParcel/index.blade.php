@@ -1,16 +1,11 @@
 @extends('layouts.informathic')
 @section('content')
+
 <style>
-    .img-fluid{
-        height: 120px;
-    }
-    .img-fluid2{
-        height: 140px;
-    }
-    .img-fluid3{
-        height: 230px;
-    }
+  
+
 </style>
+
 <div class="bg-white border rounded">
     <div class="card">
             <div class="card-body p-5">
@@ -203,6 +198,26 @@
                                         <div class="col-md-6 mt-5">
                                             <input type="text" id="returnChoice" class="form-control">
                                         </div>
+
+                                        <div class="col-md-6 mt-3">
+                                            <h6><b>Mot de passe NIP</b></h6>
+                                            <div id="div2" class="selectGroup mt-2"></div>
+                                        </div>
+                                        <div class="col-md-6 mt-3">
+                                            <h6><b>MODÈLE de mot de passe</b></h6>
+                                            <div id="div3" class="selectGroup mt-2"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text"  id="PassPin" class="form-control " >
+                                        </div>
+                                        <div class="col-md-8 mt-2">
+                                            
+                                        <div class="maincontainer" id="PassPat" >
+                                                <h2 id="heading" class="heading">Please set your password</h2>
+                                                <div id="patterncontainer" class="patterncontainer">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -356,6 +371,8 @@
             </div>
         </div>
 </div>
+<script src="{{asset('admin/assets/js/PatternLock.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     function addItem(value,innerHTML) {
         document.getElementById('seriveData').value = value;
@@ -370,6 +387,16 @@
         document.getElementById('putBenifit').innerHTML=value;
         document.getElementById("putPrice").innerHTML = innerHTML;
     }
+    var e = document.getElementById('lock')
+      var p = new pATTERN({
+        onPattern:function(){
+            this.success
+        }
+      })
+
+
+
+
 
     
     
@@ -378,6 +405,8 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 <script>
+     
+      
     $(document).ready(function(){
         
     
@@ -520,8 +549,50 @@
 
 
 
+    $(document).ready(function () {
+        $('#PassPin').hide();
+        $('#PassPat').hide();
+        function toggleValueChanged(selectedValue) {
+            console.log(selectedValue)
+          if(selectedValue == '1'){
+            $('#PassPin').hide();
+          }
+          else{
+            $('#PassPin').show();
+          }
+        }
+
+        function toggleValueChanged2(selectedValue) {
+            console.log(selectedValue)
+          if(selectedValue == '1'){
+            $('#PassPat').hide();
+          }
+          else{
+            $('#PassPat').show();
+          }
+        }
 
 
 
+        let opt = [
+          { value: 1, label: "No" },
+          { value: 2, label: "Yes" },
+        ];
+        $("#div1").setupToggles();
+
+        $("#div2").setupToggles({
+          toggleOptions: opt,
+          defaultValue: 1,
+          onSelectedValueChange: toggleValueChanged,
+        });
+
+        $("#div3").setupToggles({
+          toggleOptions: opt,
+          defaultValue: 1,
+          onSelectedValueChange: toggleValueChanged2,
+        });
+      });
+
+   
 </script>
 @endsection

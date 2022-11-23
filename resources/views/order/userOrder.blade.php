@@ -24,6 +24,7 @@
                                     <th scope="col" class="text-white">Demande de service</th>
                                     <th scope="col" class="text-white">Statut</th>
                                     <th scope="col" class="text-white">Prix</th>
+                                    <th scope="col" class="text-white">Remarques</th>
                                     <th scope="col" class="text-white">Action</th>
                                 </tr>
                             </thead>
@@ -45,6 +46,11 @@
                                             <td><span class="badge bagde-sm bg-danger">{{$device->product->status}}</span></td>
                                             @endif
                                             <td>{{$device->totalPrice}}</td>
+                                            <td>
+                                                <a href="{{url('Approved/order/notes/'.$device->productId)}}">
+                                                    <button type="button" class="btn btn-sm btn-warning">Remarques</button>
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a href="{{url('Approved/order/detail/'.$device->productId)}}">
                                                     <button type="button" class="btn btn-sm btn-primary">Voir</button>

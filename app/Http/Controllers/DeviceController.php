@@ -18,6 +18,13 @@ class DeviceController extends Controller
         $devices = Parcel::find($id);
         return view("myDevice.detail",compact('devices'));    
     }
+
+      // edit device page
+      public function NoteParcel($id){
+        $devices = Parcel::find($id);
+        return view("myDevice.Notes",compact('devices'));    
+    }
+
     // delete parcel device
     public function DeleteDevice($id){
         Parcel::find($id)->delete();

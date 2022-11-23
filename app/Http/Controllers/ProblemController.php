@@ -18,7 +18,8 @@ class ProblemController extends Controller
     // problem detail page
     public function problemDetail($id){
         $supports = Support::find($id);
-        return view("problem.detail",compact('supports'));    
+        $chat = Support::all();
+        return view("problem.detail",compact('supports','chat'));    
     }
     // reply to problem
     public function ReplyProb(Request $request){

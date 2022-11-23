@@ -121,7 +121,7 @@ $(document).ready(function(){
     $("#sendReply").click(function () {
         var update_id = $("#update_id").val();
         var userId = $("#userId").text();
-        var productId = $("#productId").html();
+        var productId = $("#productId").text();
         var problem = $("#problem").text();
         var object = $("#object").text();
         var icon = $("#icon").text();

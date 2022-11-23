@@ -18,7 +18,8 @@
                                 <th scope="col" class="text-white">Des marques</th>
                                 <th scope="col" class="text-white">Produit</th>
                                 <th scope="col" class="text-white">Demande de service</th>
-                                <th scope="col" class="text-white" style="width: 80px;">Option</th>
+                                <th scope="col" class="text-white">Remarques</th>
+                                <th scope="col" class="text-white" >Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,9 +31,14 @@
                                     <td>{{$device->product}}to</td>
                                     <td>{{$device->serviceRequest}}</td>
                                     <td>
+                                        <a href="{{url('/Parcel/Note/'.$device->id)}}">
+                                            <button type="button" class="btn btn-sm btn-warning">Remarques</button>
+                                        </a>
+                                    </td>
+                                    <td>
                                         <div class="btn-group btn-sm" role="group" aria-label="Button group with nested dropdown">
                                             <a href="{{url('/Parcel/Detail/'.$device->id)}}">
-                                                <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-eye"></i> Voir</button>
+                                                <button type="button" class="btn btn-primary btn-sm"> Voir</button>
                                             </a>
                                         </div>
                                     </td>

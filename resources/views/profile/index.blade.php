@@ -20,7 +20,7 @@
                     <input type="text" class="form-control" id="inputPassword" name="address" value="{{auth()->user()->profile->address}}">
                     
                     <!--password change option-->
-                        <button type="button" class="btn btn-block next-step" id="passChange" >Changer le mot de passe</button>
+                        <!-- <button type="button" class="btn btn-block next-step" id="passChange" >Changer le mot de passe</button>
                         
                         <div id="changePass">
                             <p class="text-dark font-weight-medium pt-4 mb-2">Mot de passe actuel</p>
@@ -35,7 +35,7 @@
                         @error('password_confirmation')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                        </div>
+                        </div> -->
                         
                     <!--end of password-->
                 </div>

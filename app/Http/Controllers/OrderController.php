@@ -50,6 +50,24 @@ class OrderController extends Controller
             return view("order.approvedOrderDetail",compact('device'));
         }
 
+
+           // approved order notes
+           public function ApprovedOrderNotes($id){
+            $device = Parcel::find($id);
+            return view("order.approvedOrderNotes",compact('device'));
+        }
+            // order notes
+            public function orderNotes(Request $request,$id){
+                Parcel::find($id)->update([
+                    'publicNote' => $request->publicNote,
+                    'privateNote' => $request->privateNote,
+                ]);
+                $notification = array(
+                    'message' => 'Remarque ajoutée!',
+                    'alert_type' => 'success'
+                );
+                return Redirect("/userOrder")->with( $notification);
+            }
     // user page to show approve order
     public function ApprovedOrder(){
         $id = Auth::user()->id;

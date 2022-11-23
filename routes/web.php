@@ -165,6 +165,8 @@ Route::post('/insert/parcel',[SendParcelController::class, 'insert']);
 Route::get('/MyDevices',[DeviceController::class, 'myDevices'])->name('myDevices');
 // device edit page
 Route::get('/Parcel/Detail/{id}',[DeviceController::class, 'EditDevice'])->name('EditDevice');
+// device note page
+Route::get('/Parcel/Note/{id}',[DeviceController::class, 'NoteParcel'])->name('NoteParcel');
 // device delete page
 Route::get('/Parcel/Delete/{id}',[DeviceController::class, 'DeleteDevice'])->name('DeleteDevice');
 
@@ -198,6 +200,11 @@ Route::get('/userOrder',[OrderController::class, 'userorder'])->name('userorder'
 Route::post('/order/approved/{id}',[OrderController::class, 'orderApproved'])->name('orderApproved');
 // Approved/order/detail
 Route::get('Approved/order/detail/{id}',[OrderController::class, 'ApprovedOrderDetail'])->name('ApprovedOrderDetail');
+// approved order note
+Route::get('Approved/order/notes/{id}',[OrderController::class, 'ApprovedOrderNotes'])->name('ApprovedOrderNotes');
+// add notes
+Route::post('/order/notes/{id}',[OrderController::class, 'orderNotes'])->name('orderNotes');
+
 // approved order
 Route::get('/ApprovedOrder',[OrderController::class, 'ApprovedOrder'])->name('ApprovedOrder');
 // refuse order

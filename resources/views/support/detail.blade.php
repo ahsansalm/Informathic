@@ -82,21 +82,47 @@
 
                                             </select>
                                         </div>
-                                    </div>
+
+
+
+<!-- 
+                                        <div class="col-md-6 mt-3">
+                                            <h4>Message: *</h4>
+                                            <p class="mt-2">Exemple : Voici le mot de passe que vous m'avez demandé</p>
+                                        </div>
+                                        <div class="col-md-6 mt-1">
+                                            <div class="chat px-1">
+                                                <div class="chat_message"></div>
+                                                <form action="" class="form_div">
+                                                    <div class="input-group">
+                                                    <input type="text" class="form-control text-dark" id="object" placeholder="Tapez ...">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-sm btn-primary " id="sendPrblem" type="button">
+                                                                <i class="fa fa-mail-forward ml-2"  style="font-size:28px;"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                               </form>  
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">         
+                                            <a href="{{url('/MySupport')}}">
+                                                <button type="button" class="btn btn-block prev-step">Retour</button>
+                                            </a>
+                                        </div>
+                                    </div> -->
 
 
 
                                     
                             </div>
-                            <br>
-                            <br>
                         </div>
                     </div>
 
 
 
 
-
+                    <div class="row">
                         <div class="col-md-6">         
                             <a href="{{url('/MySupport')}}">
                                 <button type="button" class="btn btn-block prev-step">Retour</button>
@@ -138,7 +164,7 @@ $(document).ready(function(){
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Le problème a été envoyé!');
-                                window.location.href = '/public/MySupport';
+                                location.reload();
                                 
                             }              
                         }           

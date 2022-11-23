@@ -472,12 +472,28 @@ background-color: #0C1741!important;
 }
 
 
+/* custom chat style */
+.chat{
+    height: 250px; 
+    width: 100%;
+    border: 2px solid #0C1741;
+    border-radius: 10px;
+}
+.chat_message{ 
+    margin-top: 2px;;
+    height: 180px; 
+    border-radius: 10px;
+    overflow: auto;
+    width: 100%;
+}
+.form_div{
+    margin-top: 10px;;
+}
 
 
 
 
 /* ------------------------------------Nafay----------------------------------------------------  */
-
 
 
 .image_col .card-body h6{

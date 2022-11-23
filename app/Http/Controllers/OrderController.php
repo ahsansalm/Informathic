@@ -109,7 +109,7 @@ class OrderController extends Controller
     public function SupportWallet(){
         $id = Auth::user()->id;
         $totalPayment =
-        $payment = Payment::where('user_id',$id)
+        $payment = Payment::where('userId',$id)
                 ->selectRaw('SUM(payments.amount) AS sum')
                 ->first()->sum;
         return view("wallet.index",compact('payment'));

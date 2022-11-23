@@ -70,7 +70,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="10">
-                        <input type="text" name="credits" value="20">
+                        <input type="hidden" name="credits" value="20">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 20 crédits</b></button>
                     </form>
                     </div>
@@ -78,7 +78,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="40">
-                          <input type="text" name="credits" value="50">
+                          <input type="hidden" name="credits" value="50">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 50 crédits</b></button>
                     </form>
                     </div>
@@ -86,7 +86,7 @@
                     <form action="{{route('payment')}}" method="POST">
                     @csrf
                         <input type="hidden" name="amount" value="70">
-                          <input type="text" name="credits" value="100">
+                          <input type="hidden" name="credits" value="100">
                         <button type="submit" class="btn btn-block next-step "><b>Ajouter 100 crédits</b></button>
                     </form>
                     </div>
@@ -99,7 +99,7 @@
         <div class="row text-white">
             <div class="col-lg-4 mt-2">
                 <div class="card bg-danger" style="border-radius: 20px;">
-                    <div class="card-header text-center" >
+                    <div class="card-header1 border-bottom py-2 text-center" >
                         <h4>20 Crédits</h4>
                     </div>
                     <div class="card-body">
@@ -110,7 +110,7 @@
 
             <div class="col-lg-4 mt-2">
                 <div class="card bg-dark" style="border-radius: 20px;">
-                    <div class="card-header text-center" >
+                    <div class="card-header1 border-bottom py-2 text-center" >
                         <h4>50 Crédits</h4>
                     </div>
                     <div class="card-body">
@@ -121,7 +121,7 @@
 
             <div class="col-lg-4 mt-2">
                 <div class="card bg-success" style="border-radius: 20px;">
-                    <div class="card-header text-center" >
+                    <div class="card-header1 border-bottom py-2 text-center" >
                         <h4>100 Crédits</h4>
                     </div>
                     <div class="card-body">

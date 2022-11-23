@@ -36,7 +36,7 @@
                                         <td><span class="badge bg-success">{{$device->status}}</span></td>    
                                         @endif
                                         <td>
-                                            <a href="{{url('/notification/detail/'.$device->id)}}">
+                                            <a href="{{url('/notification/detail/'.$device->productId)}}">
                                                 <button type="button" class="btn btn-primary btn-sm">Suite</button>
                                             </a>
                                         </td>

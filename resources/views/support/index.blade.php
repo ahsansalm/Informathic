@@ -16,6 +16,7 @@
                                 <th scope="col" class="text-white">Des marques</th>
                                 <th scope="col" class="text-white">Produit</th>
                                 <th scope="col" class="text-white">Demande de service</th>
+                                <th scope="col" class="text-white">Statut</th>
                                 <th scope="col" class="text-white" >Option</th>
                             </tr>
                         </thead>
@@ -25,8 +26,13 @@
                                     <tr>
                                         <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                         <td><b class="text-dark">{{$device->marks}}</b></td>
-                                        <td>{{$device->product}}to</td>
+                                        <td>{{$device->product}}</td>
                                         <td>{{$device->serviceRequest}}</td>
+                                            @if($device->chat =='Lis')
+                                            <td><span class="badge bagde-sm bg-success">{{$device->chat}}</span></td>
+                                            @else
+                                            <td><span class="badge bagde-sm bg-danger">{{$device->chat}}</span></td>
+                                            @endif
                                         <td>
                                             <a href="{{url('/Support/Detail/'.$device->id)}}">
                                                 <button type="button" class="btn btn-primary btn-sm">Soutien</button>

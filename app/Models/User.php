@@ -50,6 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail , CanResetPassword
     public function profile(){
         return $this->hasOne(Register::class, 'user_id','id');
        }
+   
        
 }
 

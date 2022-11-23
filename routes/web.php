@@ -185,6 +185,8 @@ Route::get('/MySupport',[SupportController::class, 'mySupport'])->name('mySuppor
 Route::get('/Support/Detail/{id}',[SupportController::class, 'EditSupport'])->name('EditSupport');
 // add support
 Route::post('/support/add',[SupportController::class, 'AddSupport']);
+// add support new
+Route::post('/support/add/new',[SupportController::class, 'AddSupportNew']);
 
 
 
@@ -231,7 +233,7 @@ Route::get('/Mybill/Detail/{id}',[BillController::class, 'EditBill'])->name('Edi
 // user problem page
 Route::get('/problem',[ProblemController::class, 'problem'])->middleware('admin');
 // problem detail page
-Route::get('/Problem/Detail/{id}',[ProblemController::class, 'problemDetail'])->name('problemDetail');
+Route::get('/problem/Detail/{id}',[ProblemController::class, 'problemDetail'])->name('problemDetail');
 // probelm reply 
 Route::post('/problem/reply',[ProblemController::class, 'ReplyProb']);
 

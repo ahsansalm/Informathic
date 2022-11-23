@@ -7,6 +7,7 @@ use App\Models\Parcel;
 use Auth;
 use App\Models\Invoices;
 use App\Models\Support;
+use App\Models\ProblemReply;
 use Illuminate\Support\Carbon;
 class SupportController extends Controller
 {
@@ -18,16 +19,42 @@ class SupportController extends Controller
     }
     // edit support page
     public function EditSupport($id){
-        $supports = Parcel::find($id);
-        return view("support.detail",compact('supports'));    
+        $parcel = Parcel::find($id);
+        $parcel->chat ='Lis';
+        $parcel->save();
+
+        $userId = Auth::user()->id;
+        $parcel = Parcel::find($id);
+        $supports = Support::where('userId',$userId)->where('productId',$id)->get();
+        $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
+        return view("support.detail",compact('parcel','supports','reply'));    
     }
     // add problem
     public function AddSupport(Request $request){
+        $save = Parcel::find($request->productId    );
+        $save->admin_chat = "Nouveau";
+        $save->save();
+
         $parcel = Support::create([
             'userId' => $request->userId,
             'productId' => $request->productId,
             'problem' => $request->problem,
             'object' => $request->object,
+            'icon' => $request->icon,
+            'created_at' => Carbon::now(),
+            ]);
+            return response('success');
+    }
+
+     // add problem
+     public function AddSupportNew(Request $request){
+        
+        $parcel = Support::create([
+            'userId' => $request->userId,
+            'productId' => $request->productId,
+            'problem' => $request->problem,
+            'object' => $request->object,
+            'status' => 'Not',
             'icon' => $request->icon,
             'created_at' => Carbon::now(),
             ]);

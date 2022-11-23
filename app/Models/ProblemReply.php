@@ -15,4 +15,7 @@ class ProblemReply extends Model
     public function product(){
         return $this->hasOne(Parcel::class, 'id','productId');
        }
+    public function profile(){
+        return $this->hasOne(Register::class, 'user_id','adminId');
+    }
 }

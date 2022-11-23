@@ -14,11 +14,11 @@
                         </div>
                         <div class="col-9">
                             <input type="hidden" id="update_id" value="{{ $supports->id }}"  >
-                            <p id="userId"hidden ></span>{{$supports->profile->user_id}}</p>
-                                <p id="putProduct"><span class="text-dark">Nom: </span>{{$supports->profile->firstname}},
-                                <span class="text-dark">Adresse: </span>{{$supports->profile->address}}, 
-                                <span class="text-dark">Code: </span>{{$supports->profile->code}},
-                                <span class="text-dark">Téléphoner: </span>{{$supports->profile->phone}},</p>
+                            <p id="userId"hidden ></span>{{$supports->userId}}</p>
+                                <p id="putProduct"><span class="text-dark">Nom: </span>{{$supports->user->firstname}},
+                                <span class="text-dark">Adresse: </span>{{$supports->user->address}}, 
+                                <span class="text-dark">Code: </span>{{$supports->user->code}},
+                                <span class="text-dark">Téléphoner: </span>{{$supports->user->phone}},</p>
                             <hr>
                         </div>
                         <br>
@@ -29,10 +29,10 @@
                             <hr>
                         </div>
                         <div class="col-9">
-                        <p id="productId" hidden>{{$supports->product->id}}</p>
-                                <p id="putProduct"><span class="text-dark">Des marques: </span>{{$supports->product->marks}},
-                                <span class="text-dark">Nom: </span>{{$supports->product->product}}, 
-                                <span class="text-dark">Service: </span>{{$supports->product->serviceRequest}},
+                        <p id="productId" hidden>{{$supports->id}}</p>
+                                <p id="putProduct"><span class="text-dark">Des marques: </span>{{$supports->marks}},
+                                <span class="text-dark">Nom: </span>{{$supports->product}}, 
+                                <span class="text-dark">Service: </span>{{$supports->serviceRequest}},
                             <hr>
                         </div>
                         <br>
@@ -43,66 +43,6 @@
                     </div>
 
 
-
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card dark">
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h4>Objet: *</h4>
-                                            <p class="mt-2">Exemple : Mot de passe iPhone</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="form-control" id="object">{{$supports->object}}</span>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <h4>Message: *</h4>
-                                            <p class="mt-2">Exemple : Voici le mot de passe que vous m'avez demandé</p>
-                                        </div>
-                                        <div class="col-md-6 mt-1">
-                                        <span class="form-control" id="problem">{{$supports->problem}}</span>                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <h4>Icône: *</h4>
-                                            <p class="mt-2">Icône pour illustrer l'idée de votre message</p>
-                                        </div>
-                                        <div class="col-md-6 mt-4">
-                                            <span class="form-control" id="icon">{{$supports->icon}}</span>
-                                        </div>
-
-                                        <div class="col-md-6 mt-5">
-                                            <h4>Tapez votre réponse ici : *</h4>
-                                        </div>
-                                        <div class="col-md-6 mt-4">
-                                            <textarea name="" class="form-control"  id="answer" rows="3"></textarea>
-                                        </div>
-                                        
-                                    </div>
-
-
-
-                                    
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                    </div>
-                      <div class="row">          
-                            <div class="col-md-6">
-                                <a href="{{url('/problem')}}">
-                                    <button type="button" class="default-btn  btn-block prev-step">Retour</button>
-                                </a>                                       
-                            </div>
-                            
-                            
-                              <div class="col-md-6">
-                                <button id="sendReply" class="default-btn b   next-step btn-block ">Réponse</button>
-                            </div>
-                        </div>
-                </div>
             </div>
         </div>
 
@@ -110,7 +50,72 @@
             
     </div>
 
-     
+
+    <div class="col-12">
+        <div class="card-body text-dark">
+
+            <div class="chat px-1">
+                <div class="chat_message">
+                  <div class="container">
+                    <div class="row">
+                        
+                            <div class="col-6">
+                                <div class="row">
+                                    @foreach($chat as $sup)
+
+                                    <div class="col-12 mt-3 mb-4 ">
+                                        <div class="input-group  ">
+                                            <div class="input-group-append">
+                                                <img src="../../{{$sup->profile->photo}}" style="height: 35px; width: 35px;  border-radius: 50%;" alt="">
+                                            </div>
+                                            <input type="text" class="form-control ml-2" disabled value="{{$sup->problem}}">
+                                        </div>   
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-6">
+                                <div class="row">
+                                    @foreach($reply as $rep)
+                                    <div class="col-12 mt-5" >
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <img src="../../{{$rep->profile->photo}}"  style="height: 35px; border-radius: 50%;" alt="">
+                                            </div>
+                                            <input type="text" class="form-control ml-2" disabled value="{{$rep->answer}}">
+                                        </div>
+
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>
+
+                
+                <form action="" class="form_div">
+                    <div class="input-group px-5">
+                        <input type="text" class="form-control text-dark" id="answer" placeholder="Tapez ...">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-primary "  id="sendReply" type="button">
+                                <i class="fa fa-mail-forward ml-2"  style="font-size:28px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">         
+        <a href="{{url('/problem')}}">
+            <button type="button" class="btn btn-block prev-step">Retour</button>
+        </a>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -122,7 +127,7 @@ $(document).ready(function(){
         var update_id = $("#update_id").val();
         var userId = $("#userId").text();
         var productId = $("#productId").text();
-        var problem = $("#problem").text();
+        var problem = $("#problem").val();
         var object = $("#object").text();
         var icon = $("#icon").text();
         var answer = $("#answer").val();
@@ -136,7 +141,7 @@ $(document).ready(function(){
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Your answer has been send!');
-                                window.location.href = '/public/problem';
+                                window.location.reload()
                                 
                             }              
                         }           

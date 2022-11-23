@@ -20,10 +20,10 @@
                         <tbody class="text-dark">
                             <tr>
                             <td>
-                                <textarea rows="3" name="publicNote" value="{{$device->publicNote}}" class="form-control">{{$device->publicNote}}</textarea>
+                                <textarea rows="3" name="privateNote" value="{{$device->privateNote}}" class="form-control">{{$device->publicNote}}</textarea>
                             </td>
                             <td>
-                                <textarea   rows="3"name="privateNote" value="{{$device->privateNote}}"class="form-control">{{$device->privateNote}}</textarea>
+                                <textarea   rows="3"name="publicNote" value="{{$device->publicNote}}"class="form-control">{{$device->privateNote}}</textarea>
                             </td>
                             </tr>
                         </tbody>

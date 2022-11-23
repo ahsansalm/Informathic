@@ -12,7 +12,7 @@
                     <table class="table table-bordered">
                         <thead class="thead-custom">
                         <tr >
-                            <th class="text-white" scope="col">Remarque privée</th>
+                            <th class="text-white" scope="col">Remarque public</th>
                             <!-- <th class="text-white" scope="col">Avis public</th> -->
                             </tr>
                         </thead>

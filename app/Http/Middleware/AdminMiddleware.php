@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Support;
+use App\Models\Parcel;
 use Illuminate\Http\Request;
 use Auth;
 class AdminMiddleware
@@ -19,7 +19,7 @@ class AdminMiddleware
     {
         $user = Auth::user()->role_as;
         if ($user == 1) {
-            $supports = Support::orderBy('id', 'DESC')->get();
+            $supports = Parcel::all();
             return response()->view('problem.index',compact('supports'));
         }
         else 

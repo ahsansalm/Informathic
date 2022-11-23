@@ -2,95 +2,100 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card">
-                <div class="dashboard_image" style="background: #0A0A0B !important;">
-                    <h1 class="text-center mt-5">Detail:</h1> 
-                </div>
-           </div>
-            <div class="card-body text-dark">
+        <div class="dashboard_image" style="background: #0A0A0B !important;">
+            <h1 class="text-center mt-5">Detail:</h1> 
+        </div>
+    </div>
 
-                <div class="row">
-                        <div class="col-12">
-                            <div class="card dark">
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h4>Objet: *</h4>
-                                            <p class="mt-2">Exemple : Mot de passe iPhone</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <span class="form-control" id="object">{{$ProblemReply->object}}</span>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <h4>Message: *</h4>
-                                            <p class="mt-2">Exemple : Voici le mot de passe que vous m'avez demandé</p>
-                                        </div>
-                                        <div class="col-md-6 mt-2">
-                                            <span class="form-control" id="object">{{$ProblemReply->problem}}</span>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
-                                            <h4>Icône : *</h4>
-                                            <p class="mt-2">Icône pour illustrer l'idée de votre message</p>
-                                        </div>
-                                        <div class="col-md-6 mt-4">
-                                            <span class="form-control" id="object">{{$ProblemReply->icon}}</span>
+    <div class="col-12">
+        <div class="card-body text-dark">
+                        <p  id="userId" hidden  value="{{auth()->user()->id}}">{{auth()->user()->id}}</p>
+            <div class="chat px-1">
+                <div class="chat_message">
+                  <div class="container">
+                    <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    @foreach($reply as $rep)
+                                    <div class="col-12 mt-5" >
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <img src="../../{{$rep->profile->photo}}"  style="height: 35px; border-radius: 50%;" alt="">
+                                            </div>
+                                            <input type="text" class="form-control ml-2" disabled value="{{$rep->answer}}">
                                         </div>
 
-                                        <div class="col-md-6 mt-5">
-                                            <h4>
-Réponse de l'administrateur :</h4>
-                                        </div>
-                                        <div class="col-md-6 mt-5">
-                                            <span class="form-control" id="object"><b>{{$ProblemReply->answer}}</b></span>
-                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
 
-                                        <div class="col-md-6">
-                                            <a href="{{url('/notification')}}">
-                                                <button type="button" class="default-btn  btn-block prev-step mt-5">Back</button>
-                                            </a>
-                                        </div>
-                                        
-                
-                                    
+                            <div class="col-6">
+                                <div class="row">
+                                    @foreach($supports as $sup)
+
+                                    <div class="col-12 mt-3 mb-4 ">
+                                        <div class="input-group  ">
+                                        <input type="text" class="form-control mr-2" disabled value="{{$sup->problem}}">
+                                            <div class="input-group-append">
+                                                <img src="../../{{auth()->user()->profile->photo}}" style="height: 35px; width: 35px;  border-radius: 50%;" alt="">
+                                            </div>
+                                        </div>   
+                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                  </div>
+
+                
+                <form action="" class="form_div">
+                    <div class="input-group px-5">
+                        <input type="text" class="form-control text-dark" id="problem" placeholder="Tapez ...">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-primary " value="{{$sup->productId}}" id="sendPrblem" type="button">
+                                <i class="fa fa-mail-forward ml-2"  style="font-size:28px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form> 
             </div>
         </div>
-
-
-            
     </div>
-
-     
+    
+    <div class="col-md-3 mb-4">         
+        <a href="{{url('/notification')}}">
+            <button type="button" class="btn btn-block prev-step">Retour</button>
+        </a>
     </div>
 </div>
+                                        
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
 $(document).ready(function(){
     // data submit using ajax
-    $("#sendReply").click(function () {
-        var userId = $("#userId").html();
-        var productId = $("#productId").html();
-        var problem = $("#problem").html();
-        var object = $("#object").html();
-        var icon = $("#icon").html();
-        var answer = $("#answer").val();
+    $("#sendPrblem").click(function () {
+        var productId = $(this).val();
+        var userId = $("#userId").text();
+        var problem = $("#problem").val();
+        var object = $("#object").val();
+        var icon = $("#icon").val();
         $.ajax({
-                    url: '{{ url('/problem/reply') }}',
+                    url: '{{ url('/support/add/new') }}',
                     type:'post',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId,'productId':productId,'problem':problem,'object':object,'icon':icon,'answer':answer,},
+                    data:{'userId':userId,'productId':productId,'problem':problem,'object':object,'icon':icon,},
                         success:function(success){   
                             if(success){
-                                toastr.success(success.message,'Your answer has been send!');
-                                window.location.href = '/problem';
+                                toastr.success(success.message,'Le problème a été envoyé!');
+                                location.reload();
                                 
                             }              
                         }           

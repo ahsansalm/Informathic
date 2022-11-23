@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Support;
 use App\Models\ProblemReply;
 use auth;
 class NotificationController extends Controller
@@ -16,9 +16,9 @@ class NotificationController extends Controller
     }
     // notification detail
     public function notiDetail($id){
-        $ProblemReply = ProblemReply::find($id);
-        $ProblemReply->status = 'lis';
-        $ProblemReply->update();
-        return view("notification.detail",compact('ProblemReply'));   
+        $userId = Auth::user()->id;
+        $supports = Support::where('userId',$userId)->where('productId',$id)->get();
+        $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
+        return view("notification.detail",compact('supports','reply'));   
     }
 }

@@ -161,12 +161,12 @@
                     </a>
                   </li>
                    <!-- my notification -->
-                <li  class="has-sub {{ Request::is('notification') ? 'active':''; }}" >
+                <!-- <li  class="has-sub {{ Request::is('notification') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/notification')}}">
                     <i class="fa fa-bell-o" style="font-size:24px;color:white"></i>
                       <span class="nav-text">Notification</span> 
                     </a>
-                  </li>
+                  </li> -->
                 <!-- my quotes -->
                 <li  class="has-sub {{ Request::is('MyQuotes') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MyQuotes')}}">

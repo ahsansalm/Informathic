@@ -7,26 +7,40 @@ use App\Models\Parcel;
 use App\Models\Invoices;
 use Illuminate\Support\Carbon;
 use App\Models\config\brand;
-
+use Picqer;
+use DB;
 class SendParcelController extends Controller
 {
     // sedn parcel
     public function sendParcel(){
         $brands = brand::all();
-        return view("sendParcel.index",compact('brands'));    
+        $Parcel = Parcel::first();
+        return view("sendParcel.index",compact('brands','Parcel'));    
     }
     // success parcel
     public function successParcel(){
-        return view("sendParcel.success");    
+        $Parcel = Parcel::first();
+        return view("sendParcel.success",compact('Parcel'));    
     }
 
     // insert parcel
     public function insert(Request $request){
+        DB::table('parcels')->where('order_noti', '=', 1)->update(array('order_noti' => 'Nouveau'));
+
+        // product code section
+        $product_code = rand(106890122,100000000);
+        $redColor = '255 , 0 , 0';
+        $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+        $barcodes = $generator->getBarcode($product_code,
+                    $generator::TYPE_STANDARD_2_5, 2 , 60);
+
         $parcel = Parcel::create([
             'userId' => $request->userId,
             'marks' => $request->marks,
             'product' => $request->product,
             'serviceRequest' => $request->service,
+            'product_code' => $product_code,
+            'barcode' => $barcodes,
             'information' => $request->information,
             'problems' => $request->problem,
             'shipment' => $request->shipment,

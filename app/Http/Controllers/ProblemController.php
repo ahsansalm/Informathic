@@ -13,8 +13,11 @@ class ProblemController extends Controller
 {
     // problem page controller
     public function problem(){
+        DB::table('parcels')->where('admin_noti', '=', 'Nouveau')->update(array('admin_noti' => 1));
         $supports = Parcel::all();
-        return view("problem.index",compact('supports'));
+        $Parcel = Parcel::first();
+
+        return view("problem.index",compact('supports','Parcel'));
     }
     // problem detail page
     public function problemDetail($id){
@@ -26,13 +29,25 @@ class ProblemController extends Controller
         $userId = $supports->userId;
         $chat = Support::where('userId',$userId)->where('productId',$id)->get();
         $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
-        return view("problem.detail",compact('supports','chat','reply'));    
+        $Parcel = Parcel::first();
+        return view("problem.detail",compact('supports','chat','reply','Parcel'));    
     }
     // reply to problem
     public function ReplyProb(Request $request){
+        
         $save = Parcel::find($request->update_id);
         $save->chat = "Nouveau";
         $save->save();
+
+
+
+        $input = [  
+            'noti' => 'Nouveau'
+        ];
+            Parcel::where('userId', '=', $request->userId)->update($input);
+
+
+
         $id = Auth::user()->id;
         $problemReply = ProblemReply::create([
             'adminId' => $id,

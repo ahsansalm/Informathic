@@ -23,6 +23,7 @@
                                     <th scope="col" class="text-white">Produit</th>
                                     <th scope="col" class="text-white">Demande de service</th>
                                     <th scope="col" class="text-white">Statut</th>
+                                    <th scope="col" class="text-white">Dispositif Statut</th>
                                     <th scope="col" class="text-white">Prix</th>
                                     <th scope="col" class="text-white">Remarques</th>
                                     <th scope="col" class="text-white">Action</th>
@@ -40,11 +41,29 @@
                                             <td><b class="text-dark">{{$device->product->marks}}</b></td>
                                             <td>{{$device->product->product}}</td>
                                             <td>{{$device->product->serviceRequest}}</td>
-                                            @if($device->product->status =='Approved')
+                                            @if($device->product->status =='Approuvé')
                                             <td><span class="badge bagde-sm bg-success">{{$device->product->status}}</span></td>
                                             @else
                                             <td><span class="badge bagde-sm bg-danger">{{$device->product->status}}</span></td>
                                             @endif
+
+                                            @if($device->product->admin_status =='Appareil accepté')
+                                            <td><span class="badge bagde-sm bg-dark">{{$device->product->admin_status}}</span></td>
+                                            @elseif($device->product->admin_status =='Reçu')
+                                            <td><span class="badge bagde-sm bg-primary">{{$device->product->admin_status}}</span></td>
+                                            @elseif($device->product->admin_status =='en cours')
+                                            <td><span class="badge bagde-sm bg-secondary">{{$device->product->admin_status}}</span></td>
+                                            @elseif($device->product->admin_status =='SALLE DATTENTE')
+                                            <td><span class="badge bagde-sm bg-warning">{{$device->product->admin_status}}</span></td>
+                                            @elseif($device->product->admin_status =='Réparé')
+                                            <td><span class="badge bagde-sm bg-primary">{{$device->product->admin_status}}</span></td>
+                                            @elseif($device->product->admin_status =='Retour au client')
+                                            <td><span class="badge bagde-sm bg-success">{{$device->product->admin_status}}</span></td>
+                                            @else
+                                            <td><span class="badge bagde-sm bg-danger">{{$device->product->admin_status}}</span></td>
+                                            @endif
+
+
                                             <td>{{$device->totalPrice}}</td>
                                             <td>
                                                 <a href="{{url('Approved/order/notes/'.$device->productId)}}">

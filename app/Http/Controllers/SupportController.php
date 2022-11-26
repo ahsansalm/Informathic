@@ -9,13 +9,23 @@ use App\Models\Invoices;
 use App\Models\Support;
 use App\Models\ProblemReply;
 use Illuminate\Support\Carbon;
+use DB;
 class SupportController extends Controller
 {
     //page 
     public function mySupport(){
         $id = Auth::user()->id;
+        
+        $input = [  
+            'noti' => 'ok'
+        ];
+            Parcel::where('userId', '=', $id)->update($input);
+            
         $supports = Parcel::where('userId',$id)->get();
-        return view("support.index",compact('supports'));    
+        $Parcel = Parcel::first();
+
+
+        return view("support.index",compact('Parcel','supports'));    
     }
     // edit support page
     public function EditSupport($id){
@@ -27,11 +37,14 @@ class SupportController extends Controller
         $parcel = Parcel::find($id);
         $supports = Support::where('userId',$userId)->where('productId',$id)->get();
         $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
-        return view("support.detail",compact('parcel','supports','reply'));    
+        $Parcel = Parcel::first();
+        return view("support.detail",compact('parcel','supports','reply','Parcel'));    
     }
     // add problem
     public function AddSupport(Request $request){
-        $save = Parcel::find($request->productId    );
+        DB::table('parcels')->where('admin_noti', '=', Null)->update(array('admin_noti' => 'Nouveau'));
+
+        $save = Parcel::find($request->productId);
         $save->admin_chat = "Nouveau";
         $save->save();
 
@@ -48,7 +61,7 @@ class SupportController extends Controller
 
      // add problem
      public function AddSupportNew(Request $request){
-        
+
         $parcel = Support::create([
             'userId' => $request->userId,
             'productId' => $request->productId,

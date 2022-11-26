@@ -21,12 +21,15 @@ class userOrderMiddleware
     {
         $user = Auth::user()->role_as;
         if ($user == 1) {
+            DB::table('parcels')->where('order_noti', '=', 'Nouveau')->update(array('order_noti' => 1));
+
+            $Parcel = Parcel::first();
 
             $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','!=','Quotation')->get();
             $totalOrder = DB::table('parcels')->count();
             $pendingOrder = DB::table('parcels')->where('status','pending')->count();
             $approvedOrder = DB::table('parcels')->where('status','Approved')->count();
-            return response()->view("order.userOrder",compact('devices','totalOrder','pendingOrder','approvedOrder')); 
+            return response()->view("order.userOrder",compact('devices','totalOrder','pendingOrder','approvedOrder','Parcel')); 
 
         }
         else 

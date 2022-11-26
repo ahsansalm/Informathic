@@ -58,33 +58,48 @@
                             </tr>
                         </thead>
                         <tbody class="text-dark">
+                            
                             <tr>
                             <th scope="row">1</th>
+                            <td><h6>Code produit:</h6></td>
+                            <td><p>{{$device->product_code}}</p></td>
+                            </tr>
+                            <tr>
+                            <th scope="row">2</th>
                             <td hidden id="userId">{{$device->id}}</td>
                             <td><h6>Marques :</h6></td>
                             <td><p>{{$device->marks}}</p></td>
                             </tr>
                             <tr>
-                            <th scope="row">2</th>
+                            <th scope="row">3</th>
                             <td><h6>Produit:</h6></td>
                             <td><p>{{$device->product}}</p></td>
                             </tr>
                             <tr>
-                            <th scope="row">3</th>
+                            <th scope="row">4</th>
                             <td><h6>Demande de service :</h6></td>
                             <td><p>{{$device->serviceRequest}}</p></td>
                             </tr>
                             <tr>
-                            <th scope="row">4</th>
+                            <th scope="row">5</th>
                             <td><h6>Commandez par l’intermédiaire de:</h6></td>
                             <td><p>{{$device->shipment}}</p></td>
                             </tr>
                             <tr>
-                            <th scope="row">5</th>
+                            <th scope="row">6</th>
                             <td><h6>Prix :</h6></td>
                             <td><p>{{$device->parcel->totalPrice}}</p></td>
                             </tr>
-                            <tr>
+                            <th scope="row">7</th>
+                            <td><h6>Code à barre :</h6></td>
+                            <td>
+                            @php
+                                $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                            @endphp
+                            {!! $generator->getBarcode($device->product_code, $generator::TYPE_CODE_128) !!}
+
+                            </td>
+                            </tr>
                         </tbody>
                     </table>
                 
@@ -106,6 +121,40 @@
 
                             
                         </div>
+
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-center text-dark my-2">Options de mise à jour utilisateur</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="default-btn prev-step btn-block btn-secondary"  id="recieved">L'appareil sera reçu</button>
+                            </div>
+
+                            
+                            <div class="col-md-4">
+                                <button type="button" class="default-btn next-step  btn-block btn-primary" id="progress" >Réparation en cours</button>
+                            </div>
+
+                            <div class="col-md-4">
+                                <button type="submit" class="default-btn next-step  btn-block btn-primary" id="waiting">Salle d'attente</button>
+                            </div>
+
+
+
+                            <div class="col-md-4">
+                                <button type="submit" class="default-btn next-step  btn-block btn-primary" id="repair">Réparation terminée</button>
+                            </div>
+
+                            <div class="col-md-4">
+                                <button type="submit" class="default-btn next-step  btn-block btn-primary" id="return">Retour au client</button>
+                            </div>
+
+                            
+                        </div>
+
+
 
                 
             </div>
@@ -132,12 +181,129 @@ $(document).ready(function(){
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Refus de commande!');
-                                window.location.href = '/public/userOrder';
+                                window.location.href = '/userOrder';
                                 
                             }              
                         }           
         }); 
     }); 
+
+
+
+    // for device revieved
+    $("#recieved").click(function () {
+        var userId = $("#userId").text();
+        console.log(userId)
+        $.ajax({
+                    url: '{{ url('/order/recieved') }}',
+                    type:'post',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:{'userId':userId},
+                        success:function(success){   
+                            if(success){
+                                toastr.success(success.message,'Lappareil sera reçu!');
+                                window.location.href = '/userOrder';
+                                
+                            }              
+                        }           
+        }); 
+    }); 
+
+
+
+    // for device in progress
+    $("#progress").click(function () {
+        var userId = $("#userId").text();
+        console.log(userId)
+        $.ajax({
+                    url: '{{ url('/order/progress') }}',
+                    type:'post',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:{'userId':userId},
+                        success:function(success){   
+                            if(success){
+                                toastr.success(success.message,'Appareil en cours!');
+                                window.location.href = '/userOrder';
+                                
+                            }              
+                        }           
+        }); 
+    }); 
+
+
+
+     // for device in waiting
+     $("#waiting").click(function () {
+        var userId = $("#userId").text();
+        console.log(userId)
+        $.ajax({
+                    url: '{{ url('/order/waiting') }}',
+                    type:'post',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:{'userId':userId},
+                        success:function(success){   
+                            if(success){
+                                toastr.success(success.message,'Appareil en salle dattente!');
+                                window.location.href = '/userOrder';
+                                
+                            }              
+                        }           
+        }); 
+    }); 
+
+
+     // for device in repair
+     $("#repair").click(function () {
+        var userId = $("#userId").text();
+        console.log(userId)
+        $.ajax({
+                    url: '{{ url('/order/repair') }}',
+                    type:'post',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:{'userId':userId},
+                        success:function(success){   
+                            if(success){
+                                toastr.success(success.message,'Réparation terminée!');
+                                window.location.href = '/userOrder';
+                                
+                            }              
+                        }           
+        }); 
+    }); 
+
+
+
+     // for device in return
+     $("#return").click(function () {
+        var userId = $("#userId").text();
+        console.log(userId)
+        $.ajax({
+                    url: '{{ url('/order/return') }}',
+                    type:'post',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data:{'userId':userId},
+                        success:function(success){   
+                            if(success){
+                                toastr.success(success.message,'Retour au client!');
+                                window.location.href = '/userOrder';
+                                
+                            }              
+                        }           
+        }); 
+    }); 
+
+
+
 });
 </script>
 

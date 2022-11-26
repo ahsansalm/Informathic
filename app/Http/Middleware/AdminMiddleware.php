@@ -6,6 +6,7 @@ use Closure;
 use App\Models\Parcel;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 class AdminMiddleware
 {
     /**
@@ -19,8 +20,11 @@ class AdminMiddleware
     {
         $user = Auth::user()->role_as;
         if ($user == 1) {
+            DB::table('parcels')->where('admin_noti', '=', 'Nouveau')->update(array('admin_noti' => 1));
+            $Parcel = Parcel::first();
+
             $supports = Parcel::all();
-            return response()->view('problem.index',compact('supports'));
+            return response()->view('problem.index',compact('supports','Parcel'));
         }
         else 
         { 

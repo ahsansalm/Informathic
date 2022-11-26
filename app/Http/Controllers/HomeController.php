@@ -28,7 +28,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {     
+    {   $Parcel = Parcel::first();
         $users = User::where('role_as','0')->get(); 
         $countProblems = DB::table('problem_replies')->count();
         $totalUsers =  DB::table('users')->where('role_as','0')->count();
@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $quotes = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','Approved')->get();
 
-        return view('admin.user',compact('users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes'));    
+        return view('admin.user',compact('users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes','Parcel'));    
     }
 
     // user detail

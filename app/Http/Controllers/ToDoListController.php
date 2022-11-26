@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ToDoList;
 use App\Models\vendor;
+use App\Models\Parcel;
 use Illuminate\Support\Carbon;
 use Auth;
 use Yajra\Datatables\Datatables;
@@ -12,7 +13,8 @@ class ToDoListController extends Controller
 {
     // main page
     public function index(){
-        return view("toDoList.index");
+        $Parcel = Parcel::first();
+        return view("toDoList.index",compact('Parcel'));
     }
     // 
        // yajra  for list
@@ -46,7 +48,8 @@ class ToDoListController extends Controller
     // task edit page
     public function TaskEditPage($id){
         $task = ToDoList::find($id);
-        return view("toDoList.edit",compact('task'));
+        $Parcel = Parcel::first();
+        return view("toDoList.edit",compact('task','Parcel'));
     }
 
     // task edit
@@ -109,7 +112,8 @@ class ToDoListController extends Controller
 
     // comlist page
     public function comlist(){
-        return view("toDoList.complete");
+        $Parcel = Parcel::first();
+        return view("toDoList.complete",compact('Parcel'));
     }
      // yajra  for list
      public function getcom()
@@ -125,7 +129,8 @@ class ToDoListController extends Controller
 
          // favlist page
     public function favlist(){
-        return view("toDoList.favrouite");
+        $Parcel = Parcel::first();
+        return view("toDoList.favrouite",compact('Parcel'));
     }
      // yajra  for list
      public function getfav()
@@ -142,7 +147,8 @@ class ToDoListController extends Controller
 
      /// vendorlist
      public function vendorlist(){
-        return view("toDoList.vendorlist");
+        $Parcel = Parcel::first();
+        return view("toDoList.vendorlist",compact('Parcel'));
      }
 
 
@@ -179,7 +185,8 @@ class ToDoListController extends Controller
       // vendor edit page
       public function vendorEditPage($id){
         $vendor = vendor::find($id);
-        return view("toDoList.editvendor",compact('vendor'));
+        $Parcel = Parcel::first();
+        return view("toDoList.editvendor",compact('vendor','Parcel'));
     }
 
     public function updatevendor(Request $request, $id){
@@ -225,7 +232,8 @@ class ToDoListController extends Controller
      // vendor edit page
      public function detailVendor($id){
         $vendor = vendor::find($id);
-        return view("toDoList.detailvendor",compact('vendor'));
+        $Parcel = Parcel::first();
+        return view("toDoList.detailvendor",compact('vendor','Parcel'));
     }
 
 
@@ -233,7 +241,8 @@ class ToDoListController extends Controller
 
     // vendorfavlist page
     public function vendorfavlist(){
-    return view("toDoList.favrouiteVendor");
+        $Parcel = Parcel::first();
+    return view("toDoList.favrouiteVendor",compact('Parcel'));
     }
     // yajra  for list
     public function getvendorfav()

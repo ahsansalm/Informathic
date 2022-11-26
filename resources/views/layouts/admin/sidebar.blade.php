@@ -36,6 +36,12 @@
                     <a class="sidenav-item-link" href="{{url('/problem')}}" >
                     <i class="fa fa-question-circle" style="font-size:24px"></i>
                       <span class="nav-text">Problèmes</span> 
+                      @if(isset($Parcel))
+                        @if($Parcel->admin_noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->admin_noti}}</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                   <li  class="has-sub active colorBack" >
@@ -46,7 +52,13 @@
                   <li  class="has-sub {{ Request::is('userOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/userOrder')}}" >
                     <i class="fa fa-suitcase" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Toutes les commandes</span> 
+                      <span class="nav-text">Ordres
+                      @if(isset($Parcel))
+                        @if($Parcel->order_noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->order_noti}}</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                   <li  class="has-sub {{ Request::is('userQuotes') ? 'active':''; }}" >
@@ -157,7 +169,13 @@
                 <li  class="has-sub {{ Request::is('MySupport') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MySupport')}}">
                     <i class="fa fa-paper-plane-o" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Mon support</span> 
+                      <span class="nav-text">Mon support 
+                        @if(isset($Parcel))
+                          @if($Parcel->noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->noti}}</span>
+                          @endif
+                        @endif
+                      </span> 
                     </a>
                   </li>
                    <!-- my notification -->
@@ -194,7 +212,13 @@
                 <li  class="has-sub {{ Request::is('ApprovedOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/ApprovedOrder')}}">
                     <i class="fa fa-check-square" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Commande approuvée</span> 
+                      <span class="nav-text">Commande approuvée
+                      @if(isset($Parcel))
+                        @if($Parcel->order_approved_noti == "Nouveau")
+                          <span class="badge bg-danger ml-1 px-1">*</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                 <!-- remote support -->

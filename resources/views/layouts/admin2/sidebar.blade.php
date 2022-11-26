@@ -36,6 +36,12 @@
                     <a class="sidenav-item-link" href="{{url('/problem')}}" >
                     <i class="fa fa-question-circle" style="font-size:24px"></i>
                       <span class="nav-text">Problèmes</span> 
+                      @if(isset($Parcel))
+                        @if($Parcel->admin_noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->admin_noti}}</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                   <li  class="has-sub active colorBack" >
@@ -46,7 +52,13 @@
                   <li  class="has-sub {{ Request::is('userOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/userOrder')}}" >
                     <i class="fa fa-suitcase" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Toutes les commandes</span> 
+                      <span class="nav-text">Ordres
+                      @if(isset($Parcel))
+                        @if($Parcel->order_noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->order_noti}}</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                   <li  class="has-sub {{ Request::is('userQuotes') ? 'active':''; }}" >
@@ -56,14 +68,13 @@
                     </a>
                   </li>
 
-               
+              
                   <li  class="has-sub active colorBack " >
                     <a class="sidenav-item-link" aria-controls="dashboard">
                       <span class="nav-text">Liste de choses à faire</span> 
                     </a>
                   </li> 
-                    
-                    <li  class="has-sub {{ Request::is('todolist') ? 'active':''; }}" >
+                  <li  class="has-sub {{ Request::is('todolist') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/todolist')}}" >
                     <i class="fa fa-book" style="font-size:24px;color:white"></i>
                       <span class="nav-text">Liste de tâches</span> 
@@ -91,7 +102,6 @@
                     </a>
                   </li>
 
-                  
 
                   <li  class="has-sub {{ Request::is('vendorfavlist') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/vendorfavlist')}}" >
@@ -100,6 +110,7 @@
                     </a>
                   </li>
 
+                  
 
                   <li  class="has-sub active colorBack " >
                     <a class="sidenav-item-link" aria-controls="dashboard">
@@ -158,7 +169,13 @@
                 <li  class="has-sub {{ Request::is('MySupport') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MySupport')}}">
                     <i class="fa fa-paper-plane-o" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Mon support</span> 
+                      <span class="nav-text">Mon support 
+                        @if(isset($Parcel))
+                          @if($Parcel->noti == "Nouveau")
+                          <span class="badge bg-danger ml-3">{{$Parcel->noti}}</span>
+                          @endif
+                        @endif
+                      </span> 
                     </a>
                   </li>
                    <!-- my notification -->

@@ -12,8 +12,9 @@ class QuotesController extends Controller
     // page
     public function myQuotes(){
         $id = Auth::user()->id;
+        $Parcel = Parcel::first();
         $devices = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','Approved')->get();
-        return view("quotes.index",compact('devices'));    
+        return view("quotes.index",compact('devices','Parcel'));    
     }
 
     // quotes approved order

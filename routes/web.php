@@ -154,6 +154,14 @@ Route::post('/adminLoginForm',[ProfileController::class, 'adminLoginForm'])->nam
 Route::get('/MyProfile',[ProfileController::class, 'MyProfile'])->name('MyProfile');
 // profile update
 Route::post('/profile/update/{id}',[ProfileController::class, 'ProfileUpdate']);
+// profile update
+Route::post('/profile/update/password/{id}',[ProfileController::class, 'ProfileUpdatePass']);
+// change password page
+Route::get('/change/password',[ProfileController::class, 'ChangPas']);
+
+
+
+
 // send a parcel
 Route::get('/SendParcel',[SendParcelController::class, 'sendParcel'])->name('SendParcel');
 Route::get('/SuccessParcel',[SendParcelController::class, 'successParcel'])->name('successParcel');
@@ -211,6 +219,16 @@ Route::post('/order/notes/{id}',[OrderController::class, 'orderNotes'])->name('o
 Route::get('/ApprovedOrder',[OrderController::class, 'ApprovedOrder'])->name('ApprovedOrder');
 // refuse order
 Route::post('/order/refuse',[OrderController::class, 'RefuseOrder']);
+// recieved order
+Route::post('/order/recieved',[OrderController::class, 'recievedOrder']);
+// progress order
+Route::post('/order/progress',[OrderController::class, 'progressOrder']);
+// waiting order
+Route::post('/order/waiting',[OrderController::class, 'waitingOrder']);
+// repair order
+Route::post('/order/repair',[OrderController::class, 'repairOrder']);
+// return order
+Route::post('/order/return',[OrderController::class, 'returnOrder']);
 // quotes order
 Route::get('/userQuotes',[OrderController::class, 'userQuotes'])->name('userQuotes')->middleware('userQuotes');
 // quotes approved

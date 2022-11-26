@@ -18,6 +18,7 @@
                                 <th scope="col" class="text-white">Des marques</th>
                                 <th scope="col" class="text-white">Produit</th>
                                 <th scope="col" class="text-white">Demande de service</th>
+                                <th scope="col" class="text-white">Statut</th>
                                 <th scope="col" class="text-white">Remarques</th>
                                 <th scope="col" class="text-white" >Option</th>
                             </tr>
@@ -28,8 +29,24 @@
                                 <tr>
                                     <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                     <td><b class="text-dark">{{$device->marks}}</b></td>
-                                    <td>{{$device->product}}to</td>
+                                    <td>{{$device->product}}</td>
                                     <td>{{$device->serviceRequest}}</td>
+                                            @if($device->admin_status =='Appareil accepté')
+                                            <td><span class="badge bagde-sm bg-dark">{{$device->admin_status}}</span></td>
+                                            @elseif($device->admin_status =='Reçu')
+                                            <td><span class="badge bagde-sm bg-primary">{{$device->admin_status}}</span></td>
+                                            @elseif($device->admin_status =='en cours')
+                                            <td><span class="badge bagde-sm bg-secondary">{{$device->admin_status}}</span></td>
+                                            @elseif($device->admin_status =='SALLE DATTENTE')
+                                            <td><span class="badge bagde-sm bg-warning">{{$device->admin_status}}</span></td>
+                                            @elseif($device->admin_status =='Réparé')
+                                            <td><span class="badge bagde-sm bg-primary">{{$device->admin_status}}</span></td>
+                                            @elseif($device->admin_status =='Retour au client')
+                                            <td><span class="badge bagde-sm bg-success">{{$device->admin_status}}</span></td>
+                                            @else
+                                            <td><span class="badge bagde-sm bg-danger">{{$device->admin_status}}</span></td>
+                                            @endif
+
                                     <td>
                                         <a href="{{url('/Parcel/Note/'.$device->id)}}">
                                             <button type="button" class="btn btn-sm btn-warning">Remarques</button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\config\brand;
 use App\Models\config\product;
 use App\Models\service;
+use App\Models\Parcel;
 use App\Models\User;
 use Auth;
 use Image;
@@ -16,14 +17,16 @@ class ConfigurationController extends Controller
 {
     // index page
     public function index(){
-        return view("config.index");
+        $Parcel = Parcel::first();
+        return view("config.index",compact('Parcel'));
     }
     
 
     // brand page
     public function brands(){
         $brand = DB::table('brands')->first();
-        return view('config.brands.index',compact('brand'));
+        $Parcel = Parcel::first();
+        return view('config.brands.index',compact('brand','Parcel'));
     }
     // yajra  for brand
     public function getbrands()
@@ -71,8 +74,9 @@ class ConfigurationController extends Controller
     // edit brand page
     public function editBrand($id){
         $brand = brand::find($id);
+        $Parcel = Parcel::first();
 
-        return view('config.brands.edit' ,compact('brand'));
+        return view('config.brands.edit' ,compact('brand','Parcel'));
 
     }
 
@@ -136,7 +140,8 @@ class ConfigurationController extends Controller
     public function Products(){
         $brands = brand::all();
         $product = product::first();
-        return view('config.product.index',compact('brands','product'));
+        $Parcel = Parcel::first();
+        return view('config.product.index',compact('brands','product','Parcel'));
     }
 
 
@@ -194,7 +199,8 @@ class ConfigurationController extends Controller
     public function editProducts($id){
         $brands = brand::all();
         $products = product::find($id);
-        return view('config.product.edit' ,compact('products','brands'));
+        $Parcel = Parcel::first();
+        return view('config.product.edit' ,compact('products','brands','Parcel'));
 
     }
 
@@ -262,7 +268,8 @@ class ConfigurationController extends Controller
         $brands = brand::all();
         $products = product::all();
         $service = DB::table('services')->first();
-        return view('config.service.index',compact('brands','products','service'));
+        $Parcel = Parcel::first();
+        return view('config.service.index',compact('brands','products','service','Parcel'));
     }
 
       // yajra  for service
@@ -338,7 +345,8 @@ class ConfigurationController extends Controller
         $brands = brand::all();
         $products = product::all();
         $services = service::find($id);
-        return view('config.service.edit',compact('brands','products','services'));
+        $Parcel = Parcel::first();
+        return view('config.service.edit',compact('brands','products','services','Parcel'));
 
     }
    // update service

@@ -7,6 +7,7 @@ use App\Models\Register;
 use App\Models\User;
 use Image;
 use DB;
+use App\Models\Parcel;
 use Auth;
 use Hash;
 use Illuminate\Auth\Events\Registered;
@@ -19,6 +20,7 @@ class ProfileController extends Controller
             'email' => 'required|unique:users|max:255',
             'password' => 'required|min:8',
             'confirmPassword' => 'required|same:password',
+            'photo' =>  'required|photo|mimes:jpeg,png,jpg|max:2048'
         ],
         [
             'email.required' => 'Email (requis',
@@ -29,6 +31,8 @@ class ProfileController extends Controller
             'password.required' => ' Mot de passe requis',
             'confirmPassword.same' => 'Les deux mot de passes saisis sont différent, merci de vérifier.',
             'password.min' => 'le mot de passe doit comporter 8 caractères',
+            'photo.mimes' => 'Limage doit être jpg, jpeg et png',
+            'photo.max' => 'La taille de limage doit être de 2 Mo',
         ]);
         if($photo = $request->file('photo')){
         
@@ -199,7 +203,8 @@ class ProfileController extends Controller
 
     // profile page of admin
     public function MyProfile(){
-        return view("profile.index");
+        $Parcel = Parcel::first();
+        return view("profile.index",compact('Parcel'));
     }
     // profile update
     public function ProfileUpdate(Request $request,$id){
@@ -334,12 +339,36 @@ class ProfileController extends Controller
              
          }
         
-        
-        
-        
-        
-        
-       
 
+    }
+    // chnage pasword
+    public function ChangPas(){
+        $Parcel = Parcel::first();
+        return view("profile.changPass",compact('Parcel'));
+    }
+
+
+
+
+    public function ProfileUpdatePass(Request $request,$id){
+        $validateData = $request->validate([
+            'new_password' => 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+            'password_confirmation' => 'required_with:new_password|same:new_password'
+        ],
+        
+        [
+            'new_password.regex' => 'Doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial',
+            'password_confirmation.same' => 'Le mot de passe ne correspond pas',
+        ]);
+         $hashedPassword = Auth::user()->password;
+         if($request->current_password){
+            if (!Hash::check($request->current_password , $hashedPassword)) {
+               $notification = array(
+                        'message' => 'Le mot de passe ne correspond pas!',
+                        'alert_type' => 'warning'
+                    );
+                    return Redirect()->back()->with($notification);
+            }
+        }
     }
 }

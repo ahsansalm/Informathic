@@ -311,6 +311,7 @@ class ConfigurationController extends Controller
             'service' => $request->service,
             'product_id' => $request->product_id,
             'marks_id' => $request->marks_id,
+            'purchase_price' => $request->purchase_price,
             'price' => $request->price,
             'image' => $last_img,
             'created_at' => Carbon::now(),
@@ -327,6 +328,7 @@ class ConfigurationController extends Controller
                 'service' => $request->service,
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
+                'purchase_price' => $request->purchase_price,
                 'price' => $request->price,
                 'image' => $random_img,
                 'created_at' => Carbon::now(),
@@ -372,6 +374,7 @@ class ConfigurationController extends Controller
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
                 'price' => $request->price,
+                'purchase_price' => $request->purchase_price,
                 'image' => $last_img,
                 'created_at' => Carbon::now(),
             ]);
@@ -386,6 +389,7 @@ class ConfigurationController extends Controller
                 'service' => $request->service,
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
+                'purchase_price' => $request->purchase_price,
                 'price' => $request->price,
                 'created_at' => Carbon::now(),
             ]);

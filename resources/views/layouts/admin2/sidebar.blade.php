@@ -27,6 +27,9 @@
                       <span class="nav-text">Tous les utilisateurs</span> 
                     </a>
                   </li>
+
+
+
                   <!-- <li  class="has-sub active colorBack" >
                     <a class="sidenav-item-link" aria-controls="dashboard">
                       <span class="nav-text">Problèmes utilisateur</span> 
@@ -44,6 +47,18 @@
                       </span> 
                     </a>
                   </li>
+
+                  
+                  <li  class="has-sub {{ Request::is('inventory') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/inventory')}}" >
+                    <i class="fa fa-user" style="font-size:24px"></i>
+                      <span class="nav-text">Inventaire</span> 
+                    </a>
+                  </li>
+
+
+
+
                   <li  class="has-sub active colorBack" >
                     <a class="sidenav-item-link" aria-controls="dashboard">
                       <span class="nav-text">Ordres</span> 
@@ -212,7 +227,13 @@
                 <li  class="has-sub {{ Request::is('ApprovedOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/ApprovedOrder')}}">
                     <i class="fa fa-check-square" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Commande approuvée</span> 
+                      <span class="nav-text">Commande approuvée
+                      @if(isset($Parcel))
+                        @if($Parcel->order_approved_noti == "Nouveau")
+                          <span class="badge bg-danger ml-1 px-1">*</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                 <!-- remote support -->

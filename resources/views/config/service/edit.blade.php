@@ -47,8 +47,11 @@
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                                 <br>
-                                <label for="exampleInputEmail1"><b>Prix </b>(Si ce champ est vide, le prix sera un devis)</label>
-                                <input type="text" name="price" value="{{$services->price}}" class="form-control">
+                                <label for="exampleInputEmail1"><b>Prix ​​d'achat </b></label>
+                                <input type="text" name="purchase_price" value="{{$services->purchase_price}}"class="form-control" >
+                                <br>
+                                <label for="exampleInputEmail1"><b>Prix ​​de vente </b>(Si ce champ est vide, le prix sera un devis)</label>
+                                <input type="text" name="price" value="{{$services->price}}" class="form-control" >
                             </div>
 
 

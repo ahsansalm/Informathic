@@ -14,7 +14,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\inventoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use Illuminate\Http\Request;
@@ -390,6 +390,21 @@ Route::get('/vendor/detail/{id}',[ToDoListController::class, 'detailVendor']);
 Route::get('/vendorfavlist',[ToDoListController::class, 'vendorfavlist']);
 // yajra boc for complete list
 Route::get('/fav/vendor',[ToDoListController::class, 'getvendorfav'])->name('venforfavlist.data');
+
+// inventory
+Route::get('/inventory',[inventoryController::class, 'inventory']);
+
+// inventory/add
+Route::get('/inventory/add',[inventoryController::class, 'inventoryAdd']);
+// fetch prduct
+Route::get('/brand/fetch/inv',[inventoryController::class, 'FetchProduct']);
+// fetch service
+Route::get('/service/fetch/inv',[inventoryController::class, 'FetchService']);
+// fetch service data
+Route::get('/service/fetch/data/inv',[inventoryController::class, 'FetchServicedata']);
+// fetch product data
+Route::post('/inventory/data/add',[inventoryController::class, 'insertDataInv']);
+
 
 
 

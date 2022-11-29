@@ -35,8 +35,9 @@ class OrderController extends Controller
 
 
     // order approved
-    public function orderApproved($id){
-        DB::table('parcels')->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
+    public function orderApproved(Request $request ,$id){
+        $user = $request->userId;
+        DB::table('parcels')->where('userId' , $user)->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
          $Parcel = Parcel::first();
         Parcel::find($id)->update([
             'status' => 'Approuvé',
@@ -79,8 +80,8 @@ class OrderController extends Controller
             }
     // user page to show approve order
     public function ApprovedOrder(){
-        DB::table('parcels')->where('order_approved_noti', '=', 'Nouveau')->update(array('order_approved_noti' => Null));
         $id = Auth::user()->id;
+        DB::table('parcels')->where('userId', '=', $id)->where('order_approved_noti', '=', 'Nouveau')->update(array('order_approved_noti' => Null));
         $Parcel = Parcel::first();
         $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','APPROUVÉ')->orderBy('id', 'DESC')->get();
         return view("order.approvedOrder",compact('devices','Parcel'));

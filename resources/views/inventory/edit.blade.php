@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-12 text-center">
         <div class="dashboard_image">
-            <h1 class="brand_device mt-5">Ajouter nouveau</h1> 
+            <h1 class="brand_device mt-5">Inventaire Modifier</h1> 
         </div>
     </div>
 
@@ -18,7 +18,7 @@
                             <div class="col-lg-4 my-2">
                                 <label for="exampleInputEmail1"><b>Marque *</b></label>
                                     <select name="product_id" class="form-control" id="brands" >
-                                        <option selected disabled>--Sélectionner la marque--</option>
+                                        <option selected value="{{$Inventory->brand}}">{{$Inventory->brand}}</option>
                                             @foreach($brand as $br)
                                                 <option value="{{$br->id}}">{{$br->product_name}}</option>
                                             @endforeach
@@ -120,9 +120,7 @@
 
 
 
-        $('.frp').css({"display":"none"})
         $("#select_service").change(function(){
-            $('.frp').css({"display":"block"})
             var product = $(this).val();
             $.ajax({
                 url:'{{ url('/service/fetch/data/inv') }}',

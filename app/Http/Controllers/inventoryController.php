@@ -123,4 +123,14 @@ class inventoryController extends Controller
             return response('success');
     }
 
+        // edit service page
+        public function inventoryedit($id){
+            $Inventory = Inventory::find($id);
+            dd($Inventory);
+            $brand =Brand::all();
+            $Parcel = Parcel::first();
+            return view('inventory.edit',compact('Inventory','Parcel','brand'));
+    
+        }
+
 }

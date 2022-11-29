@@ -200,6 +200,8 @@ Route::post('/support/add/new',[SupportController::class, 'AddSupportNew']);
 
 
 
+// approved order
+Route::get('/orderNotiuser',[OrderController::class, 'orderNotiuser'])->name('orderNotiuser');
 
 
 //MyOrder Page
@@ -404,7 +406,8 @@ Route::get('/service/fetch/inv',[inventoryController::class, 'FetchService']);
 Route::get('/service/fetch/data/inv',[inventoryController::class, 'FetchServicedata']);
 // fetch product data
 Route::post('/inventory/data/add',[inventoryController::class, 'insertDataInv']);
-
+// edit inventory page
+Route::get('/inventory/edit/{id}',[inventoryController::class, 'inventoryedit']);
 
 
 

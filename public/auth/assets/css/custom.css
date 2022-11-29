@@ -675,7 +675,18 @@ background-color: #0C1741!important;
 	margin: 100px auto;
 }
 /* end of delete button */
-
+#mycanvas{
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 25px;
+  }
+  .glowing-border {
+      border: 2px solid #dadada;
+      border-radius: 7px;
+      outline: none;
+      border-color: #9ecaed;
+      box-shadow: 0 0 10px #9ecaed;
+  }
 
 
 

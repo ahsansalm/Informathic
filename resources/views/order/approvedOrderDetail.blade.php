@@ -22,6 +22,7 @@
                             <tr>
                             <th scope="row">1</th>
                             <td><h6>Nom d’utilisateur :</h6></td>
+                            <td hidden><input type="hidden" value="{{$device->userId}}" name="userId"></td>
                             <td><p>{{$device->user->firstname}} {{$device->user->lastname}}</p></td>
                             </tr>
                             <tr>
@@ -90,7 +91,20 @@
                             <td><h6>Prix :</h6></td>
                             <td><p>{{$device->parcel->totalPrice}}</p></td>
                             </tr>
+
+                            <tr>
                             <th scope="row">7</th>
+                            <td><h6>Mot de passe ou code PIN :</h6></td>
+                            <td><p>{{$device->pin}}</p></td>
+                            </tr>
+
+                            <tr>
+                            <th scope="row">8</th>
+                            <td><h6>Modèle de mot de passe :</h6></td>
+                            <td><p>{{$device->pattern}}</p></td>
+                            </tr>
+
+                            <th scope="row">9</th>
                             <td><h6>Code à barre :</h6></td>
                             <td>
                             @php

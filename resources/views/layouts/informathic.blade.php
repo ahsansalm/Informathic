@@ -103,7 +103,9 @@
 <script src="{{asset('admin/assets/js/map.js')}}"></script>
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
 <script src="{{asset('admin/assets/js/toggle.js')}}"></script>
-<script src="{{asset('admin/assets/js/script.js')}}"></script>
+<script src="{{asset('admin/assets/js/example.js')}}"></script>
+<script src="{{asset('admin/assets/js/PatternLock.js')}}"></script>
+<script src="{{asset('admin/assets/js/vanilla.example.js')}}"></script>
 <!-- custom js -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 

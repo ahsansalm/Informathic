@@ -83,7 +83,7 @@ $(function() {
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/inventory/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
                 }
             }
         ],
@@ -97,21 +97,6 @@ $(function() {
         ]
     });
 });
-$(function(){
-        $("#select_product").change(function(){
-            var product = $(this).val();
-            console.log(product)
-            $.ajax({
-                url:'{{ url('/product/fetch/data') }}',
-                type:'get',
-                data:{'product':product},
-                success:function(data){
-                    $('.marksId').val(data.product_id);
-                }
-            });
-         
-        });
-    });
 </script>
 
 @endsection

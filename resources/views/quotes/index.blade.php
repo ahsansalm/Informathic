@@ -39,7 +39,11 @@
                                             <td><b>{{$device->quotePrice}}</b></td>
                                             <td hidden><input type="text" value="{{$device->quotePrice}}" name="Price">{{$device->quotePrice}}</td>
                                             <td>
-                                                <button type="submit" class="btn btn-sm btn-primary">Ordre</button>
+                                            @if($device->status =='Approved')
+                                            <button type="submit" class="btn btn-sm btn-primary">Ordre Now</button>
+                                            @else
+                                            <button type="button" class="btn btn-sm btn-danger">Refuse</button>
+                                            @endif                    
                                             </td>
                                         </tr>
                                     </form>

@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row my-3">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <a href="{{url('/configuration/Marque')}}"> 
             <div class="card card_back-con">
                 <div class="card-body ">
@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <a href="{{url('/configuration/Produit')}}"> 
             <div class="card card_back-con">
                 <div class="card-body ">
@@ -28,7 +28,7 @@
         </a>
     </div>
 
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
         <a href="{{url('/configuration/Services')}}"> 
             <div class="card card_back-con">
                 <div class="card-body ">
@@ -36,6 +36,6 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 </div>
 @endsection

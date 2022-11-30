@@ -2,7 +2,7 @@
 @section('content')
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 <!-- custom delte button -->
-<!-- <div id="myModal" class="modal fade">
+<div id="myModal" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header flex-column">
@@ -18,11 +18,20 @@
 			<div class="modal-footer justify-content-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 
-                  
+                  @if($service)
+                    <a href="{{url('/service/delete/'.$service->id)}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+                    @else
+                    <a href="{{url('/service/delete/')}}">
+                        <button type="button" class="btn btn-danger">Effacer</button>
+                    </a>
+
+				@endif
 			</div>
 		</div>
 	</div>
-</div>  -->
+</div> 
 <!-- end custom delte button -->
 
 <div class="row">
@@ -46,11 +55,13 @@
                 <table class="table table-bordered w-100 text-dark" id="users-table">
                     <thead class="card-header">
                         <tr>
-                            <th>Identifiant</th>
-                            <th>Service</th>
+                            <th>#</th>
+                            <th>Marque</th>
                             <th>Produit</th>
+                            <th>Service</th>
+                            <th>Stocker</th>
                             <th>Prix (€)</th>
-                            <th>Créé à</th>
+                            <th>Prix ​​d'achat (€)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -79,21 +90,23 @@ $(function() {
         ajax: '{!! route('services.data') !!}',
         columnDefs:[
             {
-                targets: 5,
+                targets: 7,
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/inventory/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
                 }
             }
         ],
         columns: [
             
             { data: 'id', name: 'id' },
-            { data: 'service', name: 'service' },
+            { data: 'marks_id', name: 'marks_id' },
             { data: 'product_id', name: 'product_id' },
+            { data: 'service', name: 'service' },
+            { data: 'stock', name: 'stock' },
             { data: 'price', name: 'price' },
-            { data: 'created_at', name: 'created_at' },
+            { data: 'purchase_price', name: 'purchase_price' },
         ]
     });
 });

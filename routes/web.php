@@ -36,8 +36,11 @@ use Illuminate\Support\Str;
 |
 */
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/users/all',[HomeController::class, 'getusers'])->name('users.data');
+
 Route::get('User/detail/{id}', [HomeController::class, 'userDetail'])->name('userDetail')->middleware('verified');
-Route::get('user/disabled/{id}', [HomeController::class, 'userDisabled'])->name('userDisabled')->middleware('verified');
+Route::get('user/disabled/{id}', [HomeController::class, 'userDisabled'])->name('userDisabled');
+Route::get('user/active/{id}', [HomeController::class, 'useractive'])->name('useractive');
 
 
 
@@ -216,6 +219,8 @@ Route::get('Approved/order/detail/{id}',[OrderController::class, 'ApprovedOrderD
 Route::get('Approved/order/notes/{id}',[OrderController::class, 'ApprovedOrderNotes'])->name('ApprovedOrderNotes');
 // add notes
 Route::post('/order/notes/{id}',[OrderController::class, 'orderNotes'])->name('orderNotes');
+// quotes detail
+Route::get('/quotes/detail/{id}',[OrderController::class, 'quotesDetail'])->name('quotesDetail');
 
 // approved order
 Route::get('/ApprovedOrder',[OrderController::class, 'ApprovedOrder'])->name('ApprovedOrder');
@@ -235,7 +240,8 @@ Route::post('/order/return',[OrderController::class, 'returnOrder']);
 Route::get('/userQuotes',[OrderController::class, 'userQuotes'])->name('userQuotes')->middleware('userQuotes');
 // quotes approved
 Route::post('/quotes/approved/{id}',[OrderController::class, 'quotesApproved'])->name('quotesApproved');
-
+// refuse quotes
+Route::post('/quote/refuse',[OrderController::class, 'RefuseQuote']);
 
 
 
@@ -252,6 +258,9 @@ Route::get('/Mybill/Detail/{id}',[BillController::class, 'EditBill'])->name('Edi
 
 // user problem page
 Route::get('/problem',[ProblemController::class, 'problem'])->middleware('admin');
+// yajra
+Route::get('/problem/get',[ProblemController::class, 'getproblem'])->name('problem.data');
+
 // problem detail page
 Route::get('/problem/Detail/{id}',[ProblemController::class, 'problemDetail'])->name('problemDetail');
 // probelm reply 

@@ -20,7 +20,8 @@ class inventoryController extends Controller
     // page
     public function inventory(){
         $Parcel = Parcel::first();
-        return view("inventory.index",compact('Parcel'));
+        $service = DB::table('services')->first();
+        return view("inventory.index",compact('Parcel','service'));
     }
 
 

@@ -1,5 +1,7 @@
 @extends('layouts.informathic')
 @section('content')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -11,12 +13,11 @@
            
 
             <div class="card-body">
-                    <table class="table mt-2">
+                <table class="table table-bordered w-100 text-dark" id="users-table">
                         <thead style="background: rgb(12, 23, 65);">
                             <tr>
                                 <th scope="col" class="text-white">#</th>
                                 <th scope="col" class="text-white">Nom d'utilisateur</th>
-                                <th scope="col" class="text-white">Image</th>
                                 <th scope="col" class="text-white">Des marques</th>
                                 <th scope="col" class="text-white">Produit</th>
                                 <th scope="col" class="text-white">Demande de service</th>
@@ -25,35 +26,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                                @php($i=1)
-                                @foreach($supports as $device)
-                                    <tr>
-                                        <th scope="row"><b class="text-dark">{{$i++}}</b></th>
-                                        <td><b class="text-dark">{{$device->user->firstname}} {{$device->user->lastname}}</b></td>
-                                        <td>
-                                            <img src="{{$device->user->photo}}" style="height: 30px; width: 30px; border-radius:50%;" alt="">
-                                        </td>
-                                        <td><b class="text-dark">{{$device->marks}}</b></td>
-                                        <td>{{$device->product}}</td>
-                                        <td>{{$device->serviceRequest}}</td>
-                                            @if($device->admin_chat =='Lis')
-                                            <td><span class="badge bagde-sm bg-success">{{$device->admin_chat}}</span></td>
-                                            @else
-                                            <td><span class="badge bagde-sm bg-danger">{{$device->admin_chat}}</span></td>
-                                            @endif
-                                        <td>
-                                            <a href="{{url('/problem/Detail/'.$device->id)}}">
-                                                <button type="button" class="btn btn-primary btn-sm">Soutien</button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                
                         </tbody>
-                    </table>
+                </table>
             </div>
 
             
         </div>
     </div>
     </div>
+
+
+
+
+    <script src="//code.jquery.com/jquery.js"></script>
+        <!-- DataTables -->
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script>
+$(function() {
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('problem.data') !!}',
+        columnDefs:[
+            {
+                targets: 6,
+                title:'Action',
+                orderable:false,
+                render: function(data,type,full,meta){
+                    return ' <a class="btn btn-sm btn-primary" href="/problem/Detail/'+full.id+'">Soutien </a>'
+                }
+            }
+        ],
+        columns: [
+            
+            { data: 'id', name: 'id' },
+            { data: 'userId', name: 'userId' },
+            { data: 'marks', name: 'marks' },
+            { data: 'product', name: 'product' },
+            { data: 'serviceRequest', name: 'serviceRequest' },
+            { data: 'admin_chat', name: 'admin_chat' },
+        ]
+    });
+});
+</script>
 @endsection

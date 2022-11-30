@@ -50,8 +50,13 @@
                                 <label for="exampleInputEmail1"><b>Prix ​​d'achat </b></label>
                                 <input type="text" name="purchase_price" value="{{$services->purchase_price}}"class="form-control" >
                                 <br>
-                                <label for="exampleInputEmail1"><b>Prix ​​de vente </b>(Si ce champ est vide, le prix sera un devis)</label>
+                                <label for="exampleInputEmail1"><b>Prix ​​de vente </b></label>
                                 <input type="text" name="price" value="{{$services->price}}" class="form-control" >
+                                <br>
+                                <label for="exampleInputEmail1"><b>Quantité </b></label>
+                                <input type="text" name="stock" value="{{$services->stock}}" class="form-control" >
+                                <br>
+                              
                             </div>
 
 
@@ -61,7 +66,7 @@
                        </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="{{url('/configuration/Services')}}" class="text-white">
+                                <a href="{{url('/inventory')}}" class="text-white">
                                     <button type="button" class="btn btn-block next-step">
                                 Retour
                                     </button>

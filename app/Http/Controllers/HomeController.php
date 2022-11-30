@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Support;
 use App\Models\Parcel;
 use DB;
+use Yajra\Datatables\Datatables;
 use App\Models\ProblemReply;
 
 class HomeController extends Controller
@@ -42,6 +43,30 @@ class HomeController extends Controller
         return view('admin.user',compact('users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes','Parcel'));    
     }
 
+      // yajra  for user
+      public function getusers()
+      {
+          return Datatables::of(User::query()->where('role_as','0'))
+          ->editColumn('lastname', function($order)
+          {
+             return $order->profile->lastname;
+          })
+          ->editColumn('address', function($order)
+          {
+             return $order->profile->address;
+          })
+          ->editColumn('phone', function($order)
+          {
+             return $order->profile->phone;
+          })
+          ->editColumn('created_at',function(User $User){
+              return $User->created_at->diffForHumans();
+          })
+          
+          ->make(true);
+      }
+
+
     // user detail
     public function userDetail($id){
         $user = User::find($id);
@@ -57,6 +82,20 @@ class HomeController extends Controller
                 'message' => 'Vous avez désactivé cet utilisateur!',
                 'alert_type' => 'error'
             );
-            return Redirect()->back()->with($notification);
+            return Redirect('/home')->with($notification);
+    }
+
+
+
+     // userDisabled
+     public function useractive($id){
+        $users = User::find($id);
+        $users->status = "Actif";
+        $users->update();
+         $notification = array(
+                'message' => 'Vous activez cet utilisateur!',
+                'alert_type' => 'success'
+            );
+            return Redirect('/home')->with($notification);
     }
 }

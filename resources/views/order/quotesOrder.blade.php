@@ -43,11 +43,14 @@
                                             <td><span class="badge bagde-sm bg-danger">{{$device->status}}</span></td>
                                             @endif
                                             <td><b>{{$device->totalPrice}}</b></td>
-                                            <td>
-                                                <input type="text" value="{{$device->quotePrice}}" class="form-control" name="totalPrice">
+                                            <td><b class="text-dark">
+                                                {{$device->quotePrice}}</b>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-sm btn-primary">Donner</button>
+                                                <a href="{{url('quotes/detail/'.$device->productId)}}">
+                                                <button type="button" class="btn btn-sm btn-primary">Suite</button>
+                                               </a>
+                                               
                                             </td>
                                         </tr>
                                     </form>

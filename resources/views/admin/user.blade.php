@@ -1,5 +1,6 @@
 @extends('layouts.informathic')
 @section('content')
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 <?php $role = Auth::user()->role_as; ?>
     @if($role == 0)
         <div class="row">
@@ -181,13 +182,10 @@
                    
                     <div class="card-body">
                     <!-- users -->
-                    <h3 class="card-title text-center">Nombre total d'utilisateurs : <span class="badge bg-success">{{$totalUsers}}</span> </h3>
-                        <hr>
-                            <table class="table mt-2">
+                            <table class="table table-bordered w-100 text-dark" id="users-table">
                                 <thead style="background: rgb(12, 23, 65);">
                                     <tr>
                                         <th scope="col" class="text-white">#</th>
-                                        <th scope="col" class="text-white">Photo</th>
                                         <th scope="col" class="text-white">Prénom</th>
                                         <th scope="col" class="text-white">Nom de famille</th>
                                         <th scope="col" class="text-white">E-mail</th>
@@ -197,34 +195,48 @@
                                         <th scope="col" class="text-white" style="width: 80px;">Option</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php($i=1)
-                                    @foreach($users as $user)
-                                    <tr>
-                                        <th scope="row"><b class="text-dark">{{$i++}}</b></th>
-                                        <td><img src="{{$user->profile->photo}}" style="height: 30px; width 20px;" alt=""></td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->profile->lastname}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>{{$user->profile->address}}</td>
-                                        <td>{{$user->profile->phone}}</td>
-                                        @if($user->status == 'Actif')
-                                            <td><span class="badge bagde-sm bg-success">{{$user->status}}</span></td>
-                                            @else
-                                            <td><span class="badge bagde-sm bg-danger">{{$user->status}}</span></td>
-                                            @endif                                        
-                                        <td>
-                                        <a href="{{url('User/detail/'.$user->id)}}">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">Détail</button>
-                                           </a>
-                                        </td>
-                                    </tr>
-                                    @endforeach()
-                                </tbody>
+                               
                             </table>
                     </div>
                 </div>
             </div>
         </div>
     @endif
+
+    
+<script src="//code.jquery.com/jquery.js"></script>
+        <!-- DataTables -->
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script>
+$(function() {
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('users.data') !!}',
+        columnDefs:[
+            {
+                targets: 7,
+                title:'Action',
+                orderable:false,
+                render: function(data,type,full,meta){
+                    return '  <a class="btn btn-sm btn-primary" href="/User/detail/'+full.id+'">Détail </a>'
+                }
+            }
+        ],
+        columns: [
+            
+            { data: 'id', name: 'id' },
+            { data: 'name', name: 'name' },
+            { data: 'lastname', name: 'lastname'},
+            { data: 'email', name: 'email' },
+            { data: 'address', name: 'address'},
+            { data: 'phone', name: 'phone'},
+            { data: 'status', name: 'status'},
+        ]
+    });
+});
+</script>
+
 @endsection

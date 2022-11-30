@@ -9,6 +9,7 @@ use App\Models\Parcel;
 use Illuminate\Support\Carbon;
 use DB;
 use Auth;
+use Yajra\Datatables\Datatables;
 class ProblemController extends Controller
 {
     // problem page controller
@@ -19,6 +20,19 @@ class ProblemController extends Controller
 
         return view("problem.index",compact('supports','Parcel'));
     }
+        // yajra  for problem
+        public function getproblem()
+        {
+            return Datatables::of(Parcel::query())
+            ->editColumn('userId',function($parcel){
+                return $parcel->user->firstname;
+            })
+            ->make(true);
+        }
+
+
+
+
     // problem detail page
     public function problemDetail($id){
         $save = Parcel::find($id);

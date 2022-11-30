@@ -153,15 +153,35 @@ class OrderController extends Controller
 
     // quotes approved
     public function quotesApproved(Request $request,$id){
-        Invoices::find($id)->update([
-            'quotePrice' => $request->totalPrice,
-            'status' => 'Approved',
+        $validateData = $request->validate([
+            'quotePrice' => 'required|max:255',
+        ],
+        [
+            'quotePrice.required' => 'Ce champ est requis',
+         
         ]);
+        $input = [  
+            'quotePrice' => $request->quotePrice,
+            'status' => 'Approved',
+        ];
+            Invoices::where('productId', '=', $id)->update($input);
+
         $notification = array(
             'message' => 'Devis approuvés avec succès!',
             'alert_type' => 'success'
         );
-        return Redirect()->back()->with( $notification);
+        return Redirect('/userQuotes')->with( $notification);
+    }
+
+     // refuse quote
+     public function RefuseQuote(Request $request){
+        $save = Parcel::find($request->userId);
+        $save->status = 'Refus';
+        $save->update();
+        Invoices::where('productId',$request->userId)->update([
+            'status' => 'Refus',
+        ]);
+        return response(['success','refuse']);
     }
 
 
@@ -175,6 +195,14 @@ class OrderController extends Controller
                 ->first()->sum;
                 $Parcel = Parcel::first();
         return view("wallet.index",compact('payment','Parcel'));
+    }
+
+
+     // quotesDetail
+     public function quotesDetail($id){
+        $Parcel = Parcel::first();
+        $device = Parcel::find($id);
+        return view("order.quotesDetail",compact('device','Parcel'));
     }
 
 }

@@ -12,48 +12,67 @@
     <div class="col-lg-12 my-3">
         <div class="card">
             <div class="card-body">
-                <form>
+                <form action="{{url('config/service/add')}}" method="POST"  enctype="multipart/form-data">
+                @csrf
                     <div class="form-group">
                        <div class="row">
                             <div class="col-lg-4 my-2">
                                 <label for="exampleInputEmail1"><b>Marque *</b></label>
-                                    <select name="product_id" class="form-control" id="brands" >
+                                    <select class="form-control" name="marks_id" id="brands" >
                                         <option selected disabled>--Sélectionner la marque--</option>
                                             @foreach($brand as $br)
                                                 <option value="{{$br->id}}">{{$br->product_name}}</option>
                                             @endforeach
                                     </select>
+                                    @error('marks_id')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
                             </div>
 
                             <div class="col-lg-4 my-2">
                                 <label for="exampleInputEmail1"><b>Nom du produit *</b></label>
-                                    <select name="product_id" class="form-control" id="select_product" >
+                                    <select class="form-control" name="product_id" id="select_product" >
                                         <option selected disabled>--Vide--</option>
                                     </select>
+                                    @error('product_id')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
                             </div>
 
 
                             <div class="col-lg-4 my-2">
                                 <label for="exampleInputEmail1"><b>Nom du service *</b></label>
-                                    <select name="service" class="form-control" id="select_service" >
-                                        <option selected disabled>--Vide--</option>
-                                    </select>
+                                    <input type="text" id="service" name="service"  class="form-control " >
+                                    @error('service')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                    
                             </div>
 
                             <div class="col-lg-4 my-2 frp">
-                                <label for="exampleInputEmail1"><b>Prix ​​d'achat *</b></label>
-                                   <input type="text" id="purchase_price" disabled class="form-control " >
+                                <label for="exampleInputEmail1"><b>Prix ​​d'achat </b></label>
+                                   <input type="text" id="purchase_price" name="purchase_price"  class="form-control " >
                             </div>
 
 
                             <div class="col-lg-4 my-2 frp">
-                                <label for="exampleInputEmail1"><b>Prix ​​de vente*</b></label>
-                                    <input type="text" id="price" disabled class="form-control" >
+                                <label for="exampleInputEmail1"><b>Prix ​​de vente</b></label>
+                                    <input type="text" id="price" name="price" class="form-control" >
                             </div>
+
+
+                            <div class="col-lg-4 my-2 frp">
+                                <label for="exampleInputEmail1"><b>Sélectionner une image </b></label>
+                                    <input type="file" name="image" class="form-control" >
+                                    @error('image')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                            </div>
+                            
 
                             <div class="col-lg-4 my-2 frp" >
-                                <label for="exampleInputEmail1"><b>Quantité* <span class="text-secondary" style="font-size: 12px;">(Vous pouvez mettre à jour la quantité)</span></b></label>
-                                    <input type="text"  id="quantity" class="form-control" >
+                                <label for="exampleInputEmail1"><b>Quantité</label>
+                                    <input type="text"  id="quantity" name="stock" class="form-control" >
                             </div>
 
                          
@@ -71,7 +90,7 @@
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" id="add" class="btn btn-block next-step">Ajouter</button>
+                                <button type="submit" id="add" class="btn btn-block next-step">Ajouter</button>
                             </div>
                         </div>
                     </div>
@@ -120,9 +139,9 @@
 
 
 
-        $('.frp').css({"display":"none"})
+        // $('.frp').css({"display":"none"})
         $("#select_service").change(function(){
-            $('.frp').css({"display":"block"})
+            // $('.frp').css({"display":"block"})
             var product = $(this).val();
             $.ajax({
                 url:'{{ url('/service/fetch/data/inv') }}',
@@ -137,36 +156,36 @@
         });
 
 
-        $("#add").click(function(){
-            var brand = $('#brands').val();
-            var product = $('#select_product').val();
-            var service = $('#select_service').val();
-            var purchase_price = $('#purchase_price').val();
-            var price = $('#price').val();
-            var quantity = $('#quantity').val();
+        // $("#add").click(function(){
+        //     var brand = $('#brands').val();
+        //     var product = $('#select_product').val();
+        //     var service = $('#select_service').val();
+        //     var purchase_price = $('#purchase_price').val();
+        //     var price = $('#price').val();
+        //     var quantity = $('#quantity').val();
 
            
 
 
 
-            $.ajax({
-                url:'{{ url('/inventory/data/add') }}',
-                type:'post',
-                headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                data:{'brand':brand,'product':product,'service':service,
-                    'purchase_price':purchase_price,'price':price,'quantity':quantity},
-                    success:function(success){   
-                            if(success){
-                                toastr.success(success.message,'Produit ajouté!');
-                                window.location.reload();
+        //     $.ajax({
+        //         url:'{{ url('/inventory/data/add') }}',
+        //         type:'post',
+        //         headers: {
+        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        //             },
+        //         data:{'brand':brand,'product':product,'service':service,
+        //             'purchase_price':purchase_price,'price':price,'quantity':quantity},
+        //             success:function(success){   
+        //                     if(success){
+        //                         toastr.success(success.message,'Produit ajouté!');
+        //                         window.location.reload();
                                 
-                            }              
-                        }  
-            });
+        //                     }              
+        //                 }  
+        //     });
          
-        });
+        // });
     });
 </script>
 @endsection

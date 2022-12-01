@@ -897,3 +897,44 @@ width: 200px;
     background-color: #2E9AFE;
   }
   
+/*---------- TABLES user pdf ----------*/
+/*----- basics -----*/
+.user_pdf {
+    border-collapse: collapse;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  
+    max-width: 2000px;
+    width: 100%;
+  
+    margin: 10px auto 20px auto;
+  }
+  
+  /*----- table headings -----*/
+  .user_pdf th {
+    background-color: #aecbeb;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+  }
+  
+  
+  /*----- table data (a cell) -----*/
+  .user_pdf td {
+    padding: 8px;
+    border-bottom: 1px solid black;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+  }
+  
+  
+  /*----- table row hover animation -----*/
+  .user_pdf tr {
+    transition: background-color 0.5s;
+  }
+  .user_pdf tr:hover {
+    background-color: #e8e8e8;
+  }
+  
+  .user_pdf td {
+    transition: background-color 0.4s;
+  }

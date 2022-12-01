@@ -168,7 +168,6 @@
         </div>
     @else
     <div class="row">
-        </div>
             <div class="col-12">
                 <div class="card">
                    <div class="row text-center">
@@ -177,6 +176,12 @@
                                 <h1 class="brand_device mt-5">Tous les utilisateurs</h1> 
                             </div>
                             
+                        </div>
+                        
+                        <div class="col-12">
+                            <a href="{{url('userPDF')}}">
+                                <button type="button" class="btn btn-sm btn-success float-right m-2">Exporter PDF</button>
+                            </a>
                         </div>
                    </div>
                    
@@ -187,10 +192,7 @@
                                     <tr>
                                         <th scope="col" class="text-white">#</th>
                                         <th scope="col" class="text-white">Prénom</th>
-                                        <th scope="col" class="text-white">Nom de famille</th>
                                         <th scope="col" class="text-white">E-mail</th>
-                                        <th scope="col" class="text-white">Address</th>
-                                        <th scope="col" class="text-white">Téléphoner</th>
                                         <th scope="col" class="text-white">Statut</th>
                                         <th scope="col" class="text-white" style="width: 80px;">Option</th>
                                     </tr>
@@ -217,7 +219,7 @@ $(function() {
         ajax: '{!! route('users.data') !!}',
         columnDefs:[
             {
-                targets: 7,
+                targets: 4,
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
@@ -229,10 +231,7 @@ $(function() {
             
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
-            { data: 'lastname', name: 'lastname'},
             { data: 'email', name: 'email' },
-            { data: 'address', name: 'address'},
-            { data: 'phone', name: 'phone'},
             { data: 'status', name: 'status'},
         ]
     });

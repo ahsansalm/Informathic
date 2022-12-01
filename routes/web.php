@@ -14,6 +14,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\inventoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -242,7 +243,8 @@ Route::get('/userQuotes',[OrderController::class, 'userQuotes'])->name('userQuot
 Route::post('/quotes/approved/{id}',[OrderController::class, 'quotesApproved'])->name('quotesApproved');
 // refuse quotes
 Route::post('/quote/refuse',[OrderController::class, 'RefuseQuote']);
-
+// search order
+Route::post('/search/order',[OrderController::class, 'searchOrder']);
 
 
 
@@ -430,6 +432,34 @@ Route::get('/product/fetach/data',[UserController::class, 'fetchproducctservice'
 
 
 
+
+
+
+
+///////////////////////////////////////pdf section here///////////////////////////////////////////////
+
+//////////////////////////////// pdf of user tabel here///////////////////////////////
+Route::get('/userPDF',[PDFController::class, 'userPDF']);
+// inventory pdf here
+Route::get('/inventoryPDF',[PDFController::class, 'inventoryPDF']);
+// userOrderPDF
+Route::get('/userOrderPDF',[PDFController::class, 'userOrderPDF']);
+// userQuotePDF
+Route::get('/userQuotePDF',[PDFController::class, 'userQuotePDF']);
+// todolistPDF
+Route::get('/todolistPDF',[PDFController::class, 'todolistPDF']);
+// favPDF
+Route::get('/favPDF',[PDFController::class, 'favPDF']);
+// taskComPDF
+Route::get('/taskComPDF',[PDFController::class, 'taskComPDF']);
+// vendorListPDF
+Route::get('/vendorListPDF',[PDFController::class, 'vendorListPDF']);
+// favVendorPDF
+Route::get('/favVendorPDF',[PDFController::class, 'favVendorPDF']);
+// brandPDF
+Route::get('/brandPDF',[PDFController::class, 'brandPDF']);
+// productPDF
+Route::get('/productPDF',[PDFController::class, 'productPDF']);
 
 
 

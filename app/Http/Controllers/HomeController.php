@@ -47,18 +47,6 @@ class HomeController extends Controller
       public function getusers()
       {
           return Datatables::of(User::query()->where('role_as','0'))
-          ->editColumn('lastname', function($order)
-          {
-             return $order->profile->lastname;
-          })
-          ->editColumn('address', function($order)
-          {
-             return $order->profile->address;
-          })
-          ->editColumn('phone', function($order)
-          {
-             return $order->profile->phone;
-          })
           ->editColumn('created_at',function(User $User){
               return $User->created_at->diffForHumans();
           })

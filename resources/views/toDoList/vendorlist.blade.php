@@ -73,7 +73,11 @@
             </div>
         </div>
     </div>
-
+    <div class="col-12 text-right">
+        <a href="{{url('vendorListPDF')}}">
+            <button type="button" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
+        </a>
+    </div>
     <div class="col-lg-12 mt-3">
         <div class="card">
             <div class=".card-body">

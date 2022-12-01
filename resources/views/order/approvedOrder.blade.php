@@ -5,8 +5,7 @@
         <div class="card">
             <div class="col-12 text-center">
                 <div class="dashboard_image" >
-                    <h1 class="brand_device mt-5">
-Voir Mes commandes approuvées</h1> 
+                    <h1 class="brand_device mt-5">Voir Mes commandes approuvées</h1> 
                 </div>
             </div>
             <div class="card-body">

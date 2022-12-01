@@ -42,6 +42,9 @@
     </div>
 
     <div class="col-12 text-right">
+        <a href="{{url('inventoryPDF')}}">
+            <button type="button" class="btn btn-sm btn-success float-right m-2 py-2">Exporter PDF</button>
+        </a>
          <a href="{{url('/inventory/add')}}">
             <button type="button" class="default-btn btn-secondary prev-step">
                 Ajouter 

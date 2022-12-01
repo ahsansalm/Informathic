@@ -48,6 +48,19 @@
                     </a>
                   </li>
 
+
+
+                   
+                  <li  class="has-sub {{ Request::is('reporting') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/reporting')}}" >
+                    <i class="fa fa-user" style="font-size:24px"></i>
+                      <span class="nav-text">Rapports</span> 
+                    </a>
+                  </li>
+
+
+
+
                   
                   <li  class="has-sub {{ Request::is('inventory') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/inventory')}}" >

@@ -19,6 +19,10 @@ class Invoices extends Model
     public function user(){
         return $this->hasOne(Register::class, 'user_id','user_id');
     }
+
+    public function servicedata(){
+        return $this->hasOne(service::class, 'id','totalPrice');
+    }
     public function register(){
         return $this->hasOne(User::class, 'id','user_id');
     }

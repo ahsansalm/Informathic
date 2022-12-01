@@ -34,8 +34,10 @@ class OrderController extends Controller
     // order approved
     public function orderApproved(Request $request ,$id){
         $user = $request->userId;
+        $serviceId =$request->serviceId;
         DB::table('parcels')->where('userId' , $user)->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
-         $Parcel = Parcel::first();
+        DB::table('services')->where('id' , $serviceId)->decrement('stock'); 
+        $Parcel = Parcel::first();
         Parcel::find($id)->update([
             'status' => 'Approuvé',
             'admin_status' => 'Appareil accepté',

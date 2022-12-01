@@ -214,7 +214,7 @@
                                             <div id="PassPat" >
                                                 <canvas id="mycanvas" width="350" height="350" class="glowing-border">
                                                 </canvas>
-                                                    <p id="pattern"> Pattern Will Be Shown Here</p>
+                                                    <p id="pattern"> no </p>
                                             </div>
                                         </div>
                                     </div>
@@ -384,7 +384,7 @@
         document.getElementById("benifitDataText").value = innerHTML;
 
         document.getElementById('putBenifit').innerHTML=value;
-        document.getElementById("putPrice").innerHTML = innerHTML;
+        document.getElementById("putPrice").innerHTML = value;
     }
     var e = document.getElementById('lock')
       var p = new pATTERN({

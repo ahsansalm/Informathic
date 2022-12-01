@@ -79,7 +79,8 @@
                             <tr>
                             <th scope="row">4</th>
                             <td><h6>Demande de service :</h6></td>
-                            <td><p>{{$device->serviceRequest}}</p></td>
+                            <td hidden><input type="hidden" value="{{$device->serviceRequest}}" name="serviceId"></td>
+                            <td><p>{{$device->servicedata->service}}</p></td>
                             </tr>
                             <tr>
                             <th scope="row">5</th>
@@ -89,7 +90,7 @@
                             <tr>
                             <th scope="row">6</th>
                             <td><h6>Prix :</h6></td>
-                            <td><p>{{$device->parcel->totalPrice}}</p></td>
+                            <td><p>{{$device->servicedata->price}}</p></td>
                             </tr>
 
                             <tr>

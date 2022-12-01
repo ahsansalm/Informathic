@@ -16,6 +16,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\inventoryController;
+use App\Http\Controllers\reportingController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use Illuminate\Http\Request;
@@ -419,6 +420,13 @@ Route::get('/service/fetch/data/inv',[inventoryController::class, 'FetchServiced
 Route::post('/inventory/data/add',[inventoryController::class, 'insertDataInv']);
 // edit inventory page
 Route::get('/inventory/edit/{id}',[inventoryController::class, 'inventoryedit']);
+
+
+// reporting
+Route::get('/reporting',[reportingController::class, 'reporting']);
+
+
+
 
 
 

@@ -39,7 +39,7 @@
                                             <td><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
                                             <td><b class="text-dark">{{$device->product->marks}}</b></td>
                                             <td>{{$device->product->product}}</td>
-                                            <td>{{$device->product->serviceRequest}}</td>
+                                            <td>{{$device->servicedata->service}}</td>
                                             @if($device->status =='Approved')
                                             <td><span class="badge text-white bagde-sm bg-success">{{$device->status}}</span></td>
                                             @else

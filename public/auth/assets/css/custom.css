@@ -418,6 +418,16 @@ input[type="checkbox"]:checked::before{
     background-color: #0C1741!important;
     color: white;
 }
+.card_back-con1{
+    height: 70px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.card_back-con1:hover{
+    height: 70px;
+    background-color: #007bff!important;
+    color: white;
+}
 .card-header{
     background-color: #0C1741!important;
     color: white;

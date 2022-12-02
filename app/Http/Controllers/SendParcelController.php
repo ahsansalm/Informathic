@@ -47,6 +47,7 @@ class SendParcelController extends Controller
             'pattern' => $request->pattern,
             'shipment' => $request->shipment,
             'returnChoice' => $request->returnChoice,
+            'date' => date('Y-m-d'),
             'created_at' => Carbon::now(),
         ]);
         $id = $parcel->id;

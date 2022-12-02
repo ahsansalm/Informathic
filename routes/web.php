@@ -424,8 +424,10 @@ Route::get('/inventory/edit/{id}',[inventoryController::class, 'inventoryedit'])
 
 // reporting
 Route::get('/reporting',[reportingController::class, 'reporting']);
-
-
+// /today/report
+Route::get('/today/report',[reportingController::class, 'todayreport']);
+// order today yajra
+Route::get('/today/report/all',[reportingController::class, 'todayreportdata'])->name('order.todday.data');
 
 
 

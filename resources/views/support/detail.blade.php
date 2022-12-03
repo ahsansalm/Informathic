@@ -14,12 +14,15 @@
 
             <div class="chat px-1">
                 <div class="chat_message">
-                  <div class="container">
+                  <div class="container mt-3">
                     <div class="row">
-                            <div class="col-6">
+                            <div class="col-6"  style="border-right: 2px solid white;">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="text-white text-center my-1">Admin Replies</h3>
+                                    </div>
                                     @foreach($reply as $rep)
-                                    <div class="col-12 mt-5" >
+                                    <div class="col-12">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <img src="../../{{$rep->profile->photo}}"  style="height: 35px; border-radius: 50%;" alt="">
@@ -34,9 +37,12 @@
 
                             <div class="col-6">
                                 <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="text-white text-center my-1">Your Problems</h3>
+                                    </div>
                                     @foreach($supports as $sup)
 
-                                    <div class="col-12 mt-3 mb-4 ">
+                                    <div class="col-12 ">
                                         <div class="input-group  ">
                                             <div class="input-group-append">
                                                 <img src="../../{{auth()->user()->profile->photo}}" style="height: 35px; width: 35px;  border-radius: 50%;" alt="">

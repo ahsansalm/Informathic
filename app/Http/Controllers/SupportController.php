@@ -42,7 +42,7 @@ class SupportController extends Controller
     }
     // add problem
     public function AddSupport(Request $request){
-        DB::table('parcels')->where('admin_noti', '=', Null)->update(array('admin_noti' => 'Nouveau'));
+        DB::table('parcels')->where('admin_noti', '=', 1)->update(array('admin_noti' => 'Nouveau'));
 
         $save = Parcel::find($request->productId);
         $save->admin_chat = "Nouveau";

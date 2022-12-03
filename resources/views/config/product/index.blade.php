@@ -44,6 +44,9 @@
     <div class="col-lg-8 mt-3">
         <div class="card">
             <div class="card-body">
+                <a href="{{url('productPDF')}}">
+                    <button type="button" class="btn btn-sm btn-success float-right my-1">Exporter PDF</button>
+                </a>
                 <table class="table table-bordered w-100 text-dark" id="users-table">
                     <thead class="card-header">
                         <tr>

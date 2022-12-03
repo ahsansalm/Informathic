@@ -14,7 +14,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\inventoryController;
+use App\Http\Controllers\reportingController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use Illuminate\Http\Request;
@@ -36,8 +38,11 @@ use Illuminate\Support\Str;
 |
 */
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/users/all',[HomeController::class, 'getusers'])->name('users.data');
+
 Route::get('User/detail/{id}', [HomeController::class, 'userDetail'])->name('userDetail')->middleware('verified');
-Route::get('user/disabled/{id}', [HomeController::class, 'userDisabled'])->name('userDisabled')->middleware('verified');
+Route::get('user/disabled/{id}', [HomeController::class, 'userDisabled'])->name('userDisabled');
+Route::get('user/active/{id}', [HomeController::class, 'useractive'])->name('useractive');
 
 
 
@@ -200,6 +205,8 @@ Route::post('/support/add/new',[SupportController::class, 'AddSupportNew']);
 
 
 
+// approved order
+Route::get('/orderNotiuser',[OrderController::class, 'orderNotiuser'])->name('orderNotiuser');
 
 
 //MyOrder Page
@@ -214,6 +221,8 @@ Route::get('Approved/order/detail/{id}',[OrderController::class, 'ApprovedOrderD
 Route::get('Approved/order/notes/{id}',[OrderController::class, 'ApprovedOrderNotes'])->name('ApprovedOrderNotes');
 // add notes
 Route::post('/order/notes/{id}',[OrderController::class, 'orderNotes'])->name('orderNotes');
+// quotes detail
+Route::get('/quotes/detail/{id}',[OrderController::class, 'quotesDetail'])->name('quotesDetail');
 
 // approved order
 Route::get('/ApprovedOrder',[OrderController::class, 'ApprovedOrder'])->name('ApprovedOrder');
@@ -233,8 +242,10 @@ Route::post('/order/return',[OrderController::class, 'returnOrder']);
 Route::get('/userQuotes',[OrderController::class, 'userQuotes'])->name('userQuotes')->middleware('userQuotes');
 // quotes approved
 Route::post('/quotes/approved/{id}',[OrderController::class, 'quotesApproved'])->name('quotesApproved');
-
-
+// refuse quotes
+Route::post('/quote/refuse',[OrderController::class, 'RefuseQuote']);
+// search order
+Route::post('/search/order',[OrderController::class, 'searchOrder']);
 
 
 
@@ -250,6 +261,9 @@ Route::get('/Mybill/Detail/{id}',[BillController::class, 'EditBill'])->name('Edi
 
 // user problem page
 Route::get('/problem',[ProblemController::class, 'problem'])->middleware('admin');
+// yajra
+Route::get('/problem/get',[ProblemController::class, 'getproblem'])->name('problem.data');
+
 // problem detail page
 Route::get('/problem/Detail/{id}',[ProblemController::class, 'problemDetail'])->name('problemDetail');
 // probelm reply 
@@ -391,6 +405,31 @@ Route::get('/vendorfavlist',[ToDoListController::class, 'vendorfavlist']);
 // yajra boc for complete list
 Route::get('/fav/vendor',[ToDoListController::class, 'getvendorfav'])->name('venforfavlist.data');
 
+// inventory
+Route::get('/inventory',[inventoryController::class, 'inventory']);
+
+// inventory/add
+Route::get('/inventory/add',[inventoryController::class, 'inventoryAdd']);
+// fetch prduct
+Route::get('/brand/fetch/inv',[inventoryController::class, 'FetchProduct']);
+// fetch service
+Route::get('/service/fetch/inv',[inventoryController::class, 'FetchService']);
+// fetch service data
+Route::get('/service/fetch/data/inv',[inventoryController::class, 'FetchServicedata']);
+// fetch product data
+Route::post('/inventory/data/add',[inventoryController::class, 'insertDataInv']);
+// edit inventory page
+Route::get('/inventory/edit/{id}',[inventoryController::class, 'inventoryedit']);
+
+
+// reporting
+Route::get('/reporting',[reportingController::class, 'reporting']);
+// /today/report
+Route::get('/today/report',[reportingController::class, 'todayreport']);
+// order today yajra
+Route::get('/today/report/all',[reportingController::class, 'todayreportdata'])->name('order.todday.data');
+
+
 
 
 
@@ -403,6 +442,34 @@ Route::get('/product/fetach/data',[UserController::class, 'fetchproducctservice'
 
 
 
+
+
+
+
+///////////////////////////////////////pdf section here///////////////////////////////////////////////
+
+//////////////////////////////// pdf of user tabel here///////////////////////////////
+Route::get('/userPDF',[PDFController::class, 'userPDF']);
+// inventory pdf here
+Route::get('/inventoryPDF',[PDFController::class, 'inventoryPDF']);
+// userOrderPDF
+Route::get('/userOrderPDF',[PDFController::class, 'userOrderPDF']);
+// userQuotePDF
+Route::get('/userQuotePDF',[PDFController::class, 'userQuotePDF']);
+// todolistPDF
+Route::get('/todolistPDF',[PDFController::class, 'todolistPDF']);
+// favPDF
+Route::get('/favPDF',[PDFController::class, 'favPDF']);
+// taskComPDF
+Route::get('/taskComPDF',[PDFController::class, 'taskComPDF']);
+// vendorListPDF
+Route::get('/vendorListPDF',[PDFController::class, 'vendorListPDF']);
+// favVendorPDF
+Route::get('/favVendorPDF',[PDFController::class, 'favVendorPDF']);
+// brandPDF
+Route::get('/brandPDF',[PDFController::class, 'brandPDF']);
+// productPDF
+Route::get('/productPDF',[PDFController::class, 'productPDF']);
 
 
 

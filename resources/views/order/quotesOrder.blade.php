@@ -9,6 +9,11 @@
                      
                 </div>
             </div>
+            <div class="col-12 text-right">
+                    <a href="{{url('userQuotePDF')}}">
+                        <button type="button" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
+                    </a>
+                </div>
             <div class="card-body">
                         <table class="table mt-2">
                             <thead style="background: rgb(12, 23, 65);">
@@ -36,18 +41,21 @@
                                             <td><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
                                             <td><b class="text-dark">{{$device->product->marks}}</b></td>
                                             <td>{{$device->product->product}}</td>
-                                            <td>{{$device->product->serviceRequest}}</td>
+                                            <td>{{$device->servicedata->service}}</td>
                                             @if($device->status =='Approved')
                                             <td><span class="badge bagde-sm bg-success">{{$device->status}}</span></td>
                                             @else
                                             <td><span class="badge bagde-sm bg-danger">{{$device->status}}</span></td>
                                             @endif
                                             <td><b>{{$device->totalPrice}}</b></td>
-                                            <td>
-                                                <input type="text" value="{{$device->quotePrice}}" class="form-control" name="totalPrice">
+                                            <td><b class="text-dark">
+                                                {{$device->quotePrice}}</b>
                                             </td>
                                             <td>
-                                                <button type="submit" class="btn btn-sm btn-primary">Donner</button>
+                                                <a href="{{url('quotes/detail/'.$device->productId)}}">
+                                                <button type="button" class="btn btn-sm btn-primary">Suite</button>
+                                               </a>
+                                               
                                             </td>
                                         </tr>
                                     </form>

@@ -31,7 +31,11 @@
             <h1 class="brand_device mt-5"> Liste des tâches terminées</h1> 
         </div>
     </div>
-    
+    <div class="col-12 text-right">
+        <a href="{{url('taskComPDF')}}">
+            <button type="button" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
+        </a>
+    </div>
     
 
     <div class="col-lg-12 mt-3">

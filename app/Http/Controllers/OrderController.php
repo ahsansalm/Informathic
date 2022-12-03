@@ -23,10 +23,7 @@ class OrderController extends Controller
     public function userorder(){
         DB::table('parcels')->where('order_noti', '=', 'Nouveau')->update(array('order_noti' => 1));
 
-        $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','!=','Quotation')->get();
-        $totalOrder = DB::table('parcels')->count();
-        $pendingOrder = DB::table('parcels')->where('status','pending')->count();
-        $approvedOrder = DB::table('parcels')->where('status','Approved')->count();
+        $devices = Invoices::where('totalPrice','!=','Quotation')->get();
         $Parcel = Parcel::first();
         return view("order.userOrder",compact('devices','totalOrder','pendingOrder','approvedOrder','Parcel'));
     }
@@ -35,9 +32,12 @@ class OrderController extends Controller
 
 
     // order approved
-    public function orderApproved($id){
-        DB::table('parcels')->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
-         $Parcel = Parcel::first();
+    public function orderApproved(Request $request ,$id){
+        $user = $request->userId;
+        $serviceId =$request->serviceId;
+        DB::table('parcels')->where('userId' , $user)->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
+        DB::table('services')->where('id' , $serviceId)->decrement('stock'); 
+        $Parcel = Parcel::first();
         Parcel::find($id)->update([
             'status' => 'Approuvé',
             'admin_status' => 'Appareil accepté',
@@ -79,8 +79,8 @@ class OrderController extends Controller
             }
     // user page to show approve order
     public function ApprovedOrder(){
-        DB::table('parcels')->where('order_approved_noti', '=', 'Nouveau')->update(array('order_approved_noti' => Null));
         $id = Auth::user()->id;
+        DB::table('parcels')->where('userId', '=', $id)->where('order_approved_noti', '=', 'Nouveau')->update(array('order_approved_noti' => Null));
         $Parcel = Parcel::first();
         $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','APPROUVÉ')->orderBy('id', 'DESC')->get();
         return view("order.approvedOrder",compact('devices','Parcel'));
@@ -152,16 +152,79 @@ class OrderController extends Controller
 
     // quotes approved
     public function quotesApproved(Request $request,$id){
-        Invoices::find($id)->update([
-            'quotePrice' => $request->totalPrice,
-            'status' => 'Approved',
+        $validateData = $request->validate([
+            'quotePrice' => 'required|max:255',
+        ],
+        [
+            'quotePrice.required' => 'Ce champ est requis',
+         
         ]);
+        $input = [  
+            'quotePrice' => $request->quotePrice,
+            'status' => 'Approved',
+        ];
+            Invoices::where('productId', '=', $id)->update($input);
+
         $notification = array(
             'message' => 'Devis approuvés avec succès!',
             'alert_type' => 'success'
         );
-        return Redirect()->back()->with( $notification);
+        return Redirect('/userQuotes')->with( $notification);
     }
+
+     // refuse quote
+     public function RefuseQuote(Request $request){
+        $save = Parcel::find($request->userId);
+        $save->status = 'Refus';
+        $save->update();
+        Invoices::where('productId',$request->userId)->update([
+            'status' => 'Refus',
+        ]);
+        return response(['success','refuse']);
+    }
+
+
+    // search order
+    public function searchOrder(Request $request)
+        {
+
+            if($request->ajax())
+            {
+            $output_sub="";
+            $product = Parcel::where('marks','LIKE','%'.$request->search.'%')->get();      
+            $table_sub = $product->count();
+            
+            if($table_sub > 0)
+                {
+
+                      foreach($product as $device){
+                        $output_sub.=  "<tr>".
+                                "<td><b>".$device->id."</b></td>".
+                                "<td><b>".$device->user->firstname.' '.$device->user->lastname." </b></td>".
+                                "<td>"."<img src=$device->user->photo' >"."</td>".
+                                "<td><b class='text-dark'>".$device->marks."</b></td>".
+                                "<td>".$device->product."</td>".
+                                "<td>".$device->serviceRequest."</td>".
+                               " <td>".
+                               
+                               
+                                "<span class='badge bagde-sm bg-success'>".$device->status."</span>".
+                            
+
+                               "</td>".
+                                "</tr>";
+                        }
+                        
+                    return Response($output_sub);
+                }
+                else{
+                    return Response($output_sub);
+                }
+                return Response($table_sub);
+                    
+            }
+        }
+    
 
 
     // support wallet
@@ -174,6 +237,14 @@ class OrderController extends Controller
                 ->first()->sum;
                 $Parcel = Parcel::first();
         return view("wallet.index",compact('payment','Parcel'));
+    }
+
+
+     // quotesDetail
+     public function quotesDetail($id){
+        $Parcel = Parcel::first();
+        $device = Parcel::find($id);
+        return view("order.quotesDetail",compact('device','Parcel'));
     }
 
 }

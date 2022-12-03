@@ -25,7 +25,7 @@ class userOrderMiddleware
 
             $Parcel = Parcel::first();
 
-            $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','!=','Quotation')->get();
+            $devices = Invoices::where('totalPrice','!=','Quotation')->get();
             $totalOrder = DB::table('parcels')->count();
             $pendingOrder = DB::table('parcels')->where('status','pending')->count();
             $approvedOrder = DB::table('parcels')->where('status','Approved')->count();

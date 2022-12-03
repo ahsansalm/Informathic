@@ -276,6 +276,9 @@ class ConfigurationController extends Controller
       public function getservices()
       {
           return Datatables::of(service::query())
+          ->editColumn('marks_id',function(service $service){
+            return $service->brand->product_name;
+        })
           ->editColumn('product_id',function(service $service){
             return $service->product->product_name;
         })
@@ -291,11 +294,13 @@ class ConfigurationController extends Controller
         $validateData = $request->validate([
             'service' => 'required|max:255',
             'product_id' => 'required',
+            'marks_id' => 'required',
             'image'        =>  'image|mimes:jpeg,png,jpg|max:2048'
         ],
         [
             'service.required' => 'Ce champ est requis',
             'product_id.required' => 'Ce champ est requis',
+            'marks_id.required' => 'Ce champ est requis',
             'image.mimes' => 'Limage doit être .jpg, .jpeg, .png,',
             'image.max' => 'La taille de limage doit être inférieure à 2 Mo',
         ]);
@@ -311,7 +316,9 @@ class ConfigurationController extends Controller
             'service' => $request->service,
             'product_id' => $request->product_id,
             'marks_id' => $request->marks_id,
+            'purchase_price' => $request->purchase_price,
             'price' => $request->price,
+            'stock' => $request->stock,
             'image' => $last_img,
             'created_at' => Carbon::now(),
         ]);
@@ -319,7 +326,7 @@ class ConfigurationController extends Controller
             'message' => ' Service ajouté!',
             'alert_type' => 'success'
         );
-        return Redirect()->back()->with($notification);
+        return Redirect('/inventory')->with($notification);
         }else{
             $random_img = 'img/random2.jpg'; 
             service::insert([
@@ -327,7 +334,9 @@ class ConfigurationController extends Controller
                 'service' => $request->service,
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
+                'purchase_price' => $request->purchase_price,
                 'price' => $request->price,
+                'stock' => $request->stock,
                 'image' => $random_img,
                 'created_at' => Carbon::now(),
             ]);
@@ -335,7 +344,7 @@ class ConfigurationController extends Controller
                 'message' => ' Service ajouté!',
                 'alert_type' => 'success'
             );
-            return Redirect()->back()->with($notification);
+            return Redirect('/inventory')->with($notification);
         }
     }
 
@@ -372,6 +381,8 @@ class ConfigurationController extends Controller
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
                 'price' => $request->price,
+                'stock' => $request->stock,
+                'purchase_price' => $request->purchase_price,
                 'image' => $last_img,
                 'created_at' => Carbon::now(),
             ]);
@@ -379,21 +390,23 @@ class ConfigurationController extends Controller
                 'message' => 'Mise à jour du produit!',
                 'alert_type' => 'warning'
             );
-            return Redirect()->back()->with($notification);
+            return Redirect('/inventory')->with($notification);
         }
         else{
             service::find($id)->update([
                 'service' => $request->service,
                 'product_id' => $request->product_id,
                 'marks_id' => $request->marks_id,
+                'purchase_price' => $request->purchase_price,
                 'price' => $request->price,
+                'stock' => $request->stock,
                 'created_at' => Carbon::now(),
             ]);
             $notification = array(
                 'message' => 'Mise à jour du produit!',
                 'alert_type' => 'warning'
             );
-            return Redirect()->back()->with($notification);
+            return Redirect('/inventory')->with($notification);
         }
     }
       // delete service

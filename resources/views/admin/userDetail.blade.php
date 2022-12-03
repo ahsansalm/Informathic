@@ -70,15 +70,20 @@
 
 
                 <div class="row  text-center">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="{{url('/home')}}">
                             <button type="button" class="default-btn btn-block btn-secondary prev-step">
                         Retour
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="{{url('/user/disabled/'.$user->id)}}">
                             <button type="button" class="default-btn btn-block btn-secondary prev-step">
                             Désactiver l'utilisateur
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{url('/user/active/'.$user->id)}}">
+                            <button type="button" class="default-btn btn-block btn-secondary prev-step">
+                            Utilisateur actif
                     </div>
                 </div>
             </div>

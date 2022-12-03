@@ -22,6 +22,7 @@
                             <tr>
                             <th scope="row">1</th>
                             <td><h6>Nom d’utilisateur :</h6></td>
+                            <td hidden><input type="hidden" value="{{$device->userId}}" name="userId"></td>
                             <td><p>{{$device->user->firstname}} {{$device->user->lastname}}</p></td>
                             </tr>
                             <tr>
@@ -78,7 +79,8 @@
                             <tr>
                             <th scope="row">4</th>
                             <td><h6>Demande de service :</h6></td>
-                            <td><p>{{$device->serviceRequest}}</p></td>
+                            <td hidden><input type="hidden" value="{{$device->serviceRequest}}" name="serviceId"></td>
+                            <td><p>{{$device->servicedata->service}}</p></td>
                             </tr>
                             <tr>
                             <th scope="row">5</th>
@@ -88,9 +90,22 @@
                             <tr>
                             <th scope="row">6</th>
                             <td><h6>Prix :</h6></td>
-                            <td><p>{{$device->parcel->totalPrice}}</p></td>
+                            <td><p>{{$device->servicedata->price}}</p></td>
                             </tr>
+
+                            <tr>
                             <th scope="row">7</th>
+                            <td><h6>Mot de passe ou code PIN :</h6></td>
+                            <td><p>{{$device->pin}}</p></td>
+                            </tr>
+
+                            <tr>
+                            <th scope="row">8</th>
+                            <td><h6>Modèle de mot de passe :</h6></td>
+                            <td><p>{{$device->pattern}}</p></td>
+                            </tr>
+
+                            <th scope="row">9</th>
                             <td><h6>Code à barre :</h6></td>
                             <td>
                             @php

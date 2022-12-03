@@ -43,6 +43,7 @@
     <div class="col-lg-8 mt-3">
         <div class="card">
             <div class="card-body">
+                
                 <table class="table table-bordered w-100 text-dark" id="users-table">
                     <thead class="card-header">
                         <tr>
@@ -93,7 +94,10 @@
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                         <br>
-                        <label for="exampleInputEmail1"><b>Prix </b>(Si ce champ est vide, le prix sera un devis)</label>
+                        <label for="exampleInputEmail1"><b>Prix ​​d'achat </b></label>
+                        <input type="text" name="purchase_price" class="form-control" >
+                        <br>
+                        <label for="exampleInputEmail1"><b>Prix ​​de vente </b>(Si ce champ est vide, le prix sera un devis)</label>
                         <input type="text" name="price" class="form-control" >
                       
                     </div>

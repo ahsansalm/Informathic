@@ -414,15 +414,22 @@ input[type="checkbox"]:checked::before{
     color: white;
 }
 .card_back-con{
-background-color: #0C1741!important;
+    height: 90px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.card_back-con1{
+    height: 70px;
+    background-color: #0C1741!important;
+    color: white;
+}
+.card_back-con1:hover{
+    height: 70px;
+    background-color: #007bff!important;
     color: white;
 }
 .card-header{
     background-color: #0C1741!important;
-    color: white;
-}
-.card_back-con:hover{
-    background-color: #007bff !important;
     color: white;
 }
 .thead-custom{
@@ -675,7 +682,18 @@ background-color: #0C1741!important;
 	margin: 100px auto;
 }
 /* end of delete button */
-
+#mycanvas{
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 25px;
+  }
+  .glowing-border {
+      border: 2px solid #dadada;
+      border-radius: 7px;
+      outline: none;
+      border-color: #9ecaed;
+      box-shadow: 0 0 10px #9ecaed;
+  }
 
 
 
@@ -886,3 +904,44 @@ width: 200px;
     background-color: #2E9AFE;
   }
   
+/*---------- TABLES user pdf ----------*/
+/*----- basics -----*/
+.user_pdf {
+    border-collapse: collapse;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  
+    max-width: 2000px;
+    width: 100%;
+  
+    margin: 10px auto 20px auto;
+  }
+  
+  /*----- table headings -----*/
+  .user_pdf th {
+    background-color: #aecbeb;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+  }
+  
+  
+  /*----- table data (a cell) -----*/
+  .user_pdf td {
+    padding: 8px;
+    border-bottom: 1px solid black;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+  }
+  
+  
+  /*----- table row hover animation -----*/
+  .user_pdf tr {
+    transition: background-color 0.5s;
+  }
+  .user_pdf tr:hover {
+    background-color: #e8e8e8;
+  }
+  
+  .user_pdf td {
+    transition: background-color 0.4s;
+  }

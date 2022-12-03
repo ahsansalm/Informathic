@@ -18,6 +18,9 @@ class Parcel extends Model
     public function user(){
     return $this->hasOne(Register::class, 'user_id','userId');
     }
+    public function servicedata(){
+        return $this->hasOne(service::class, 'id','serviceRequest');
+    }
     public function register(){
         return $this->hasOne(User::class, 'id','userId');
     }

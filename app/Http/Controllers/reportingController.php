@@ -18,7 +18,10 @@ class reportingController extends Controller
         $allorder =  DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->count();
         $pendingorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'pending')->count();
         $approvedorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'Approuvé')->count();
-        $sale = DB::table('invoices')->sum('totalPrice');
+        $sale = DB::table('invoices')->where('status','=','Approuvé')
+                ->join('services', 'invoices.service_id', '=', 'services.id')  
+                ->select('services.price')      
+                ->sum('price');
         $pur1 = DB::table('services')->sum('stock');
         $pur2 = DB::table('services')->sum('purchase_price');
         $purchase = $pur1 * $pur2;
@@ -26,34 +29,287 @@ class reportingController extends Controller
 
 
         
-        $todaySale = DB::table('invoices')
-            ->whereDate('date', now())->sum('totalPrice');
+        $todaySale = DB::table('invoices')->where('status','=','Approuvé')
+            ->whereDate('date', now())
+            ->join('services', 'invoices.service_id', '=', 'services.id')  
+            ->select('services.price')      
+            ->sum('price');
         return view("reporting.index",compact('allorder','pendingorder','approvedorder','sale','purchase','todaySale'));
-    }
+    }   
 
 
     // todayreport pager
     public function todayreport(){
-        return view("reporting.today");
+        $sale = DB::table('invoices')->whereDate('date', now())->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.price')      
+        ->sum('price');
+
+        $purchase = DB::table('invoices')->whereDate('date', now())->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.purchase_price')      
+        ->sum('purchase_price');
+
+        $profit= $sale - $purchase;
+
+        $devices = Invoices::where('service_id','!=','Quotation')->where('status','=','Approuvé')->whereDate('date', now())->get();
+        return view("reporting.today",compact('devices','sale','purchase','profit'));
     }
 
 
       // yajra  for todayreportdata
-      public function todayreportdata()
-      {
-          return Datatables::of(Parcel::query()->whereDate('date', now()))
-        ->editColumn('serviceRequest', function($order)
-        {
-           return $order->servicedata->service;
-        })
+    //   public function todayreportdata()
+    //   {
+    //       return Datatables::of(Parcel::query()->whereDate('date', now()))
+    //     ->editColumn('serviceRequest', function($order)
+    //     {
+    //        return $order->servicedata->service;
+    //     })
 
         
-          ->editColumn('created_at',function(Parcel $Parcel){
-              return $Parcel->created_at->diffForHumans();
-          })
+    //       ->editColumn('created_at',function(Parcel $Parcel){
+    //           return $Parcel->created_at->diffForHumans();
+    //       })
           
-          ->make(true);
-      }
+    //       ->make(true);
+    //   }
+
+
+
+
+
+      // search order today
+      public function searchOrdertoday(Request $request)
+      {
+
+          if($request->ajax())
+          {
+          $output_sub="";
+          $product = Parcel::where('marks','LIKE','%'.$request->search.'%')->where('status','=','Approuvé')->whereDate('date', now())->get();      
+          $table_sub = $product->count();
+          
+          if($table_sub > 0)
+              {
+
+                $i=1;
+                    foreach($product as $device){
+                      $output_sub.=  "<tr class='text-dark'>".
+                              "<td><b>".$i++."</b></td>".
+                              "<td><b class='text-dark'>".$device->user->firstname.' '.$device->user->lastname." </b></td>".
+                              "<td><b class='text-dark'>".$device->marks."</b></td>".
+                              "<td>".$device->product."</td>".
+                              "<td>".$device->servicedata->service."</td>".
+                             " <td>".
+                              "<span class='badge bagde-sm bg-success'>".$device->status."</span>".
+                             "</td>".
+                             "<td>".$device->servicedata->price. '€'."</td>".
+                             "<td>".$device->servicedata->purchase_price. '€'."</td>".
+                             "<td>".$device->date."</td>".
+                              "</tr>";
+                      }
+                      
+                  return Response($output_sub);
+              }
+              else{
+                $output_sub.=  "<tr class='text-dark text-center'>".
+                "<td colspan='9'><b class='text-dark'>".'Aucun Enregistrement Trouvé.'." </b></td>".
+                "</tr>";
+                return Response($output_sub);
+              }
+              return Response($table_sub);
+                  
+          }
+  }
+
+
+
+  
+
+     // monthlyreport pager
+     public function monthlyreport(){
+        $sale = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.price')      
+        ->sum('price');
+
+        $purchase = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.purchase_price')      
+        ->sum('purchase_price');
+
+        $profit= $sale - $purchase;
+
+        $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();
+        return view("reporting.monthly",compact('devices','sale','purchase','profit'));
+    }
+
+
+
+
+         // search order monthly
+         public function searchOrdermonthly(Request $request)
+         {
+   
+             if($request->ajax())
+             {
+             $output_sub="";
+             $product = Parcel::where('marks','LIKE','%'.$request->search.'%')->where('status','=','Approuvé')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();      
+             $table_sub = $product->count();
+             
+             if($table_sub > 0)
+                 {
+   
+                   $i=1;
+                       foreach($product as $device){
+                         $output_sub.=  "<tr class='text-dark'>".
+                                 "<td><b>".$i++."</b></td>".
+                                 "<td><b class='text-dark'>".$device->user->firstname.' '.$device->user->lastname." </b></td>".
+                                 "<td><b class='text-dark'>".$device->marks."</b></td>".
+                                 "<td>".$device->product."</td>".
+                                 "<td>".$device->servicedata->service."</td>".
+                                " <td>".
+                                 "<span class='badge bagde-sm bg-success'>".$device->status."</span>".
+                                "</td>".
+                                "<td>".$device->servicedata->price. '€'."</td>".
+                                "<td>".$device->servicedata->purchase_price. '€'."</td>".
+                                "<td>".$device->date."</td>".
+                                 "</tr>";
+                         }
+                         
+                     return Response($output_sub);
+                 }
+                 else{
+                   $output_sub.=  "<tr class='text-dark text-center'>".
+                   "<td colspan='9'><b class='text-dark'>".'Aucun Enregistrement Trouvé.'." </b></td>".
+                   "</tr>";
+                   return Response($output_sub);
+                 }
+                 return Response($table_sub);
+                     
+             }
+     }
+
+
+
+
+
+        // searchreport pager
+        public function searchreport(){
+            $sale = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
+            ->join('services', 'invoices.service_id', '=', 'services.id')  
+            ->select('services.price')      
+            ->sum('price');
+
+            $purchase = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
+            ->join('services', 'invoices.service_id', '=', 'services.id')  
+            ->select('services.purchase_price')      
+            ->sum('purchase_price');
+
+            $profit= $sale - $purchase;
+
+            $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();
+            return view("reporting.search",compact('devices','sale','purchase','profit'));
+        }
+
+
+
+
+
+
+    // all orderd 
+    public function searchOrdersale(Request $request)
+    {
+        // sale
+        $sale = DB::table('invoices')->whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.price')      
+        ->sum('price');
+        return response($sale);
+    }
+
+
+    // purchase searchOrderpurchase
+    public function searchOrderpurchase(Request $request)
+    {
+        // purchase
+        $purchase = DB::table('invoices')->whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.purchase_price')      
+        ->sum('purchase_price');
+        return response($purchase);
+    }
+
+
+
+    // purchase searchOrderprofit
+    public function searchOrderprofit(Request $request)
+    {
+          // sale
+        $sale = DB::table('invoices')->whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.price')      
+        ->sum('price');
+
+        // purchase
+        $purchase = DB::table('invoices')->whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')
+        ->join('services', 'invoices.service_id', '=', 'services.id')  
+        ->select('services.purchase_price')      
+        ->sum('purchase_price');
+
+        $profit = $sale -  $purchase;
+        return response($profit);
+    }
+
+
+
+
+
+        // all orderd 
+        public function searchOrderall(Request $request)
+        {
+
+            // all orders ajax
+  
+            if($request->ajax())
+            {
+            $output_sub="";
+            $product = Parcel::whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')->get();      
+            $table_sub = $product->count();
+            
+            if($table_sub > 0)
+                {
+  
+                  $i=1;
+                      foreach($product as $device){
+                        $output_sub.=  "<tr class='text-dark'>".
+                                "<td><b>".$i++."</b></td>".
+                                "<td><b class='text-dark'>".$device->user->firstname.' '.$device->user->lastname." </b></td>".
+                                "<td><b class='text-dark'>".$device->marks."</b></td>".
+                                "<td>".$device->product."</td>".
+                                "<td>".$device->servicedata->service."</td>".
+                               " <td>".
+                                "<span class='badge bagde-sm bg-success'>".$device->status."</span>".
+                               "</td>".
+                               "<td>".$device->servicedata->price. '€'."</td>".
+                               "<td>".$device->servicedata->purchase_price. '€'."</td>".
+                               "<td>".$device->date."</td>".
+                                "</tr>";
+                        }
+                        
+                    return Response($output_sub);
+                }
+                else{
+                  $output_sub.=  "<tr class='text-dark text-center'>".
+                  "<td colspan='9'><b class='text-dark'>".'Aucun Enregistrement Trouvé.'." </b></td>".
+                  "</tr>";
+                  return Response($output_sub);
+                }
+                return Response($table_sub);
+                    
+            }
+    }
+
+
 
 
     

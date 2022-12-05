@@ -48,14 +48,19 @@ class SendParcelController extends Controller
             'shipment' => $request->shipment,
             'returnChoice' => $request->returnChoice,
             'date' => date('Y-m-d'),
+            'month' => date('m'),
             'created_at' => Carbon::now(),
         ]);
         $id = $parcel->id;
         Invoices::insert([
+            'marks' => $request->marks,
+            'product' => $request->product,
             'user_id' => $request->userId,
             'productId' => $id,
             'totalPrice' => $request->price,
-            'date' => Carbon::now(),
+            'service_id' => $request->service,
+            'date' => date('Y-m-d'),
+            'month' => date('m'),
         ]);
         return response(['success','Colis téléchargé avec succès']);    
     }

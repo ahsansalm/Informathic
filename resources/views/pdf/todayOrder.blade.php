@@ -14,41 +14,38 @@
         </style>
     </head>
     <body>
-              <div class="container-fluid" style="font-size: 15px;">
+              <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                    <h4>Citation de l'utilisateur: </h4>
-                        <table class="table-bordered text-center" style="width: 90%;">
+                    <h4>Commandes d'aujourd'hui : :</h4>
+                        <table class="table-bordered text-center" style="width: 90%">
                             <thead style="background: rgb(12, 23, 65);">
                                 <tr>
                                     <th scope="col" class="text-white">#</th>
                                     <th scope="col" class="text-white">Nom d'utilisateur</th>
-                                    <th scope="col" class="text-white">Image utilisateur</th>
                                     <th scope="col" class="text-white">Des marques</th>
                                     <th scope="col" class="text-white">Produit</th>
                                     <th scope="col" class="text-white">Demande de service</th>
                                     <th scope="col" class="text-white">Statut</th>
                                     <th scope="col" class="text-white">Prix</th>
-                                    <th scope="col" class="text-white">Devis Prix</th>
+                                    <th scope="col" class="text-white">Prix ​​d'achat</th>
+                                    <th scope="col" class="text-white">Date</th>
                                 </tr>
+
                             </thead>
                             <tbody>
-                                @php($i=0)
                                 @foreach($devices as $device)
                                         <tr>
-                                            <th scope="row"><b class="text-dark">{{$i++}}</b></th>
+                                        <th scope="row"><b class="text-dark">{{$device->productId}}</b></th>
+                                            <th scope="row" hidden><b class="text-dark">{{$device->id}}</b></th>
                                             <td><b>{{$device->user->firstname}} {{$device->user->lastname}} </b></td>
-                                            <td><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
-                                            <td><b class="text-dark">{{$device->neww->marks}}</b></td>
-                                            <td>{{$device->neww->product}}</td>
+                                            <td><b class="text-dark">{{$device->product->marks}}</b></td>
+                                            <td>{{$device->product->product}}</td>
                                             <td>{{$device->servicedata->service}}</td>
-                                            @if($device->status =='Approved')
                                             <td><span class="badge bagde-sm bg-success">{{$device->status}}</span></td>
-                                            @else
-                                            <td><span class="badge bagde-sm bg-danger">{{$device->status}}</span></td>
-                                            @endif
-                                            <td>{{$device->totalPrice}}</td>
-                                            <td><b class="text-dark">{{$device->quotePrice}}</td>
+                                            <td>{{$device->servicedata->price}} €</td>
+                                            <td>{{$device->servicedata->purchase_price}} €</td>
+                                            <td>{{$device->date}} </td>
                                         </tr>
                                 @endforeach
                             </tbody>

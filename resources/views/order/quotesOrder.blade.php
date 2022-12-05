@@ -10,11 +10,23 @@
                 </div>
             </div>
             <div class="col-12 text-right">
-                    <a href="{{url('userQuotePDF')}}">
-                        <button type="button" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
-                    </a>
+                <form action="{{url('userQuotePDF')}}">
+                            <input type="hidden" class="form-control"  name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
+                            <button type="submit" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
+                    </form>
                 </div>
             <div class="card-body">
+            <form action="{{url('search/user/quotes')}}">
+                <div class="row">
+                        <div class="col-10">
+                            <input type="search" class="form-control"  name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
+                        </div>
+                        <div class="col-2">
+                         <button type="submit" class="btn btn-block btn-primary">Search</button>
+
+                        </div>
+                    </div>
+               </form>
                         <table class="table mt-2">
                             <thead style="background: rgb(12, 23, 65);">
                                 <tr>
@@ -39,18 +51,16 @@
                                             <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                             <td><b>{{$device->user->firstname}} {{$device->user->lastname}} </b></td>
                                             <td><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
-                                            <td><b class="text-dark">{{$device->product->marks}}</b></td>
-                                            <td>{{$device->product->product}}</td>
+                                            <td><b class="text-dark">{{$device->neww->marks}}</b></td>
+                                            <td>{{$device->neww->product}}</td>
                                             <td>{{$device->servicedata->service}}</td>
                                             @if($device->status =='Approved')
                                             <td><span class="badge bagde-sm bg-success">{{$device->status}}</span></td>
                                             @else
                                             <td><span class="badge bagde-sm bg-danger">{{$device->status}}</span></td>
                                             @endif
-                                            <td><b>{{$device->totalPrice}}</b></td>
-                                            <td><b class="text-dark">
-                                                {{$device->quotePrice}}</b>
-                                            </td>
+                                            <td>{{$device->totalPrice}}</td>
+                                            <td><b class="text-dark">{{$device->quotePrice}}</td>
                                             <td>
                                                 <a href="{{url('quotes/detail/'.$device->productId)}}">
                                                 <button type="button" class="btn btn-sm btn-primary">Suite</button>

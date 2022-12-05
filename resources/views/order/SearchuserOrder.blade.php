@@ -1,4 +1,4 @@
-@extends('layouts.informathic')
+@extends('layouts.informathic2')
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -12,21 +12,18 @@
             </div>
                 <div class="col-12 text-right">
                     <form action="{{url('userOrderPDF')}}">
-                            <input type="hidden" class="form-control" name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
+                            <input type="hidden" class="form-control" value="{{$search}}" name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
                             <button type="submit" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
                     </form>
-
-                    <a href="{{url('userOrderPDF')}}">
-                    </a>
                 </div>
             <div class="card-body">
                <form action="{{url('search/user/order')}}">
-                <div class="row">
+                    <div class="row">
                         <div class="col-10">
-                            <input type="search" class="form-control"  name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
+                            <input type="search" class="form-control" value="{{$search}}" name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
                         </div>
                         <div class="col-2">
-                         <button type="submit" class="btn btn-block btn-primary">Search</button>
+                         <button type="submit" class="btn btn-block btn-primary">Searxch</button>
 
                         </div>
                     </div>
@@ -55,7 +52,7 @@
                                             <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                             <th scope="row" hidden><b class="text-dark">{{$device->id}}</b></th>
                                             <td><b>{{$device->user->firstname}} {{$device->user->lastname}} </b></td>
-                                            <td><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
+                                            <td><img src="../../{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
                                             <td><b class="text-dark">{{$device->neww->marks}}</b></td>
                                             <td>{{$device->neww->product}}</td>
                                             <td>{{$device->servicedata->service}}</td>

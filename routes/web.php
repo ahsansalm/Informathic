@@ -245,8 +245,11 @@ Route::post('/quotes/approved/{id}',[OrderController::class, 'quotesApproved'])-
 // refuse quotes
 Route::post('/quote/refuse',[OrderController::class, 'RefuseQuote']);
 // search order
-Route::post('/search/order',[OrderController::class, 'searchOrder']);
-
+Route::get('search/user/order',[OrderController::class, 'searchOrder']);
+// yajra for service
+Route::get('/all/order/get',[OrderController::class, 'getOrders'])->name('userOrder.data');
+// search quotes
+Route::get('search/user/quotes',[OrderController::class, 'searchQuote']);
 
 
 
@@ -428,9 +431,25 @@ Route::get('/reporting',[reportingController::class, 'reporting']);
 Route::get('/today/report',[reportingController::class, 'todayreport']);
 // order today yajra
 Route::get('/today/report/all',[reportingController::class, 'todayreportdata'])->name('order.todday.data');
+// search order today
+Route::post('/search/today/order',[reportingController::class, 'searchOrdertoday']);
+// search order monthly
+Route::post('/search/monthly/order',[reportingController::class, 'searchOrdermonthly']);
+// search order all
+Route::post('/search/all/order',[reportingController::class, 'searchOrderall']);
+// search order all sale
+Route::post('/search/all/sale',[reportingController::class, 'searchOrdersale']);
+// search order all purchase
+Route::post('/search/all/purchase',[reportingController::class, 'searchOrderpurchase']);
+// search order all profit
+Route::post('/search/all/profit',[reportingController::class, 'searchOrderprofit']);
 
 
 
+// /monthly/report
+Route::get('/monthly/report',[reportingController::class, 'monthlyreport']);
+// /search/report
+Route::get('/search/report',[reportingController::class, 'searchreport']);
 
 
 ////////////////////////////////////// Ua=ser sdie///////////////////////////////////
@@ -471,6 +490,12 @@ Route::get('/brandPDF',[PDFController::class, 'brandPDF']);
 // productPDF
 Route::get('/productPDF',[PDFController::class, 'productPDF']);
 
+// todayOrderPDF
+Route::get('/todayOrderPDF',[PDFController::class, 'todayOrderPDF']);
+// monthOrderPDF
+Route::get('/monthOrderPDF',[PDFController::class, 'monthOrderPDF']);
+// userOrderSearchPDF
+Route::get('/userOrderSearchPDF',[PDFController::class, 'userOrderSearchPDF']);
 
 
 

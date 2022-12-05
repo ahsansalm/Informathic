@@ -70,40 +70,30 @@
 
 
 
+
     <div class="col-12">
     <hr>
-        <h4 class=" text-dark my-2">Aujourd'hui Revenu:</h4>
-    </div>
-
-
-    <div class="col-md-12">
-        <div class="card card_back-con">
-            <div class="card-body ">
-                <h4>Vente totale: <span class="badge bg-success float-right p-3">{{$todaySale}} €</span></h4>
-            </div>
-        </div>
-        <hr>
-    </div>
-
-
-    <div class="col-12">
         <h4 class=" text-dark mb-2">Rapports sur les commandes:</h4>
     </div>
 
     <div class="col-md-4">
-        <div class="card card_back-con1">
-            <div class="card-body ">
-                <h4>Recherche par date:</h4>
-            </div>
-        </div>
+        <a href="{{url('/search/report')}}">
+            <div class="card card_back-con1">
+                <div class="card-body ">
+                    <h4>Recherche par date:</h4>
+                </div>
+            </div> 
+        </a>
     </div>
 
     <div class="col-md-4">
-        <div class="card card_back-con1">
-            <div class="card-body ">
-                <h4>Rapport mensuel: </h4>
+        <a href="{{url('/monthly/report')}}">
+            <div class="card card_back-con1">
+                <div class="card-body ">
+                    <h4>Rapport mensuel: </h4>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 
 

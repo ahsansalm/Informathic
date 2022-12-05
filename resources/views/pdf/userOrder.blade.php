@@ -39,29 +39,29 @@
                                             <th scope="row" hidden><b class=" px-2 text-dark">{{$device->id}}</b></th>
                                             <td class="px-2"><b>{{$device->user->firstname}} {{$device->user->lastname}} </b></td>
                                             <td class="py-2"><img src="{{$device->user->photo}}  " style="height: 30px; width 20px;" alt=""></td>
-                                            <td><b class=" px-2 text-dark">{{$device->product->marks}}</b></td>
-                                            <td>{{$device->product->product}}</td>
+                                            <td><b class=" px-2 text-dark">{{$device->neww->marks}}</b></td>
+                                            <td>{{$device->neww->product}}</td>
                                             <td>{{$device->servicedata->service}}</td>
-                                            @if($device->product->status =='Approuvé')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-success">{{$device->product->status}}</span></td>
+                                            @if($device->neww->status =='Approuvé')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-success">{{$device->neww->status}}</span></td>
                                             @else
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-danger">{{$device->product->status}}</span></td>
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-danger">{{$device->neww->status}}</span></td>
                                             @endif
 
-                                            @if($device->product->admin_status =='Appareil accepté')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-dark">{{$device->product->admin_status}}</span></td>
-                                            @elseif($device->product->admin_status =='Reçu')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-primary">{{$device->product->admin_status}}</span></td>
-                                            @elseif($device->product->admin_status =='en cours')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-secondary">{{$device->product->admin_status}}</span></td>
-                                            @elseif($device->product->admin_status =='SALLE DATTENTE')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-warning">{{$device->product->admin_status}}</span></td>
-                                            @elseif($device->product->admin_status =='Réparé')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-primary">{{$device->product->admin_status}}</span></td>
-                                            @elseif($device->product->admin_status =='Retour au client')
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-success">{{$device->product->admin_status}}</span></td>
+                                            @if($device->neww->admin_status =='Appareil accepté')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-dark">{{$device->neww->admin_status}}</span></td>
+                                            @elseif($device->neww->admin_status =='Reçu')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-primary">{{$device->neww->admin_status}}</span></td>
+                                            @elseif($device->neww->admin_status =='en cours')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-secondary">{{$device->neww->admin_status}}</span></td>
+                                            @elseif($device->neww->admin_status =='SALLE DATTENTE')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-warning">{{$device->neww->admin_status}}</span></td>
+                                            @elseif($device->neww->admin_status =='Réparé')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-primary">{{$device->neww->admin_status}}</span></td>
+                                            @elseif($device->neww->admin_status =='Retour au client')
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @else
-                                            <td><span class=" px-2 text-white badge bagde-sm bg-danger">{{$device->product->admin_status}}</span></td>
+                                            <td><span class=" px-2 text-white badge bagde-sm bg-danger">{{$device->neww->admin_status}}</span></td>
                                             @endif
                                             <td>{{$device->totalPrice}}</td>
                                         </tr>

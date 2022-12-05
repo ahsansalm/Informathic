@@ -52,7 +52,7 @@ class UserController extends Controller
                             " <img class='card-img-top img-fluid img-fluid2'  src='$tech_data->image'>".
                         "<div class='card-body'>".
                             "<h6>".$tech_data->service."</h6>".
-                            "<button type= 'button' class='btn btn-outline-primary newBenifitClick btn-block  mt-3 ' onClick='addBenifit(value,innerHTML)' text='$tech_data->service' value='$tech_data->id'>".$tech_data->price."</button>".
+                            "<button type= 'button' class='btn btn-outline-primary newBenifitClick btn-block  mt-3 ' onClick='addBenifit(value,innerHTML)' text='$tech_data->id' value='$tech_data->id'>".$tech_data->price."</button>".
                         "</div>".
                     "</div>".
                "</div>";

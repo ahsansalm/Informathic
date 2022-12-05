@@ -5,14 +5,14 @@
 <div class="row">
     <div class="col-12 text-center">
         <div class="dashboard_image">
-            <h1 class="brand_device mt-5">Modifier le Service</h1> 
+            <h1 class="brand_device mt-5">Modifier le d'inventaire</h1> 
         </div>
     </div>
 
     <div class="col-lg-12 my-3">
         <div class="card">
             <div class="card-header">
-            Mettre à jour le Service
+            Mettre à jour le d'inventaire
             </div>
             <div class="card-body">
                 <form action="{{url('config/service/update/'.$services->id)}}" method="POST"  enctype="multipart/form-data">
@@ -20,21 +20,34 @@
                     <div class="form-group">
                        <div class="row">
                             <div class="col-lg-8 my-2">
-                                <input type="hidden" class="marksId" name="marks_id" value="{{$services->marks_id}}">
+                                <label for="exampleInputEmail1"><b>Marque *</b></label>
+                                    <select class="form-control" name="marks_id" id="brands" >
+                                        <option selected value="{{$services->marks_id}}">{{$services->brand->product_name}}</option>
+                                            @foreach($brands as $br)
+                                                <option value="{{$br->id}}">{{$br->product_name}}</option>
+                                            @endforeach
+                                    </select>
+                                    @error('marks_id')
+                                        <span class="text-danger">{{$message}}</span>
+                                    @enderror
+
+                                
+                                <br>
+                                <label for="exampleInputEmail1"><b>Sélectionner la marquet <span style="font-size: 13px; color: gray;">(Si vous souhaitez modifier le produit, sélectionnez d'abord la marque)</span> *</b></label>
+
+                                <select name="product_id" class="form-control" id="select_product" >
+                                        <option value="{{$services->product_id}}" selected>{{$services->product->product_name}}</option>
+                                       
+                                </select>
+
+
+
+                                <br>
                                 <label for="exampleInputEmail1"><b>Nom du service *</b></label>
                                 <input type="text" name="service" value="{{$services->service}}" class="form-control" >
                                 @error('service')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
-                                <br>
-                                <label for="exampleInputEmail1"><b>Sélectionner la marquet *</b></label>
-
-                                <select name="product_id" class="form-control" id="select_product" >
-                                        <option value="{{$services->product_id}}" selected>{{$services->product->product_name}}</option>
-                                        @foreach($products as $product)
-                                            <option value="{{$product->id}}">{{$product->product_name}}</option>
-                                        @endforeach
-                                </select>
 
 
                                 @error('product_id')
@@ -94,15 +107,14 @@
 
 <script>
     $(function(){
-        $("#select_product").change(function(){
+        $("#brands").change(function(){
             var product = $(this).val();
-            console.log(product)
             $.ajax({
-                url:'{{ url('/product/fetch/data') }}',
+                url:'{{ url('/brand/fetch/inv') }}',
                 type:'get',
                 data:{'product':product},
                 success:function(data){
-                    $('.marksId').val(data.product_id);
+                    $('#select_product').html(data);
                 }
             });
          

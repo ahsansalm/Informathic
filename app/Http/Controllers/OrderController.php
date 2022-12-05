@@ -25,8 +25,26 @@ class OrderController extends Controller
 
         $devices = Invoices::where('totalPrice','!=','Quotation')->get();
         $Parcel = Parcel::first();
-        return view("order.userOrder",compact('devices','totalOrder','pendingOrder','approvedOrder','Parcel'));
+        return view("order.userOrder",compact('devices','Parcel'));
     }
+      // search order
+      public function searchOrder(Request $request)
+      { 
+        $search = $request->search ?? "";
+        if($search != ""){
+            $devices = Invoices::where('product','LIKE','%'.$search.'%')->where('totalPrice','!=','Quotation')->get();
+            
+        }else{
+            $devices = Invoices::where('totalPrice','!=','Quotation')->get();
+        }
+        $Parcel = Parcel::first();
+        return view("order.SearchuserOrder",compact('devices','Parcel','search'));
+  
+      }
+
+
+    
+
 
 
 
@@ -150,6 +168,25 @@ class OrderController extends Controller
         return view("order.quotesOrder",compact('devices','Parcel'));
     }
 
+
+       // search Quote
+       public function searchQuote(Request $request)
+       { 
+         $search = $request->search ?? "";
+         if($search != ""){
+             $devices = Invoices::where('product','LIKE','%'.$search.'%')->where('totalPrice','=','Quotation')->get();
+             
+         }else{
+             $devices = Invoices::where('totalPrice','=','Quotation')->get();
+         }
+         $Parcel = Parcel::first();
+         return view("order.SearchuserQuote",compact('devices','Parcel','search'));
+   
+       }
+
+
+
+
     // quotes approved
     public function quotesApproved(Request $request,$id){
         $validateData = $request->validate([
@@ -184,46 +221,7 @@ class OrderController extends Controller
     }
 
 
-    // search order
-    public function searchOrder(Request $request)
-        {
-
-            if($request->ajax())
-            {
-            $output_sub="";
-            $product = Parcel::where('marks','LIKE','%'.$request->search.'%')->get();      
-            $table_sub = $product->count();
-            
-            if($table_sub > 0)
-                {
-
-                      foreach($product as $device){
-                        $output_sub.=  "<tr>".
-                                "<td><b>".$device->id."</b></td>".
-                                "<td><b>".$device->user->firstname.' '.$device->user->lastname." </b></td>".
-                                "<td>"."<img src=$device->user->photo' >"."</td>".
-                                "<td><b class='text-dark'>".$device->marks."</b></td>".
-                                "<td>".$device->product."</td>".
-                                "<td>".$device->serviceRequest."</td>".
-                               " <td>".
-                               
-                               
-                                "<span class='badge bagde-sm bg-success'>".$device->status."</span>".
-                            
-
-                               "</td>".
-                                "</tr>";
-                        }
-                        
-                    return Response($output_sub);
-                }
-                else{
-                    return Response($output_sub);
-                }
-                return Response($table_sub);
-                    
-            }
-        }
+  
     
 
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Parcel;
 class Invoices extends Model
 {
     use HasFactory;
@@ -13,7 +13,7 @@ class Invoices extends Model
     protected $guarded = ['id'];
 
 
-    public function product(){
+    public function neww(){
         return $this->hasOne(Parcel::class, 'id','productId');
        }
     public function user(){
@@ -21,7 +21,7 @@ class Invoices extends Model
     }
 
     public function servicedata(){
-        return $this->hasOne(service::class, 'id','totalPrice');
+        return $this->hasOne(service::class, 'id','service_id');
     }
     public function register(){
         return $this->hasOne(User::class, 'id','user_id');

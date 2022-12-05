@@ -384,7 +384,7 @@
         document.getElementById("benifitDataText").value = innerHTML;
 
         document.getElementById('putBenifit').innerHTML=value;
-        document.getElementById("putPrice").innerHTML = value;
+        document.getElementById("putPrice").innerHTML = innerHTML;
     }
     var e = document.getElementById('lock')
       var p = new pATTERN({

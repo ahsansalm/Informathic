@@ -43,8 +43,11 @@ class PDFController extends Controller
 
     
     // here is userOrderPDFe pdf
-    public function userOrderPDF(){
-        $devices = Invoices::where('totalPrice','!=','Quotation')->get();
+    public function userOrderPDF(Request $request)
+    {
+        $search = $request->search ?? "";
+        $devices = Invoices::where('product','LIKE','%'.$search.'%')->where('totalPrice','!=','Quotation')->get();
+
         $pdf = Pdf::loadView('pdf.userOrder',[
             'devices' => $devices
         ]);
@@ -55,8 +58,10 @@ class PDFController extends Controller
     
 
     // here is userQuotePDF pdf
-    public function userQuotePDF(){
-        $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','=','Quotation')->get();
+    public function userQuotePDF(Request $request){
+        $search = $request->search ?? "";
+        $devices = Invoices::where('product','LIKE','%'.$search.'%')->where('totalPrice','=','Quotation')->get();
+
         $pdf = Pdf::loadView('pdf.userQuote',[
             'devices' => $devices
         ]);
@@ -154,8 +159,54 @@ class PDFController extends Controller
         return $pdf->download('product.pdf'); 
 
     }
+    
+
+
+
+       // here is todayOrderPDF pdf
+       public function todayOrderPDF(){
+        $id = Auth::user()->id;
+        $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')->whereDate('date', now())->get();
+        $pdf = Pdf::loadView('pdf.todayOrder',[
+            'devices' => $devices
+        ]);
+        return $pdf->download('todayOrder.pdf'); 
+
+    }
 
 
     
+
+
+    
+       // here is monthOrderPDF pdf
+       public function monthOrderPDF(){
+        $id = Auth::user()->id;
+        $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')
+        ->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();
+        $pdf = Pdf::loadView('pdf.monthOrder',[
+            'devices' => $devices
+        ]);
+        return $pdf->download('monthOrder.pdf'); 
+
+    }
+
+
+
+
+
+      // here is userOrderSearchPDF pdf
+      public function userOrderSearchPDF(Request $request){
+        $id = Auth::user()->id;
+        $devices = Parcel::whereBetween('date',[$request->search , $request->search1])->where('status','=','Approuvé')->get(); 
+        $pdf = Pdf::loadView('pdf.userOrderSearch',[
+            'devices' => $devices
+        ]);
+        return $pdf->download('userOrderSearch.pdf'); 
+
+    }
+
+
+
 
 }

@@ -79,7 +79,7 @@
                             <tr>
                             <th scope="row">4</th>
                             <td><h6>Demande de service :</h6></td>
-                            <td><p>{{$device->serviceRequest}}</p></td>
+                            <td>{{$device->servicedata->service}}</td>
                             </tr>
                             <tr>
                             <th scope="row">5</th>
@@ -89,7 +89,7 @@
                             <tr>
                             <th scope="row">6</th>
                             <td><h6>Prix :</h6></td>
-                            <td><p>{{$device->parcel->totalPrice}}</p></td>
+                            <td>{{$device->servicedata->prices}}</td>
                             </tr>
 
                             <th scope="row">7</th>

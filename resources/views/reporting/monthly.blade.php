@@ -5,13 +5,12 @@
 <div class="row">
     <div class="col-12 text-center">
         <div class="dashboard_image">
-            <h1 class="brand_device mt-5">Rapport d'aujourd'hui </h1> 
+            <h1 class="brand_device mt-5">Rapport mensuel</h1> 
         </div>
     </div>
 </div>
 
 <div class="row my-3">
-    
 
     <div class="col-md-4">
         <div class="card card_back-con">
@@ -38,7 +37,7 @@
         </div>
     </div>
     <div class="col-12 text-right">
-        <a href="{{url('todayOrderPDF')}}">
+        <a href="{{url('monthOrderPDF')}}">
             <button type="button" class="btn btn-sm btn-success float-right mt-2">Exporter PDF</button>
         </a>
     </div>
@@ -74,7 +73,7 @@
                                             <td><span class="badge bagde-sm bg-success">{{$device->status}}</span></td>
                                             <td>{{$device->servicedata->price}} €</td>
                                             <td>{{$device->servicedata->purchase_price}} €</td>
-                                            <td>{{$device->date}} </td>
+                                            <td>{{$device->date}}</td>
                                         </tr>
                                     </form>
                                 @endforeach
@@ -101,7 +100,7 @@ $(document).ready(function(){
         var search = $(this).val();
         console.log(search)
         $.ajax({
-                    url: '{{ url('/search/today/order') }}',
+                    url: '{{ url('/search/monthly/order') }}',
                     type:'post',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'

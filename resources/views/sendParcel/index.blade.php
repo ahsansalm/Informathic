@@ -215,6 +215,9 @@
                                                 <canvas id="mycanvas" width="350" height="350" class="glowing-border">
                                                 </canvas>
                                                     <p id="pattern"> no </p>
+
+
+                                                    <!-- <p id="result"> hre  </p> -->
                                             </div>
                                         </div>
                                     </div>

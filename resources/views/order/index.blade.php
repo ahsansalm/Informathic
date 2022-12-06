@@ -9,6 +9,17 @@
                 </div>
             </div>
             <div class="card-body">
+            <form action="{{url('search/norapproved')}}">
+                <div class="row">
+                        <div class="col-10">
+                            <input type="search" class="form-control"name="search"  placeholder="Ordre de recherche par nom d'utilisateur...">
+                        </div>
+                        <div class="col-2">
+                         <button type="submit" class="btn btn-block btn-primary">Search</button>
+
+                        </div>
+                    </div>
+               </form>
                     <table class="table mt-2">
                         <thead style="background: rgb(12, 23, 65);">
                             <tr>
@@ -27,7 +38,7 @@
                                     <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                     <td><b class="text-dark">{{$device->marks}}</b></td>
                                     <td>{{$device->product}}</td>
-                                    <td>{{$device->serviceRequest}}</td>
+                                    <td>{{$device->servicedata->service}}</td>
                                     <td>{{$device->parcel->totalPrice}}</td>
                                     <td><span class="badge bg-danger">{{$device->status}}</span></td>
                                 </tr>

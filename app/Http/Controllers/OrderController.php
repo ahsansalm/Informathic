@@ -18,6 +18,26 @@ class OrderController extends Controller
         return view("order.index",compact('devices','Parcel'));
     }
 
+    
+       // search bill
+       public function searchnorapproved(Request $request)
+       { 
+         $search = $request->search ?? "";
+         $id = Auth::user()->id;
+         if($search != ""){
+           $devices = Parcel::where('product','LIKE','%'.$search.'%')->where('userId',$id)->where('status','pending')->orWhere('status','Refus')->get();
+             
+         }else{
+            $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','pending')->orWhere('status','Refus')->orderBy('id', 'DESC')->get();
+        }
+         $Parcel = Parcel::first();
+         return view("order.indexsearch",compact('search','devices','Parcel'));
+   
+       }
+
+
+
+
 
     // all user order page
     public function userorder(){
@@ -103,6 +123,25 @@ class OrderController extends Controller
         $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','APPROUVÉ')->orderBy('id', 'DESC')->get();
         return view("order.approvedOrder",compact('devices','Parcel'));
     }
+
+
+    // search bill
+    public function searchokapproved(Request $request)
+    { 
+      $search = $request->search ?? "";
+      $id = Auth::user()->id;
+      if($search != ""){
+        $devices = Parcel::where('product','LIKE','%'.$search.'%')->where('userId',$id)->where('status','APPROUVÉ')->get();
+          
+      }else{
+        $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','APPROUVÉ')->orderBy('id', 'DESC')->get();
+     }
+      $Parcel = Parcel::first();
+      return view("order.approvedOrderSearch",compact('search','devices','Parcel'));
+
+    }
+
+
     // refuse order
     public function RefuseOrder(Request $request){
         $save = Parcel::find($request->userId);

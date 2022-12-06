@@ -5,14 +5,14 @@
         <div class="card">
             <div class="col-12 text-center">
                 <div class="dashboard_image" >
-                    <h1 class="brand_device mt-5">Voir Mes commandes approuvées</h1> 
+                    <h1 class="brand_device mt-5">Voir mes commandes en attente</h1> 
                 </div>
             </div>
             <div class="card-body">
-            <form action="{{url('search/okapproved')}}">
+            <form action="{{url('search/norapproved')}}">
                 <div class="row">
                         <div class="col-10">
-                            <input type="search" class="form-control"name="search"  placeholder="Ordre de recherche par nom d'utilisateur...">
+                            <input type="search" class="form-control"name="search" value="{{$search}}"  placeholder="Ordre de recherche par nom d'utilisateur...">
                         </div>
                         <div class="col-2">
                          <button type="submit" class="btn btn-block btn-primary">Search</button>
@@ -26,7 +26,7 @@
                                 <th scope="col" class="text-white">#</th>
                                 <th scope="col" class="text-white">Des marques</th>
                                 <th scope="col" class="text-white">Produit</th>
-                                <th scope="col" class="text-white">Demande de service</th>
+                                <th scope="col" class="text-white"> Demande de service</th>
                                 <th scope="col" class="text-white">Prix</th>
                                 <th scope="col" class="text-white">Statut</th>
                             </tr>
@@ -40,7 +40,7 @@
                                     <td>{{$device->product}}</td>
                                     <td>{{$device->servicedata->service}}</td>
                                     <td>{{$device->parcel->totalPrice}}</td>
-                                    <td><span class="badge bg-success">{{$device->status}}</span></td>
+                                    <td><span class="badge bg-danger">{{$device->status}}</span></td>
                                 </tr>
                             @endforeach
                         </tbody>

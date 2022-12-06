@@ -38,4 +38,25 @@ class DeviceController extends Controller
         );
             return Redirect()->back()->with( $notification);
     }
+
+
+
+    // search device
+    public function searchdevice(Request $request)
+    { 
+      $search = $request->search ?? "";
+      $id = Auth::user()->id;
+      if($search != ""){
+        $devices = Parcel::where('product','LIKE','%'.$search.'%')->where('userId',$id)->get();
+          
+      }else{
+        $devices = Parcel::where('userId',$id)->get();        
+    }
+      $Parcel = Parcel::first();
+      return view("myDevice.search",compact('devices','Parcel','search'));  
+
+    }
+
+
+
 }

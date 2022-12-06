@@ -1,4 +1,4 @@
-@extends('layouts.informathic')
+@extends('layouts.informathic2')
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -12,7 +12,7 @@
             <form action="{{url('search/support')}}">
                 <div class="row">
                         <div class="col-10">
-                            <input type="search" class="form-control"  name="search" placeholder="Ordre de recherche par nom d'utilisateur...">
+                            <input type="search" class="form-control"  name="search" value="{{$search}}" placeholder="Ordre de recherche par nom d'utilisateur...">
                         </div>
                         <div class="col-2">
                          <button type="submit" class="btn btn-block btn-primary">Search</button>

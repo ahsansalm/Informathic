@@ -29,4 +29,23 @@ class QuotesController extends Controller
         return Redirect()->back()->with( $notification);
     }
 
+    
+    
+       // search quote
+       public function searchquote(Request $request)
+       { 
+         $search = $request->search ?? "";
+         $id = Auth::user()->id;
+         if($search != ""){
+           $devices = Invoices::where('product','LIKE','%'.$search.'%')->where('totalPrice', 'Quotation')->where('user_id',$id)->where('status','!=','Pending')->get();
+             
+         }else{
+            $devices = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','!=','Pending')->get();     
+       }
+         $Parcel = Parcel::first();
+         return view("quotes.search",compact('search','devices','Parcel'));  
+   
+       }
+
+
 }

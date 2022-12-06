@@ -42,7 +42,7 @@ class SupportController extends Controller
     }
     // add problem
     public function AddSupport(Request $request){
-        DB::table('parcels')->where('admin_noti', '=', Null)->update(array('admin_noti' => 'Nouveau'));
+        DB::table('parcels')->where('admin_noti', '=', 1)->update(array('admin_noti' => 'Nouveau'));
 
         $save = Parcel::find($request->productId);
         $save->admin_chat = "Nouveau";
@@ -73,4 +73,24 @@ class SupportController extends Controller
             ]);
             return response('success');
     }
+
+
+
+       // search support
+       public function searchsupport(Request $request)
+       { 
+         $search = $request->search ?? "";
+         $id = Auth::user()->id;
+         if($search != ""){
+           $supports = Parcel::where('product','LIKE','%'.$search.'%')->where('userId',$id)->get();
+             
+         }else{
+            $supports = Parcel::where('userId',$id)->get();      
+       }
+         $Parcel = Parcel::first();
+         return view("support.search",compact('Parcel','supports','search'));  
+   
+       }
+
+
 }

@@ -70,7 +70,7 @@
                                     @foreach($invoices as $invoice)
                                         <tr>
                                             <th scope="row"><b class="text-dark">{{$i++}}</b></th>
-                                            <td>{{$invoice->product->product}}</td>
+                                            <td>{{$invoice->neww->product}}</td>
                                             <td><b class="text-dark">{{$invoice->totalPrice}}</b></td>
                                             <td>{{$invoice->date}}</td>
                                             @if($invoice->status =='Approved')

@@ -182,12 +182,19 @@ Route::get('/Parcel/Detail/{id}',[DeviceController::class, 'EditDevice'])->name(
 Route::get('/Parcel/Note/{id}',[DeviceController::class, 'NoteParcel'])->name('NoteParcel');
 // device delete page
 Route::get('/Parcel/Delete/{id}',[DeviceController::class, 'DeleteDevice'])->name('DeleteDevice');
+// search device
+Route::get('search/device',[DeviceController::class, 'searchdevice']);
+
+
+
 
 
 // MyQuotes page
 Route::get('/MyQuotes',[QuotesController::class, 'myQuotes'])->name('myQuotes');
 // quotes value order now
 Route::post('/quotes/value/{id}',[QuotesController::class, 'quotesValue']);
+// search quote
+Route::get('search/quote',[QuotesController::class, 'searchquote']);
 
 
 
@@ -200,6 +207,9 @@ Route::get('/Support/Detail/{id}',[SupportController::class, 'EditSupport'])->na
 Route::post('/support/add',[SupportController::class, 'AddSupport']);
 // add support new
 Route::post('/support/add/new',[SupportController::class, 'AddSupportNew']);
+// search support
+Route::get('search/support',[SupportController::class, 'searchsupport']);
+
 
 
 
@@ -255,10 +265,14 @@ Route::get('search/user/quotes',[OrderController::class, 'searchQuote']);
 
 
 
+
+
 // my bill page
 Route::get('/MyBill',[BillController::class, 'myBill'])->name('myBill');
 // bill edit page
 Route::get('/Mybill/Detail/{id}',[BillController::class, 'EditBill'])->name('EditBill');
+// search bill
+Route::get('search/bill',[BillController::class, 'searchbill']);
 
 
 
@@ -282,7 +296,10 @@ Route::get('/notification/detail/{id}',[NotificationController::class, 'notiDeta
 
 // s upport wallet
 Route::get('/SupportWallet',[OrderController::class, 'SupportWallet'])->name('SupportWallet');
-
+// search norapproved
+Route::get('search/norapproved',[OrderController::class, 'searchnorapproved']);
+// search okapproved
+Route::get('search/okapproved',[OrderController::class, 'searchokapproved']);
 
 
 

@@ -30,12 +30,12 @@
                         <tr>
                         <th scope="row">3</th>
                         <td><h6>Prestation demandée :</h6></td>
-                        <td><p id="putBenifit">{{$devices->serviceRequest}}</p></td>
+                        <td><p id="putBenifit">{{$devices->servicedata->service}}</p></td>
                         </tr>
                         <tr>
                         <th scope="row">4</th>
                         <td><h6>Informations complémentaires :</h6></td>
-                        <td><p id="putBenifit">{{$devices->serviceRequest}}</p></td>
+                        <td><p id="putBenifit">{{$devices->shipment}}</p></td>
                         </tr>
                         <tr>
                         <th scope="row">5</th>

@@ -62,4 +62,10 @@ class UserController extends Controller
             }
         }    
     }
+
+
+    
+    public function adminUser(){
+        return view("adminUser.index");
+    }
 }

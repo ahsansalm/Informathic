@@ -67,6 +67,7 @@
                             </tr>
                             <tr>
                             <th scope="row">2</th>
+                            <td hidden   id="userId2" >{{$device->userId}}</td>
                             <td hidden id="userId">{{$device->id}}</td>
                             <td><h6>Marques :</h6></td>
                             <td><p>{{$device->marks}}</p></td>
@@ -185,6 +186,7 @@ $(document).ready(function(){
     // data submit using ajax
     $("#refuse").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/refuse') }}',
@@ -192,7 +194,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                    data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Refus de commande!');
@@ -208,6 +210,7 @@ $(document).ready(function(){
     // for device revieved
     $("#recieved").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/recieved') }}',
@@ -215,7 +218,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                   data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Lappareil sera reçu!');
@@ -231,6 +234,7 @@ $(document).ready(function(){
     // for device in progress
     $("#progress").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/progress') }}',
@@ -238,7 +242,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                   data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Appareil en cours!');
@@ -254,6 +258,7 @@ $(document).ready(function(){
      // for device in waiting
      $("#waiting").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/waiting') }}',
@@ -261,7 +266,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                   data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Appareil en salle dattente!');
@@ -276,6 +281,7 @@ $(document).ready(function(){
      // for device in repair
      $("#repair").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/repair') }}',
@@ -283,7 +289,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                   data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Réparation terminée!');
@@ -299,6 +305,7 @@ $(document).ready(function(){
      // for device in return
      $("#return").click(function () {
         var userId = $("#userId").text();
+        var userId2 = $("#userId2").text();
         console.log(userId)
         $.ajax({
                     url: '{{ url('/order/return') }}',
@@ -306,7 +313,7 @@ $(document).ready(function(){
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    data:{'userId':userId},
+                   data:{'userId':userId,'userId2':userId2},
                         success:function(success){   
                             if(success){
                                 toastr.success(success.message,'Retour au client!');

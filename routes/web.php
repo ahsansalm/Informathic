@@ -462,6 +462,8 @@ Route::post('/search/all/purchase',[reportingController::class, 'searchOrderpurc
 Route::post('/search/all/profit',[reportingController::class, 'searchOrderprofit']);
 
 
+// adminUser
+Route::get('/adminUser',[UserController::class, 'adminUser']);
 
 // /monthly/report
 Route::get('/monthly/report',[reportingController::class, 'monthlyreport']);

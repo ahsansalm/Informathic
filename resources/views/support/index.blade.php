@@ -39,7 +39,7 @@
                                         <th scope="row"><b class="text-dark">{{$i++}}</b></th>
                                         <td><b class="text-dark">{{$device->marks}}</b></td>
                                         <td>{{$device->product}}</td>
-                                        <td>{{$device->serviceRequest}}</td>
+                                        <td>{{$device->servicedata->service}}</td>
                                             @if($device->chat =='Lis')
                                             <td><span class="badge bagde-sm bg-success">{{$device->chat}}</span></td>
                                             @else

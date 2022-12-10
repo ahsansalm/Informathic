@@ -1,12 +1,13 @@
 @extends('layouts.informathic2')
 @section('content')
 <div class="bg-white border rounded">
-    <div class="row no-gutters">
         <div class="col-12 text-center">
                 <div class="dashboard_image" >
                     <h1 class="brand_device mt-5">Changer le mot de passe</h1> 
                 </div>
         </div>
+  <div class="container">
+  <div class="row no-gutters">
             <div class="col-12">
                 <form action="{{URL('profile/update/password')}}/{{auth()->user()->id}}" method="POST" enctype="multipart/form-data"  >
                 @csrf
@@ -39,6 +40,7 @@
     </div>
     
     </form>
+  </div>
                        
 </div>
 

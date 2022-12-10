@@ -16,12 +16,12 @@
                     
                 </div>
                 <div class="col-md-6 mt-md-5 mt-3">
-                    <a href="/public/SendParcel">
+                    <a href="/SendParcel">
                         <button type="button" class=" btn default-btn btn-block prev-step ">Retour à la page d'envoi de colis</button>
                     </a>
                 </div>
                 <div class="col-md-6 mt-md-5 mt-1">
-                    <a href="/public/MySupport">
+                    <a href="/MySupport">
                         <button type="button" class="  btn default-btn btn-block next-step ">Accéder à mon billet</button>
                     </a>
                 </div>

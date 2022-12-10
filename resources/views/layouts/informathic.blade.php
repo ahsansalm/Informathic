@@ -29,6 +29,8 @@
    <link href="{{asset('auth/assets/css/custom.css')}}" rel="stylesheet" />
   <!-- toaster css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+  <link rel="stylesheet" type="text/css" href="{{asset('auth/assets/css/patternLock.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{asset('auth/assets/css/patternLock-theme.css')}}" />
 
   <!-- FAVICON -->
   <link href="{{asset('admin/assets/img/favicon.png')}}" rel="shortcut icon" />
@@ -106,6 +108,10 @@
 <script src="{{asset('admin/assets/js/example.js')}}"></script>
 <script src="{{asset('admin/assets/js/PatternLock.js')}}"></script>
 <script src="{{asset('admin/assets/js/vanilla.example.js')}}"></script>
+
+<script src="{{asset('admin/assets/js/jquery-1.11.1.min.js')}}"></script>
+
+<script src="{{asset('admin/assets/js/jquery.patternlock.js')}}"></script>
 <!-- custom js -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 

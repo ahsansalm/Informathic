@@ -1,6 +1,11 @@
 @extends('layouts.informathic')
 @section('content')
 
+
+
+<link rel="stylesheet" type="text/css" href="{{asset('auth/assets/css/patternLock.css')}}" />
+        <link rel="stylesheet" type="text/css" href="{{asset('auth/assets/css/patternLock-theme.css')}}" />
+        
 <style>
 
 
@@ -200,25 +205,29 @@
                                         </div>
 
                                         <div class="col-md-6 mt-3">
-                                            <h6><b>Mot de passe NIP</b></h6>
-                                            <div id="div2" class="selectGroup mt-2"></div>
-                                        </div>
-                                        <div class="col-md-6 mt-3">
                                             <h6><b>MODÈLE de mot de passe</b></h6>
                                             <div id="div3" class="selectGroup mt-2"></div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="text"  id="PassPin" class="form-control " >
+                                        
+                                        <div class="col-md-6 mt-3">
+                                            <h6><b>Mot de passe NIP</b></h6>
+                                            <div id="div2" class="selectGroup mt-2"></div>
                                         </div>
-                                        <div class="col-lg-8 mt-2"> 
+                                        <div class="col-lg-6 mt-2"> 
                                             <div id="PassPat" >
-                                                <canvas id="mycanvas" width="350" height="350" class="glowing-border">
+                                                <!-- <canvas id="mycanvas" width="350" height="350" class="glowing-border">
                                                 </canvas>
-                                                    <p id="pattern"> no </p>
+                                                    <p id="pattern"> no </p> -->
+
+                                                    <div id="patternTimeout"></div>
+                                                    <div id="pattern"></div>
 
 
                                                     <!-- <p id="result"> hre  </p> -->
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text"  id="PassPin" class="form-control " >
                                         </div>
                                     </div>
                                     <div class="row">
@@ -389,12 +398,7 @@
         document.getElementById('putBenifit').innerHTML=value;
         document.getElementById("putPrice").innerHTML = innerHTML;
     }
-    var e = document.getElementById('lock')
-      var p = new pATTERN({
-        onPattern:function(){
-            this.success
-        }
-      })
+   
 
 
 
@@ -536,7 +540,7 @@
                     },
                         success:function(success){
                             if(success){
-                                window.location.href = '/public/SuccessParcel';
+                                window.location.href = '/SuccessParcel';
                             }             
                         }           
             });
@@ -594,275 +598,20 @@
 
 
 
+<script src="{{asset('admin/assets/js/jquery-1.11.1.min.js')}}"></script>
 
+        <script src="{{asset('admin/assets/js/jquery.patternlock.js')}}"></script>
  <!-- here is the passwrod patter -->
-<script>	
-    var dots=9
-	var trues=new Array(dots);
-	var rects=new Array(dots);
-	var lines=[];
-	var pattern=new Array(dots);
-	var cpattern=new Array(dots);
-	var ink="rgb(255,144,0)";
-	var success="#8BDC50";
-	var spaint="#03A9F4";
-	var end,start,index=1,stroke=10;
-	var startx,starty,endx,endy,enddx,enddy,width,height;
-	var c,ctx,radius=10,ind;
-	var timer,interval;
-	var patternSet=false,settingPattern=false,patternCorrect=false,drawing=false;
-	//////// Assign The Components Here //////////////
-	var canvasid="#mycanvas";
-	var changeBtnId="#change";
-	var outputId="#pattern";
-
-$(document).ready(function(){
-	c=document.getElementById(canvasid.substr(1));
-////////////////////////Assigning Event Listeners/////////////////////////////////////////
-	$(changeBtnId).on('click',function(){
-		settingPattern=true;
-	});
-	$(canvasid).on('mousedown',function(e){
-		if(timer){
-			clearTimeout(timer);
-		}
-		resetScreen();
-		startx=e.offsetX;
-		starty=e.offsetY;
-		index=1;
-		for(i=0;i<dots;++i){
-			if(rects[i].contains(new Point(startx,starty))){
-				startx=rects[i].getCenterX();
-				starty=rects[i].getCenterY();
-				endx=startx;
-                endy=starty;
-                trues[i]=true;
-                pattern[i]=index;
-                start=i;
-                drawing=true;
-                break;
-			}
-		}
-	});
-	$(canvasid).on('mouseup',function(e){
-		drawing=false;
-		printPattern();
-		if(settingPattern==true){
-			for(i=0;i<dots;++i){
-				cpattern[i]=pattern[i];
-			}
-		}else{
-			if(patternCheck()==true){
-				patternCorrect=true;
-			}
-		}
-		timer=setTimeout(function(){
-			if(patternCorrect==true){
-				clearInterval(interval);
-			}
-			settingPattern=false;
-			patternCorrect=false;
-			resetScreen();
-		},1500);
-	});
-	$(canvasid).on('mousemove',function(e){
-		if(drawing==true){
-			endx=e.offsetX;
-			endy=e.offsetY;
-			for(i=0;i<rects.length;++i){
-				if(trues[i]!=true){
-					if(rects[i].contains(new Point(endx,endy))){
-						index+=1;
-						enddx=rects[i].getCenterX();
-						enddy=rects[i].getCenterY();
-						lines.push(new Line(startx, starty, enddx, enddy));
-						startx=enddx;
-						starty=enddy;
-						end=i;
-						if((start==0&&end==2)||(start==2&&end==0)){
-							if(trues[1]==false){
-                            trues[1]=true;pattern[1]=index;index+=1;}}
-                        if((start==3&&end==5)||(start==5&&end==3)){
-                            if(trues[4]==false){
-                            trues[4]=true;pattern[4]=index;index+=1;}}
-                        if((start==6&&end==8)||(start==8&&end==6)){
-                            if(trues[7]==false){
-                            trues[7]=true;pattern[7]=index;index+=1;}}
-                        if((start==0&&end==6)||(start==6&&end==0)){
-                            if(trues[3]==false){
-                            trues[3]=true;pattern[3]=index;index+=1;}}
-                        if((start==1&&end==7)||(start==7&&end==1)){
-                            if(trues[4]==false){
-                            trues[4]=true;pattern[4]=index;index+=1;}}
-                        if((start==2&&end==8)||(start==8&&end==2)){
-                            if(trues[5]==false){
-                            trues[5]=true;pattern[5]=index;index+=1;}}
-                        if((start==0&&end==8)||(start==8&&end==0)){
-                            if(trues[4]==false){
-                            trues[4]=true;pattern[4]=index;index+=1;}}
-                        if((start==2&&end==6)||(start==6&&end==2)){
-                            if(trues[4]==false){
-                            trues[4]=true;pattern[4]=index;index+=1;}}
-                            start=i;
-                            trues[i]=true;
-                            pattern[i]=index;
-                            break;
-                        }
+  <script>
+            $(document).ready(function(){
+                $('#patternTimeout').patternLock({
+                    timeout: 4000,
+                    drawEnd: function(value) {
+                        $('#pattern').text(value);
                     }
-                }
-            }
-	});
-
-	//////////////////// Setting Interval For Repainting The Screen ///////////////////////////
-	interval=setInterval(paint,25/2);
-});
-
-/**
-* The Paint Function Draws The Dots
-*/
-
-function paint(){
-	ctx=c.getContext("2d");
-	width=c.width;
-	height=c.height;
-	ctx.clearRect(0,0,width,height);
-	ctx.fillStyle="#0c1741";
-	ctx.lineWidth=radius*2;
-	ctx.lineJoin="round";
-	ctx.lineCap="round";
-	ctx.strokeStyle=ink;
-	ctx.shadowColor = "rgb(0, 0, 0)"; 
-	ctx.shadowBlur = radius/4;
-	ctx.shadowOffsetX = 0;
-	ctx.shadowOffsetY = 0;
-	if(settingPattern==true){
-		ctx.strokeStyle=spaint;
-	}
-	if(patternCorrect==true){
-		ctx.strokeStyle=success;
-	}
-	for(i=0;i<lines.length;++i){
-		lines[i].draw();
-	}
-	if(drawing==true){
-		new Line(startx,starty,endx,endy).draw();
-	}
-	ind=0;
-	for(i=width/6;i<width;i+=width/3){
-		for(j=height/6;j<height;j+=height/3){
-			fillCircle(i,j);
-			if(trues[ind]==true){
-				ctx.lineWidth=2;
-				ctx.strokeStyle="red";
-				strokeCircle(i,j);
-			}
-			rects[ind]=new Rectangle(i-radius,j-radius,radius*2,radius*2); 
-			ind++;
-		}
-	}
-}
-
-/**
-* This Function Resets The Pattern
-*/
-
-function resetScreen(){
-	while(lines.length>0){
-		lines.pop();
-	}
-	for(i=0;i<trues.length;++i){
-		trues[i]=false;
-		pattern[i]=0;
-	}
-}
-
-/**
-* Checks If The Pattern Is Correct Or Not
-*@return Returns True If Pattern Is Correct Else False
-*/
-
-function patternCheck(){
-	var correct=true;
-	for(i=0;i<dots;++i){
-		if(cpattern[i]!=pattern[i]){
-			correct=false;
-			break;
-		}
-	}
-	return correct;
-}
-
-/**
-* Prints The Pattern On The Component
-*/
-
-function printPattern(){
-	$(outputId).html(pattern);
-}
-
-//////////////// The Line Class ////////////////////////
-function Line(startx,starty,endx,endy){
-	this.startx=startx;
-	this.starty=starty;
-	this.endx=endx;
-	this.endy=endy;
-	this.draw=function(){
-		ctx.beginPath();
- 		ctx.moveTo(this.startx,this.starty);
- 		ctx.lineTo(this.endx,this.endy);
- 		ctx.stroke();
- 		ctx.closePath();
-	}
-}
-
-/**
-* It Draws And Fills The Circle With Centres(i,j)
-*/
-
-function fillCircle(i,j){
-		ctx.beginPath();
- 		ctx.arc(i,j,radius,(Math.PI/180)*0,(Math.PI/180)*360,false);
- 		ctx.fill();
- 		ctx.closePath();
-}
-
-/**
-* It Draws The Circle With Centres(i,j)
-*/
-
-function strokeCircle(i,j){
-		ctx.beginPath();
- 		ctx.arc(i,j,radius*3,(Math.PI/180)*0,(Math.PI/180)*360,false);
- 		ctx.stroke();
- 		ctx.closePath();
-}
-
-/////////////// The Rectangle Class ////////////////////////////
-function Rectangle(x,y,width,height){
-	this.x=x;
-	this.y=y;
-	this.width=width;
-	this.height=height;
-	this.contains=function(point){
-		if(point.x>=this.x&&point.x<=(this.x+this.width)&&point.y>=this.y&&point.y<=(this.y+this.height)){
-			return true;
-		}
-		return false;
-	}
-
-	this.getCenterX=function(){
-		return this.x+this.width/2;
-	}
-
-	this.getCenterY=function(){
-		return this.y+this.height/2;
-	}
-}
-
-/////////////// The Point Class //////////////////////////
-function Point(x,y){
-	this.x=x;
-	this.y=y;
-}
+                });
+            });
+            
+        </script>
 </script>
 @endsection

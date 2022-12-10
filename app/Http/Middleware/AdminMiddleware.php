@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\Parcel;
+use App\Models\Invoices;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -24,7 +25,8 @@ class AdminMiddleware
             $Parcel = Parcel::first();
 
             $supports = Parcel::all();
-            return response()->view('problem.index',compact('supports','Parcel'));
+            $Invoice = Invoices::first();
+            return response()->view('problem.index',compact('Invoice','supports','Parcel'));
         }
         else 
         { 

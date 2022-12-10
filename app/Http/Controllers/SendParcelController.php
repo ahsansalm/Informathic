@@ -9,23 +9,29 @@ use Illuminate\Support\Carbon;
 use App\Models\config\brand;
 use Picqer;
 use DB;
+use Auth;
 class SendParcelController extends Controller
 {
     // sedn parcel
     public function sendParcel(){
+        $id = Auth::user()->id;
         $brands = brand::all();
-        $Parcel = Parcel::first();
-        return view("sendParcel.index",compact('brands','Parcel'));    
+        $Parcel = Parcel::where('userId' , $id)->first();
+        
+      $Invoice = Invoices::where('user_id' , $id)->first();
+        return view("sendParcel.index",compact('brands','Invoice','Parcel'));    
     }
     // success parcel
     public function successParcel(){
-        $Parcel = Parcel::first();
+        $id = Auth::user()->id;
+        $Parcel = Parcel::where('userId' , $id)->first();
         return view("sendParcel.success",compact('Parcel'));    
     }
 
     // insert parcel
     public function insert(Request $request){
-        DB::table('parcels')->where('order_noti', '=', 1)->update(array('order_noti' => 'Nouveau'));
+        DB::table('parcels')->update(array('order_noti' => 'Nouveau'));
+        DB::table('invoices')->update(array('quote_noti' => 'neuf'));
 
         // product code section
         $product_code = rand(106890122,100000000);

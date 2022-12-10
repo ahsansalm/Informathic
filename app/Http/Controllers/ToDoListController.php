@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ToDoList;
 use App\Models\vendor;
 use App\Models\Parcel;
+use App\Models\Invoices;
 use Illuminate\Support\Carbon;
 use Auth;
 use Yajra\Datatables\Datatables;
@@ -14,7 +15,8 @@ class ToDoListController extends Controller
     // main page
     public function index(){
         $Parcel = Parcel::first();
-        return view("toDoList.index",compact('Parcel'));
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("toDoList.index",compact('Invoice','Parcel'));
     }
     // 
        // yajra  for list
@@ -49,7 +51,9 @@ class ToDoListController extends Controller
     public function TaskEditPage($id){
         $task = ToDoList::find($id);
         $Parcel = Parcel::first();
-        return view("toDoList.edit",compact('task','Parcel'));
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("toDoList.edit",compact('Invoice','task','Parcel'));
     }
 
     // task edit
@@ -113,7 +117,9 @@ class ToDoListController extends Controller
     // comlist page
     public function comlist(){
         $Parcel = Parcel::first();
-        return view("toDoList.complete",compact('Parcel'));
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("toDoList.complete",compact('Invoice','Parcel'));
     }
      // yajra  for list
      public function getcom()
@@ -130,7 +136,9 @@ class ToDoListController extends Controller
          // favlist page
     public function favlist(){
         $Parcel = Parcel::first();
-        return view("toDoList.favrouite",compact('Parcel'));
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("toDoList.favrouite",compact('Invoice','Parcel'));
     }
      // yajra  for list
      public function getfav()
@@ -147,8 +155,10 @@ class ToDoListController extends Controller
 
      /// vendorlist
      public function vendorlist(){
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
         $Parcel = Parcel::first();
-        return view("toDoList.vendorlist",compact('Parcel'));
+        return view("toDoList.vendorlist",compact('Invoice','Parcel'));
      }
 
 
@@ -186,7 +196,9 @@ class ToDoListController extends Controller
       public function vendorEditPage($id){
         $vendor = vendor::find($id);
         $Parcel = Parcel::first();
-        return view("toDoList.editvendor",compact('vendor','Parcel'));
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("toDoList.editvendor",compact('Invoices','vendor','Parcel'));
     }
 
     public function updatevendor(Request $request, $id){
@@ -232,8 +244,10 @@ class ToDoListController extends Controller
      // vendor edit page
      public function detailVendor($id){
         $vendor = vendor::find($id);
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
         $Parcel = Parcel::first();
-        return view("toDoList.detailvendor",compact('vendor','Parcel'));
+        return view("toDoList.detailvendor",compact('Invoice','vendor','Parcel'));
     }
 
 
@@ -242,7 +256,9 @@ class ToDoListController extends Controller
     // vendorfavlist page
     public function vendorfavlist(){
         $Parcel = Parcel::first();
-    return view("toDoList.favrouiteVendor",compact('Parcel'));
+        
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+    return view("toDoList.favrouiteVendor",compact('Invoice','Parcel'));
     }
     // yajra  for list
     public function getvendorfav()

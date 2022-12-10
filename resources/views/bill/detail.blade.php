@@ -19,17 +19,17 @@
                             <tr>
                             <th scope="row">1</th>
                             <td><h6>Vos notes:</h6></td>
-                            <td> <p id="putBrand">{{$bills->product->marks}}</p></td>
+                            <td> <p id="putBrand">{{$bills->marks}}</p></td>
                             </tr>
                             <tr>
                             <th scope="row">2</th>
                             <td><h6>Ton produit:</h6></td>
-                            <td><p id="putProduct">{{$bills->product->product}}</p></td>
+                            <td><p id="putProduct">{{$bills->product}}</p></td>
                             </tr>
                             <tr>
                             <th scope="row">3</th>
                             <td><h6>Votre avantage:</h6></td>
-                            <td><p id="putProduct">{{$bills->product->serviceRequest}}</p></td>
+                            <td><p id="putProduct">{{$bills->servicedata->service}}</p></td>
                             </tr>
                             <tr>
                             <th scope="row">4</th>

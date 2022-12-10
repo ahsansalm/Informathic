@@ -33,9 +33,9 @@
                                                 @csrf
                                                 <tr>
                                                     <th scope="row"><b class="text-dark">{{$i++}}</b></th>
-                                                    <td><b class="text-dark">{{$device->product->marks}}</b></td>
-                                                    <td>{{$device->product->product}}</td>
-                                                    <td>{{$device->product->serviceRequest}}</td>
+                                                    <td><b class="text-dark">{{$device->neww->marks}}</b></td>
+                                                    <td>{{$device->neww->product}}</td>
+                                                    <td>{{$device->servicedata->service}}</td>
                                                     @if($device->status =='Approved')
                                                     <td><span class="badge bagde-sm bg-success">{{$device->status}}</span></td>
                                                     @else

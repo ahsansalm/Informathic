@@ -22,10 +22,12 @@ class SupportController extends Controller
             Parcel::where('userId', '=', $id)->update($input);
             
         $supports = Parcel::where('userId',$id)->get();
-        $Parcel = Parcel::first();
+        
+        $Parcel = Parcel::where('userId' , $id)->first();
+        $Invoice = Invoices::where('user_id' , $id)->first();
 
 
-        return view("support.index",compact('Parcel','supports'));    
+        return view("support.index",compact('Invoice','Parcel','supports'));    
     }
     // edit support page
     public function EditSupport($id){
@@ -37,12 +39,13 @@ class SupportController extends Controller
         $parcel = Parcel::find($id);
         $supports = Support::where('userId',$userId)->where('productId',$id)->get();
         $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
-        $Parcel = Parcel::first();
-        return view("support.detail",compact('parcel','supports','reply','Parcel'));    
+        $Invoice = Invoices::where('user_id' , $userId)->first();
+        $Parcel = Parcel::where('userId' , $userId)->first();
+        return view("support.detail",compact('Invoice','parcel','supports','reply','Parcel'));    
     }
     // add problem
     public function AddSupport(Request $request){
-        DB::table('parcels')->where('admin_noti', '=', 1)->update(array('admin_noti' => 'Nouveau'));
+        DB::table('parcels')->update(array('admin_noti' => 'Nouveau'));
 
         $save = Parcel::find($request->productId);
         $save->admin_chat = "Nouveau";

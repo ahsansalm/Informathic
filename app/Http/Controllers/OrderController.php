@@ -13,9 +13,15 @@ class OrderController extends Controller
      //page
      public function myOrder(){
         $id = Auth::user()->id;
-        $Parcel = Parcel::first();
+
+        DB::table('parcels')->where('userId', '=', $id)->update(array('order_approved_noti' => Null));
+
+
+        $Parcel = Parcel::where('userId' , $id)->first();
+        
+        $Invoice = Invoices::where('user_id' , $id)->first();
         $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','pending')->orWhere('status','Refus')->orderBy('id', 'DESC')->get();
-        return view("order.index",compact('devices','Parcel'));
+        return view("order.index",compact('Invoice','devices','Parcel'));
     }
 
     
@@ -30,7 +36,8 @@ class OrderController extends Controller
          }else{
             $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','pending')->orWhere('status','Refus')->orderBy('id', 'DESC')->get();
         }
-         $Parcel = Parcel::first();
+        
+        $Parcel = Parcel::where('userId' , $id)->first();
          return view("order.indexsearch",compact('search','devices','Parcel'));
    
        }
@@ -73,7 +80,8 @@ class OrderController extends Controller
     public function orderApproved(Request $request ,$id){
         $user = $request->userId;
         $serviceId =$request->serviceId;
-        DB::table('parcels')->where('userId' , $user)->where('order_approved_noti', '=', Null)->update(array('order_approved_noti' => 'Nouveau'));
+        DB::table('parcels')->where('userId' , $user)->update(array('order_approved_noti' => 'Nouveau'));
+        DB::table('parcels')->where('userId' , $user)->update(array('device_noti' => 'Nouveau'));
         DB::table('services')->where('id' , $serviceId)->decrement('stock'); 
         $Parcel = Parcel::first();
         Parcel::find($id)->update([
@@ -119,9 +127,12 @@ class OrderController extends Controller
     public function ApprovedOrder(){
         $id = Auth::user()->id;
         DB::table('parcels')->where('userId', '=', $id)->where('order_approved_noti', '=', 'Nouveau')->update(array('order_approved_noti' => Null));
-        $Parcel = Parcel::first();
+     
+        $Parcel = Parcel::where('userId' , $id)->first();
+        $Invoice = Invoices::where('user_id' , $id)->first();
+        
         $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','APPROUVÉ')->orderBy('id', 'DESC')->get();
-        return view("order.approvedOrder",compact('devices','Parcel'));
+        return view("order.approvedOrder",compact('devices','Invoice','Parcel'));
     }
 
 
@@ -144,6 +155,11 @@ class OrderController extends Controller
 
     // refuse order
     public function RefuseOrder(Request $request){
+        
+        Parcel::where('userId',$request->userId2)->update([
+            'order_approved_noti' => 'Refus',
+        ]);
+
         $save = Parcel::find($request->userId);
         $save->status = 'Refus';
         $save->update();
@@ -155,6 +171,11 @@ class OrderController extends Controller
 
     // recievedOrder order
     public function recievedOrder(Request $request){
+
+        Parcel::where('userId',$request->userId2)->update([
+            'device_noti' => 'Nouveau',
+        ]);
+
         $save = Parcel::find($request->userId);
         $save->admin_status = 'Reçu';
         $save->update();
@@ -164,6 +185,11 @@ class OrderController extends Controller
 
     // progress order
     public function progressOrder(Request $request){
+
+        Parcel::where('userId',$request->userId2)->update([
+            'device_noti' => 'Nouveau',
+        ]);
+
         $save = Parcel::find($request->userId);
         $save->admin_status = 'en cours';
         $save->update();
@@ -173,6 +199,12 @@ class OrderController extends Controller
 
      // waiting order
      public function waitingOrder(Request $request){
+
+        Parcel::where('userId',$request->userId2)->update([
+            'device_noti' => 'Nouveau',
+        ]);
+
+
         $save = Parcel::find($request->userId);
         $save->admin_status = 'SALLE DATTENTE';
         $save->update();
@@ -182,6 +214,12 @@ class OrderController extends Controller
 
      // repair order
      public function repairOrder(Request $request){
+
+        Parcel::where('userId',$request->userId2)->update([
+            'device_noti' => 'Nouveau',
+        ]);
+
+
         $save = Parcel::find($request->userId);
         $save->admin_status = 'Réparé';
         $save->update();
@@ -191,6 +229,12 @@ class OrderController extends Controller
 
      // return order
      public function returnOrder(Request $request){
+
+        Parcel::where('userId',$request->userId2)->update([
+            'device_noti' => 'Nouveau',
+        ]);
+
+
         $save = Parcel::find($request->userId);
         $save->admin_status = 'Retour au client';
         $save->update();
@@ -202,6 +246,8 @@ class OrderController extends Controller
 
     // quotation order
     public function userQuotes(){
+        DB::table('invoices')->update(array('quote_noti' => Null));
+
         $Parcel = Parcel::first();
         $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','=','Quotation')->get();
         return view("order.quotesOrder",compact('devices','Parcel'));
@@ -228,6 +274,8 @@ class OrderController extends Controller
 
     // quotes approved
     public function quotesApproved(Request $request,$id){
+        $userId = $request->userId;
+        DB::table('invoices')->where('user_id', '=', $userId)->update(array('user_quote_noti' => 'Neuf'));
         $validateData = $request->validate([
             'quotePrice' => 'required|max:255',
         ],
@@ -268,12 +316,13 @@ class OrderController extends Controller
     public function SupportWallet(){
 
         $id = Auth::user()->id;
+        $Parcel = Parcel::where('userId' , $id)->first();
+        $Invoice = Invoices::where('user_id' , $id)->first();
         $totalPayment =
         $payment = Payment::where('userId',$id)
                 ->selectRaw('SUM(payments.amount) AS sum')
                 ->first()->sum;
-                $Parcel = Parcel::first();
-        return view("wallet.index",compact('payment','Parcel'));
+        return view("wallet.index",compact('Invoice','payment','Parcel'));
     }
 
 

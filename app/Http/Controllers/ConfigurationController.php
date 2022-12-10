@@ -7,6 +7,7 @@ use App\Models\config\brand;
 use App\Models\config\product;
 use App\Models\service;
 use App\Models\Parcel;
+use App\Models\Invoices;
 use App\Models\User;
 use Auth;
 use Image;
@@ -18,7 +19,8 @@ class ConfigurationController extends Controller
     // index page
     public function index(){
         $Parcel = Parcel::first();
-        return view("config.index",compact('Parcel'));
+      $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("config.index",compact('Invoice','Parcel'));
     }
     
 
@@ -26,7 +28,8 @@ class ConfigurationController extends Controller
     public function brands(){
         $brand = DB::table('brands')->first();
         $Parcel = Parcel::first();
-        return view('config.brands.index',compact('brand','Parcel'));
+      $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view('config.brands.index',compact('brand','Parcel','Invoice'));
     }
     // yajra  for brand
     public function getbrands()
@@ -75,8 +78,9 @@ class ConfigurationController extends Controller
     public function editBrand($id){
         $brand = brand::find($id);
         $Parcel = Parcel::first();
+      $Invoice = Invoices::where('totalPrice','Quotation')->first();
 
-        return view('config.brands.edit' ,compact('brand','Parcel'));
+        return view('config.brands.edit' ,compact('brand','Parcel','Invoice'));
 
     }
 
@@ -141,7 +145,8 @@ class ConfigurationController extends Controller
         $brands = brand::all();
         $product = product::first();
         $Parcel = Parcel::first();
-        return view('config.product.index',compact('brands','product','Parcel'));
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view('config.product.index',compact('brands','product','Parcel','Invoice'));
     }
 
 
@@ -200,7 +205,8 @@ class ConfigurationController extends Controller
         $brands = brand::all();
         $products = product::find($id);
         $Parcel = Parcel::first();
-        return view('config.product.edit' ,compact('products','brands','Parcel'));
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view('config.product.edit' ,compact('products','brands','Parcel','Invoice'));
 
     }
 
@@ -352,10 +358,12 @@ class ConfigurationController extends Controller
       // edit service page
       public function editServices($id){
         $brands = brand::all();
+      $Invoice = Invoices::where('totalPrice','Quotation')->first();
+
         $products = product::all();
         $services = service::find($id);
         $Parcel = Parcel::first();
-        return view('config.service.edit',compact('brands','products','services','Parcel'));
+        return view('config.service.edit',compact('Invoice','brands','products','services','Parcel'));
 
     }
    // update service

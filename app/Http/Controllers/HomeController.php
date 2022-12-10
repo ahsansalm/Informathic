@@ -29,18 +29,57 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   $Parcel = Parcel::first();
-        $users = User::where('role_as','0')->get(); 
-        $countProblems = DB::table('problem_replies')->count();
-        $totalUsers =  DB::table('users')->where('role_as','0')->count();
-        $id = Auth::user()->id;
-        $invoices = Invoices::where('user_id',$id)->orderBy('id', 'DESC')->take(5)->get();
-        $ProblemReply = ProblemReply::where('userId',$id)->orderBy('id', 'DESC')->take(5)->get();
-        $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','pending')->take(5)->orderBy('id', 'DESC')->get();
+    {  
+        if(Auth::user()->role_as == '1'){
 
-        $quotes = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','Approved')->get();
+            $userId = Auth::user()->id;
+            $Parcel = Parcel::first();
+            $Invoice = Invoices::where('totalPrice','Quotation')->first();
+    
+            $allorder =  DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->count();
+            $pendingorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'pending')->count();
+            $approvedorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'Approuvé')->count();
+            $sale = DB::table('invoices')->where('status','=','Approuvé')
+                    ->join('services', 'invoices.service_id', '=', 'services.id')  
+                    ->select('services.price')      
+                    ->sum('price');
+            $pur1 = DB::table('services')->sum('stock');
+            $pur2 = DB::table('services')->sum('purchase_price');
+            $purchase = $pur1 * $pur2;
+    
+    
+    
+            
+            $todaySale = DB::table('invoices')->where('status','=','Approuvé')
+                ->whereDate('date', now())
+                ->join('services', 'invoices.service_id', '=', 'services.id')  
+                ->select('services.price')      
+                ->sum('price');
+            return view("reporting.index",compact('Invoice','Parcel','allorder','pendingorder','approvedorder','sale','purchase','todaySale'));
+    
+            
 
-        return view('admin.user',compact('users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes','Parcel'));    
+         }
+        else {
+            $users = User::where('role_as','0')->get(); 
+            $countProblems = DB::table('problem_replies')->count();
+            $totalUsers =  DB::table('users')->where('role_as','0')->count();
+            $id = Auth::user()->id;
+            $Parcel = Parcel::first();
+            $Invoice = Invoices::where('totalPrice','Quotation')->first();
+            $invoices = Invoices::where('user_id',$id)->orderBy('id', 'DESC')->take(5)->get();
+            $ProblemReply = ProblemReply::where('userId',$id)->orderBy('id', 'DESC')->take(5)->get();
+            $devices = Parcel::where('userId',$id)->orderBy('id', 'DESC')->where('status','pending')->take(5)->orderBy('id', 'DESC')->get();
+    
+            $quotes = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','Approved')->get();
+    
+            return view('admin.user',compact('Invoice','users','totalUsers','countProblems','invoices','ProblemReply','devices','quotes','Parcel'));    
+          
+       }
+    
+    
+    
+    
     }
 
       // yajra  for user
@@ -58,7 +97,9 @@ class HomeController extends Controller
     // user detail
     public function userDetail($id){
         $user = User::find($id);
-        return view("admin.userDetail",compact('user'));
+        $Parcel = Parcel::first();
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("admin.userDetail",compact('Invoice','Parcel','user'));
     }
 
     // userDisabled

@@ -20,8 +20,9 @@ class inventoryController extends Controller
     // page
     public function inventory(){
         $Parcel = Parcel::first();
+        $Invoice = Invoices::where('totalPrice','Quotation')->first();
         $service = DB::table('services')->first();
-        return view("inventory.index",compact('Parcel','service'));
+        return view("inventory.index",compact('Invoice','Parcel','service'));
     }
 
 
@@ -29,7 +30,9 @@ class inventoryController extends Controller
     public function inventoryAdd(){
         $Parcel = Parcel::first();
         $brand =Brand::all();
-        return view("inventory.add",compact('Parcel','brand'));
+        $Parcel = Parcel::first();
+
+        return view("inventory.add",compact('Invoice','Parcel','brand'));
     }
 
      // fetch product 

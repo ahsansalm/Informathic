@@ -15,6 +15,11 @@ class reportingController extends Controller
 {
     // reporting page
     public function reporting(){
+        
+        $userId = Auth::user()->id;
+        $Parcel = Parcel::first();
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
+
         $allorder =  DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->count();
         $pendingorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'pending')->count();
         $approvedorder = DB::table('invoices')->where('totalPrice' ,'!=', 'Quotation')->where('status' ,'=', 'Approuvé')->count();
@@ -34,12 +39,14 @@ class reportingController extends Controller
             ->join('services', 'invoices.service_id', '=', 'services.id')  
             ->select('services.price')      
             ->sum('price');
-        return view("reporting.index",compact('allorder','pendingorder','approvedorder','sale','purchase','todaySale'));
+        return view("reporting.index",compact('Invoice','Parcel','allorder','pendingorder','approvedorder','sale','purchase','todaySale'));
     }   
 
 
     // todayreport pager
     public function todayreport(){
+        $Parcel = Parcel::first();
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
         $sale = DB::table('invoices')->whereDate('date', now())->where('status','=','Approuvé')
         ->join('services', 'invoices.service_id', '=', 'services.id')  
         ->select('services.price')      
@@ -53,7 +60,7 @@ class reportingController extends Controller
         $profit= $sale - $purchase;
 
         $devices = Invoices::where('service_id','!=','Quotation')->where('status','=','Approuvé')->whereDate('date', now())->get();
-        return view("reporting.today",compact('devices','sale','purchase','profit'));
+        return view("reporting.today",compact('Invoice','Parcel','devices','sale','purchase','profit'));
     }
 
 
@@ -81,6 +88,9 @@ class reportingController extends Controller
       // search order today
       public function searchOrdertoday(Request $request)
       {
+
+        $Parcel = Parcel::first();
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
 
           if($request->ajax())
           {
@@ -127,6 +137,8 @@ class reportingController extends Controller
 
      // monthlyreport pager
      public function monthlyreport(){
+        $Parcel = Parcel::first();
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
         $sale = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
         ->join('services', 'invoices.service_id', '=', 'services.id')  
         ->select('services.price')      
@@ -140,7 +152,7 @@ class reportingController extends Controller
         $profit= $sale - $purchase;
 
         $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();
-        return view("reporting.monthly",compact('devices','sale','purchase','profit'));
+        return view("reporting.monthly",compact('Invoice','Parcel','devices','sale','purchase','profit'));
     }
 
 
@@ -195,6 +207,8 @@ class reportingController extends Controller
 
         // searchreport pager
         public function searchreport(){
+            $Parcel = Parcel::first();
+           $Invoice = Invoices::where('totalPrice','Quotation')->first();
             $sale = DB::table('invoices')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->where('status','=','Approuvé')
             ->join('services', 'invoices.service_id', '=', 'services.id')  
             ->select('services.price')      
@@ -208,7 +222,7 @@ class reportingController extends Controller
             $profit= $sale - $purchase;
 
             $devices = Invoices::where('totalPrice','!=','Quotation')->where('status','=','Approuvé')->whereMonth('date', date('m'))->whereYear('date', date('Y'))->get();
-            return view("reporting.search",compact('devices','sale','purchase','profit'));
+            return view("reporting.search",compact('Invoice','Parcel','devices','sale','purchase','profit'));
         }
 
 
@@ -267,6 +281,9 @@ class reportingController extends Controller
         // all orderd 
         public function searchOrderall(Request $request)
         {
+
+            $Parcel = Parcel::first();
+           $Invoice = Invoices::where('totalPrice','Quotation')->first();
 
             // all orders ajax
   

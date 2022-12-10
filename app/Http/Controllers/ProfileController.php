@@ -8,6 +8,7 @@ use App\Models\User;
 use Image;
 use DB;
 use App\Models\Parcel;
+use App\Models\Invoices;
 use Auth;
 use Hash;
 use Illuminate\Auth\Events\Registered;
@@ -203,8 +204,10 @@ class ProfileController extends Controller
 
     // profile page of admin
     public function MyProfile(){
-        $Parcel = Parcel::first();
-        return view("profile.index",compact('Parcel'));
+        $id = Auth::user()->id;
+        $Invoice = Invoices::where('user_id' , $id)->first();
+        $Parcel = Parcel::where('userId' , $id)->first();
+        return view("profile.index",compact('Invoice','Parcel'));
     }
     // profile update
     public function ProfileUpdate(Request $request,$id){
@@ -343,8 +346,10 @@ class ProfileController extends Controller
     }
     // chnage pasword
     public function ChangPas(){
-        $Parcel = Parcel::first();
-        return view("profile.changPass",compact('Parcel'));
+        $id = Auth::user()->id;
+        $Invoice = Invoices::where('user_id' , $id)->first();
+        $Parcel = Parcel::where('userId' , $id)->first();
+        return view("profile.changPass",compact('Invoice','Parcel'));
     }
 
 

@@ -25,7 +25,7 @@
                                     <div class="col-12">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <img src="../../{{$rep->profile->photo}}"  style="height: 35px; border-radius: 50%;" alt="">
+                                                <img src="../../{{$rep->profile->photo}}"  style="height: 35px; width: 35px;   border-radius: 50%;" alt="">
                                             </div>
                                             <input type="text" class="form-control ml-2" disabled value="{{$rep->answer}}">
                                         </div>

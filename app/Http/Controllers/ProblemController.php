@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Support;
 use App\Models\ProblemReply;
 use App\Models\Parcel;
+use App\Models\Invoices;
 use Illuminate\Support\Carbon;
 use DB;
 use Auth;
@@ -18,7 +19,8 @@ class ProblemController extends Controller
         $supports = Parcel::all();
         $Parcel = Parcel::first();
 
-        return view("problem.index",compact('supports','Parcel'));
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("problem.index",compact('Invoice','supports','Parcel'));
     }
         // yajra  for problem
         public function getproblem()
@@ -44,7 +46,8 @@ class ProblemController extends Controller
         $chat = Support::where('userId',$userId)->where('productId',$id)->get();
         $reply = ProblemReply::where('userId',$userId)->where('productId',$id)->get();
         $Parcel = Parcel::first();
-        return view("problem.detail",compact('supports','chat','reply','Parcel'));    
+       $Invoice = Invoices::where('totalPrice','Quotation')->first();
+        return view("problem.detail",compact('Invoice','supports','chat','reply','Parcel'));    
     }
     // reply to problem
     public function ReplyProb(Request $request){

@@ -71,7 +71,7 @@
 
                 <div class="row  text-center">
                     <div class="col-md-4">
-                        <a href="{{url('/home')}}">
+                        <a href="{{url('/adminUser')}}">
                             <button type="button" class="default-btn btn-block btn-secondary prev-step">
                         Retour
                     </div>

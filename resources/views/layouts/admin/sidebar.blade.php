@@ -21,10 +21,24 @@
                   <!-- problems of users -->
                   <?php $role = Auth::user()->role_as; ?>
                   @if($role == 1)
+                  
+
+                   
                   <li  class="has-sub {{ Request::is('home') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/home')}}" >
                     <i class="fa fa-user" style="font-size:24px"></i>
-                      <span class="nav-text">Tous les utilisateurs</span> 
+                      <span class="nav-text">Rapports</span> 
+                    </a>
+                  </li>
+
+
+
+
+                  
+                  <li  class="has-sub {{ Request::is('adminUser') ? 'active':''; }}" >
+                    <a class="sidenav-item-link" href="{{url('/adminUser')}}" >
+                    <i class="fa fa-user" style="font-size:24px"></i>
+                      <span class="nav-text">Utilisateurs</span> 
                     </a>
                   </li>
 
@@ -48,15 +62,6 @@
                     </a>
                   </li>
 
-
-
-                   
-                  <li  class="has-sub {{ Request::is('reporting') ? 'active':''; }}" >
-                    <a class="sidenav-item-link" href="{{url('/reporting')}}" >
-                    <i class="fa fa-user" style="font-size:24px"></i>
-                      <span class="nav-text">Rapports</span> 
-                    </a>
-                  </li>
 
 
 
@@ -83,7 +88,7 @@
                       <span class="nav-text">Ordres
                       @if(isset($Parcel))
                         @if($Parcel->order_noti == "Nouveau")
-                          <span class="badge bg-danger ml-3">{{$Parcel->order_noti}}</span> 
+                          <span class="badge bg-danger ml-3">Neuf</span> 
                         @endif
                        @endif
                       </span> 
@@ -92,7 +97,13 @@
                   <li  class="has-sub {{ Request::is('userQuotes') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/userQuotes')}}" >
                     <i class="fa fa-book" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Citations d'utilisateurs</span> 
+                      <span class="nav-text">Devis
+                      @if(isset($Invoice))
+                        @if($Invoice->quote_noti == "neuf")
+                          <span class="badge bg-danger ml-3">Neuf</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
 
@@ -177,7 +188,13 @@
                 <li  class="has-sub {{ Request::is('MyDevices') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MyDevices')}}">
                     <i class="fa fa-desktop" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Mes appareils</span> 
+                      <span class="nav-text">Mes appareils
+                      @if(isset($Parcel))
+                        @if($Parcel->device_noti == "Nouveau")
+                          <span class="badge bg-danger ml-1 px-1">Neuf</span> 
+                        @endif
+                       @endif
+                      </span> 
                     </a>
                   </li>
                 <!-- send parcel -->
@@ -200,7 +217,7 @@
                       <span class="nav-text">Mon support 
                         @if(isset($Parcel))
                           @if($Parcel->noti == "Nouveau")
-                          <span class="badge bg-danger ml-3">{{$Parcel->noti}}</span>
+                          <span class="badge bg-danger ml-3">Nuef</span>
                           @endif
                         @endif
                       </span> 
@@ -217,7 +234,13 @@
                 <li  class="has-sub {{ Request::is('MyQuotes') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MyQuotes')}}">
                     <i class="fa fa-book" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Mes citations</span> 
+                      <span class="nav-text">Mes citations
+                      @if(isset($Invoice))
+                          @if($Invoice->user_quote_noti == "Neuf")
+                          <span class="badge bg-danger ml-3">Nuef</span>
+                          @endif
+                        @endif
+                      </span> 
                     </a>
                   </li>
                 <!-- my bill  -->
@@ -232,7 +255,12 @@
                 <li  class="has-sub {{ Request::is('MyOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/MyOrder')}}">
                     <i class="fa fa-suitcase" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Commande non approuvée</span> 
+                      <span class="nav-text">Ou. Non Approuver</span> 
+                      @if(isset($Parcel))
+                        @if($Parcel->order_approved_noti == "Refus")
+                          <span class="badge bg-danger ml-1 px-1">Neuf</span> 
+                        @endif
+                       @endif
                     </a>
                   </li>
                    <!-- my order approved -->
@@ -240,10 +268,10 @@
                 <li  class="has-sub {{ Request::is('ApprovedOrder') ? 'active':''; }}" >
                     <a class="sidenav-item-link" href="{{url('/ApprovedOrder')}}">
                     <i class="fa fa-check-square" style="font-size:24px;color:white"></i>
-                      <span class="nav-text">Commande approuvée
+                      <span class="nav-text">Ou. Approuver
                       @if(isset($Parcel))
                         @if($Parcel->order_approved_noti == "Nouveau")
-                          <span class="badge bg-danger ml-1 px-1">*</span> 
+                          <span class="badge bg-danger ml-1 px-1">Neuf</span> 
                         @endif
                        @endif
                       </span> 

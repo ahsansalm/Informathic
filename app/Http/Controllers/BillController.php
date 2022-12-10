@@ -13,15 +13,18 @@ class BillController extends Controller
     public function myBill(){
         $id = Auth::user()->id;
         $invoices = Invoices::where('user_id',$id)->orderBy('id','DESC')->get();
-        $Parcel = Parcel::first();
-        return view("bill.index",compact('invoices','Parcel'));    
+        $Parcel = Parcel::where('userId' , $id)->first();
+        $Invoice = Invoices::where('user_id' , $id)->first();
+        return view("bill.index",compact('Invoice','invoices','Parcel'));    
     }
     // edi tpage
      // edit bill page
      public function EditBill($id){
         $bills = Invoices::find($id);
-        $Parcel = Parcel::first();
-        return view("bill.detail",compact('bills','Parcel'));    
+        $userId = Auth::user()->id;
+        $Parcel = Parcel::where('userId' , $userId)->first();
+        $Invoice = Invoices::where('user_id' , $userId)->first();
+        return view("bill.detail",compact('Invoice','bills','Parcel'));    
     }
 
 

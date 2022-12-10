@@ -11,8 +11,9 @@ class QuotesController extends Controller
 {
     // page
     public function myQuotes(){
-        $id = Auth::user()->id;
-        $Parcel = Parcel::first();
+      $id = Auth::user()->id;
+      DB::table('invoices')->where('user_id', '=', $id)->update(array('user_quote_noti' => Null));
+      $Parcel = Parcel::where('userId' , $id)->first();
         $devices = Invoices::where('user_id',$id)->where('totalPrice', 'Quotation')->orderBy('id', 'DESC')->where('status','!=','Pending')->get();
         return view("quotes.index",compact('devices','Parcel'));    
     }

@@ -22,6 +22,8 @@ class userQuotesMiddleware
     {
         $user = Auth::user()->role_as;
         if ($user == 1) {
+            
+        DB::table('invoices')->update(array('quote_noti' => Null));
             $Parcel = Parcel::first();
             $devices = Invoices::orderBy('id', 'DESC')->where('totalPrice','=','Quotation')->get();
             return response()->view("order.quotesOrder",compact('devices','Parcel'));  

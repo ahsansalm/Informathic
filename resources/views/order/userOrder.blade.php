@@ -66,15 +66,15 @@
                                             @endif
 
                                             @if($device->neww->admin_status =='Appareil accepté')
-                                            <td><span class="badge bagde-sm bg-dark">{{$device->neww->admin_status}}</span></td>
+                                            <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @elseif($device->neww->admin_status =='Reçu')
-                                            <td><span class="badge bagde-sm bg-primary">{{$device->neww->admin_status}}</span></td>
+                                            <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @elseif($device->neww->admin_status =='en cours')
-                                            <td><span class="badge bagde-sm bg-secondary">{{$device->neww->admin_status}}</span></td>
+                                            <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @elseif($device->neww->admin_status =='SALLE DATTENTE')
-                                            <td><span class="badge bagde-sm bg-warning">{{$device->neww->admin_status}}</span></td>
+                                            <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @elseif($device->neww->admin_status =='Réparé')
-                                            <td><span class="badge bagde-sm bg-primary">{{$device->neww->admin_status}}</span></td>
+                                            <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @elseif($device->neww->admin_status =='Retour au client')
                                             <td><span class="badge bagde-sm bg-success">{{$device->neww->admin_status}}</span></td>
                                             @else

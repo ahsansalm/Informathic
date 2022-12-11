@@ -13,18 +13,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>Si vous supprimez ce produit, ses services seront également automatiquement supprimés.</p>
 			</div>
 			<div class="modal-footer justify-content-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
 
                 @if($product)
                     <a href="{{url('/product/delete/'.$product->id)}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
                     @else
                     <a href="{{url('/product/delete/')}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
 
 				@endif
@@ -53,6 +52,7 @@
                             <th>Identifiant</th>
                             <th>Nom du produit</th>
                             <th>Marque</th>
+                            <th>Statut</th>
                             <th>Créé à</th>
                             <th>Action</th>
                         </tr>
@@ -120,11 +120,11 @@ $(function() {
         ajax: '{!! route('products.data') !!}',
         columnDefs:[
             {
-                targets: 4,
+                targets: 5,
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/product/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/product/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Handicapé</a>'
                 }
             }
         ],
@@ -133,6 +133,7 @@ $(function() {
             { data: 'id', name: 'id' },
             { data: 'product_name', name: 'product_name' },
             { data: 'product_id', name: 'product_id' },
+            { data: 'disable', name: 'disable' },
             { data: 'created_at', name: 'created_at' },
         ]
     });

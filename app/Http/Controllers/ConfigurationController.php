@@ -125,20 +125,34 @@ class ConfigurationController extends Controller
             return Redirect()->back()->with($notification);
         }
     }
-    // delete brnad
+    // disabled brnad
     public function DeleteBrand($id){
-        DB::table('brands')->where('id', $id)->delete();
-        // this is for delete all brand products in product list
-        DB::table('products')->where('product_id', $id)->delete();
-        // this is to delete all service of same product
-        DB::table('services')->where('marks_id', $id)->delete();
 
+        brand::find($id)->update([
+            'disable' => 'Désactivé',
+        ]);
         $notification = array(
-            'message' => 'Marque supprimée!',
+            'message' => 'Vous désactivez cette marque!',
             'alert_type' => 'error'
         );
         return Redirect()->back()->with($notification);
+
     }
+     // active brand
+    
+     public function BrandActive($id){
+        Brand::find($id)->update([
+            'disable' => 'Actif',
+        ]);
+        $notification = array(
+            'message' => 'Marque actif!',
+            'alert_type' => 'succcess'
+        );
+        return Redirect('/configuration/Marque')->with($notification);
+    }
+
+
+
 
     // product page
     public function Products(){
@@ -257,16 +271,27 @@ class ConfigurationController extends Controller
 
     // delete product
     public function DeleteProducts($id){
-        product::find($id)->delete();
-
-        // this is for delete service of product
-        DB::table('services')->where('product_id', $id)->delete();
-
+        product::find($id)->update([
+            'disable' => 'Désactivé',
+        ]);
         $notification = array(
-            'message' => 'Suppression de produit!',
+            'message' => 'Vous désactivez ce produit!',
             'alert_type' => 'error'
         );
         return Redirect()->back()->with($notification);
+    }
+
+    // product active
+
+    public function productActive($id){
+        product::find($id)->update([
+            'disable' => 'Actif',
+        ]);
+        $notification = array(
+            'message' => 'Produit actif!',
+            'alert_type' => 'succcess'
+        );
+        return Redirect('/configuration/Produit')->with($notification);
     }
 
     // product page
@@ -417,15 +442,33 @@ class ConfigurationController extends Controller
             return Redirect('/inventory')->with($notification);
         }
     }
-      // delete service
+      // disabled service
       public function DeleteServices($id){
-        service::find($id)->delete();
+        service::find($id)->update([
+            'disable' => 'Désactivé',
+        ]);
         $notification = array(
-            'message' => 'Suppression de service!',
+            'message' => 'Vous avez désactivé ce service!',
             'alert_type' => 'error'
         );
         return Redirect()->back()->with($notification);
     }
+
+    // active servec
+    
+     public function serviceActive($id){
+        service::find($id)->update([
+            'disable' => 'Actif',
+        ]);
+        $notification = array(
+            'message' => 'Service actif!',
+            'alert_type' => 'succcess'
+        );
+        return Redirect('/inventory')->with($notification);
+    }
+
+
+
 
       // product fetch data for fee
       public function fetchProduct(Request $request){

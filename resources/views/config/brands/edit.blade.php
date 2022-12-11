@@ -40,14 +40,23 @@
                         </div>
                        </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <a href="{{url('/configuration/Marque')}}" class="text-white">
                                     <button type="button" class="btn btn-block next-step">
                                 Retour
                                     </button>
                                 </a>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-4">
+                                <a href="{{url('/Active/Marque'.$brand->id)}}" class="text-white">
+                                    <button type="button" class="btn btn-block next-step">
+                                Actif
+                                    </button>
+                                </a>
+                            </div>
+
+                            <div class="col-md-4">
                                 <button type="submit" class="btn btn-block next-step">Ajouter</button>
                             </div>
                         </div>

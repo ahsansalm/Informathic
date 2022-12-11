@@ -13,18 +13,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>Voulez-vous supprimer votre service ?</p>
+				<p>Voulez-vous désactiver votre service ?</p>
 			</div>
 			<div class="modal-footer justify-content-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 
                   @if($service)
                     <a href="{{url('/service/delete/'.$service->id)}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
                     @else
                     <a href="{{url('/service/delete/')}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
 
 				@endif
@@ -63,6 +63,7 @@
                             <th>Produit</th>
                             <th>Service</th>
                             <th>Stocker</th>
+                            <th>Statut</th>
                             <th>Prix (€)</th>
                             <th>Prix ​​d'achat (€)</th>
                             <th>Action</th>
@@ -93,11 +94,11 @@ $(function() {
         ajax: '{!! route('services.data') !!}',
         columnDefs:[
             {
-                targets: 7,
+                targets: 8,
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/service/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger" href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();">Handicapé</a>'
                 }
             }
         ],
@@ -108,6 +109,7 @@ $(function() {
             { data: 'product_id', name: 'product_id' },
             { data: 'service', name: 'service' },
             { data: 'stock', name: 'stock' },
+            { data: 'disable', name: 'disable' },
             { data: 'price', name: 'price' },
             { data: 'purchase_price', name: 'purchase_price' },
         ]

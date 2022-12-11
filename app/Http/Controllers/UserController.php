@@ -20,7 +20,7 @@ class UserController extends Controller
         if($request->ajax())
         {
         $output_sub="";
-        $data = product::where('product_Id',$request->id)->get();
+        $data = product::where('product_Id',$request->id)->where('disable' , 'Actif')->get();
         $table_sub = $data->count();
         if($table_sub > 0)
             {
@@ -41,7 +41,7 @@ class UserController extends Controller
         if($request->ajax())
         {
         $newOutput="";
-        $data = service::where('product_id',$request->value)->get();
+        $data = service::where('product_id',$request->value)->where('disable' , 'Actif')->get();
         $table_sub = $data->count();
         if($table_sub > 0)
             {

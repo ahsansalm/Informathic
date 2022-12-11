@@ -14,18 +14,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p>Si vous supprimez une marque, ses produits et services associés sont également supprimés.</p>
 			</div>
 			<div class="modal-footer justify-content-center">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                 
                   @if($brand)
                     <a href="{{url('/brand/delete/'.$brand->id)}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
                     @else
                     <a href="{{url('/brand/delete/')}}">
-                        <button type="button" class="btn btn-danger">Effacer</button>
+                        <button type="button" class="btn btn-danger">Handicapé</button>
                     </a>
 
 				@endif
@@ -53,6 +52,7 @@
                         <tr>
                             <th>Identifiant</th>
                             <th>Nom</th>
+                            <th>Statut</th>
                             <th>Créé à</th>
                             <th>Action</th>
                         </tr>
@@ -108,11 +108,11 @@ $(function() {
         ajax: '{!! route('datatables.data') !!}',
         columnDefs:[
             {
-                targets: 3,
+                targets: 4,
                 title:'Action',
                 orderable:false,
                 render: function(data,type,full,meta){
-                    return ' <a class="btn btn-sm btn-primary" href="/brand/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger"  href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();" >Effacer</a>'
+                    return ' <a class="btn btn-sm btn-primary" href="/brand/edit/'+full.id+'">Éditer </a> <a class="btn btn-sm btn-danger"  href="#myModal" class="trigger-btn" data-toggle="modal" onclick="return myFunction();" >Handicapé</a>'
                 }
             }
         ],
@@ -120,6 +120,7 @@ $(function() {
             
             { data: 'id', name: 'id' },
             { data: 'product_name', name: 'product_name' },
+            { data: 'disable', name: 'disable' },
             { data: 'created_at', name: 'created_at' },
         ]
     });

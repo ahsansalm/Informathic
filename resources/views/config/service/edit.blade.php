@@ -78,14 +78,23 @@
                         </div>
                        </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <a href="{{url('/inventory')}}" class="text-white">
                                     <button type="button" class="btn btn-block next-step">
                                 Retour
                                     </button>
                                 </a>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-4">
+                                <a href="{{url('/service/active/'.$services->id)}}" class="text-white">
+                                    <button type="button" class="btn btn-block next-step">
+                                    Actif
+                                    </button>
+                                </a>
+                            </div>
+                            
+                            <div class="col-md-4">
                                 <button type="submit" class="btn btn-block next-step">Ajouter</button>
                             </div>
                         </div>

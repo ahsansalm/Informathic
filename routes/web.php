@@ -332,7 +332,8 @@ Route::get('/brand/edit/{id}',[ConfigurationController::class, 'editBrand']);
 Route::post('/config/brand/update/{id}',[ConfigurationController::class, 'updateBrands']);
 // delete barnd page
 Route::get('/brand/delete/{id}',[ConfigurationController::class, 'DeleteBrand']);
-
+///brand/active/
+Route::get('/Active/Marque/{id}',[ConfigurationController::class, 'brandActive']);
 
 
 // product page
@@ -347,6 +348,15 @@ Route::get('/product/edit/{id}',[ConfigurationController::class, 'editProducts']
 Route::post('/config/product/update/{id}',[ConfigurationController::class, 'updateProducts']);
 // delete product page
 Route::get('/product/delete/{id}',[ConfigurationController::class, 'DeleteProducts']);
+///product/active/
+Route::get('/product/active/{id}',[ConfigurationController::class, 'productActive']);
+
+
+
+
+
+
+
 
 
 // services page
@@ -365,6 +375,8 @@ Route::get('/service/delete/{id}',[ConfigurationController::class, 'DeleteServic
 // fetch product data
 Route::get('/product/fetch/data',[ConfigurationController::class, 'fetchProduct']);
 
+///service/active/
+Route::get('/service/active/{id}',[ConfigurationController::class, 'serviceActive']);
 
 
 // to do list

@@ -15,7 +15,7 @@ class SendParcelController extends Controller
     // sedn parcel
     public function sendParcel(){
         $id = Auth::user()->id;
-        $brands = brand::all();
+        $brands = brand::where('disable','Actif')->get();
         $Parcel = Parcel::where('userId' , $id)->first();
         
       $Invoice = Invoices::where('user_id' , $id)->first();

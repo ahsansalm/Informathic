@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -36,5 +37,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request){
+        $status = Auth::user()->status;
+        if($status == 'Handicapé'){
+            $notification = array(
+                'message' => 'Ladministrateur vous a désactivé!',
+                'alert_type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }elseif($status == 'Actif'){
+               $notification = array(
+                'message' => 'Connectez-vous avec succès!',
+                'alert_type' => 'success'
+            );
+            return Redirect('/home')->with($notification);
+        }
     }
 }

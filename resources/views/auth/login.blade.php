@@ -97,7 +97,7 @@
                     <div class="d-flex my-2 justify-content-between">
                       <div class="d-inline-block mr-md-3 mr-1">
                         <label class="control control-checkbox">Se souvenir de moi
-                          <input type="checkbox" />
+                          <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
                           <div class="control-indicator"></div>
                         </label>
                 
